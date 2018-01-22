@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="organizerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Article">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Birthday">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Priority" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="Done" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Expenditure">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="TypeId" Type="int" Nullable="false" />
+          <Property Name="NameId" Type="int" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Summ" Type="money" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="ExpenditureName">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ExpenditureType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Holiday">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Income">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="SourceId" Type="int" Nullable="false" />
+          <Property Name="Summ" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IncomeSource">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Job">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Start" Type="date" Nullable="false" />
+          <Property Name="Deadline" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Meeting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Start" Type="datetime" Nullable="false" />
+          <Property Name="Ending" Type="datetime" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Reminder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="AlarmTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Birthday_Event">
+          <End Role="Event" Type="Self.Event" Multiplicity="1" />
+          <End Role="Birthday" Type="Self.Birthday" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Birthday">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenditure_Article">
+          <End Role="Article" Type="Self.Article" Multiplicity="1" />
+          <End Role="Expenditure" Type="Self.Expenditure" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expenditure">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenditure_ExpenditureName">
+          <End Role="ExpenditureName" Type="Self.ExpenditureName" Multiplicity="1" />
+          <End Role="Expenditure" Type="Self.Expenditure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpenditureName">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expenditure">
+              <PropertyRef Name="NameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenditure_ExpenditureType">
+          <End Role="ExpenditureType" Type="Self.ExpenditureType" Multiplicity="1" />
+          <End Role="Expenditure" Type="Self.Expenditure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpenditureType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expenditure">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Holiday_Event">
+          <End Role="Event" Type="Self.Event" Multiplicity="1" />
+          <End Role="Holiday" Type="Self.Holiday" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Holiday">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Income_Article">
+          <End Role="Article" Type="Self.Article" Multiplicity="1" />
+          <End Role="Income" Type="Self.Income" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Income">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Income_IncomeSource">
+          <End Role="IncomeSource" Type="Self.IncomeSource" Multiplicity="1" />
+          <End Role="Income" Type="Self.Income" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomeSource">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Income">
+              <PropertyRef Name="SourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Job_Event">
+          <End Role="Event" Type="Self.Event" Multiplicity="1" />
+          <End Role="Job" Type="Self.Job" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Job">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Meeting_Event">
+          <End Role="Event" Type="Self.Event" Multiplicity="1" />
+          <End Role="Meeting" Type="Self.Meeting" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Meeting">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reminder_Event">
+          <End Role="Event" Type="Self.Event" Multiplicity="1" />
+          <End Role="Reminder" Type="Self.Reminder" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reminder">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="organizerModelStoreContainer">
+          <EntitySet Name="Article" EntityType="Self.Article" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Birthday" EntityType="Self.Birthday" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Expenditure" EntityType="Self.Expenditure" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExpenditureName" EntityType="Self.ExpenditureName" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExpenditureType" EntityType="Self.ExpenditureType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Holiday" EntityType="Self.Holiday" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Income" EntityType="Self.Income" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IncomeSource" EntityType="Self.IncomeSource" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Meeting" EntityType="Self.Meeting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reminder" EntityType="Self.Reminder" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Birthday_Event" Association="Self.FK_Birthday_Event">
+            <End Role="Event" EntitySet="Event" />
+            <End Role="Birthday" EntitySet="Birthday" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenditure_Article" Association="Self.FK_Expenditure_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="Expenditure" EntitySet="Expenditure" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenditure_ExpenditureName" Association="Self.FK_Expenditure_ExpenditureName">
+            <End Role="ExpenditureName" EntitySet="ExpenditureName" />
+            <End Role="Expenditure" EntitySet="Expenditure" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenditure_ExpenditureType" Association="Self.FK_Expenditure_ExpenditureType">
+            <End Role="ExpenditureType" EntitySet="ExpenditureType" />
+            <End Role="Expenditure" EntitySet="Expenditure" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Holiday_Event" Association="Self.FK_Holiday_Event">
+            <End Role="Event" EntitySet="Event" />
+            <End Role="Holiday" EntitySet="Holiday" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Income_Article" Association="Self.FK_Income_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="Income" EntitySet="Income" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Income_IncomeSource" Association="Self.FK_Income_IncomeSource">
+            <End Role="IncomeSource" EntitySet="IncomeSource" />
+            <End Role="Income" EntitySet="Income" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Job_Event" Association="Self.FK_Job_Event">
+            <End Role="Event" EntitySet="Event" />
+            <End Role="Job" EntitySet="Job" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Meeting_Event" Association="Self.FK_Meeting_Event">
+            <End Role="Event" EntitySet="Event" />
+            <End Role="Meeting" EntitySet="Meeting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reminder_Event" Association="Self.FK_Reminder_Event">
+            <End Role="Event" EntitySet="Event" />
+            <End Role="Reminder" EntitySet="Reminder" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="organizerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Article" Abstract="true">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Birthday" BaseType="organizerModel.Event">
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="Event" Abstract="true">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Priority" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Done" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Expenditure" BaseType="organizerModel.Article">
+          <Property Name="TypeId" Type="Int32" Nullable="false" />
+          <Property Name="NameId" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Summ" Type="Decimal" Precision="19" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="ExpenditureName" Relationship="Self.FK_Expenditure_ExpenditureName" FromRole="Expenditure" ToRole="ExpenditureName" />
+          <NavigationProperty Name="ExpenditureType" Relationship="Self.FK_Expenditure_ExpenditureType" FromRole="Expenditure" ToRole="ExpenditureType" />
+        </EntityType>
+        <EntityType Name="ExpenditureName">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Expenditure" Relationship="Self.FK_Expenditure_ExpenditureName" FromRole="ExpenditureName" ToRole="Expenditure" />
+        </EntityType>
+        <EntityType Name="ExpenditureType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Expenditure" Relationship="Self.FK_Expenditure_ExpenditureType" FromRole="ExpenditureType" ToRole="Expenditure" />
+        </EntityType>
+        <EntityType Name="Holiday" BaseType="organizerModel.Event">
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="Income" BaseType="organizerModel.Article">
+          <Property Name="SourceId" Type="Int32" Nullable="false" />
+          <Property Name="Summ" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="IncomeSource" Relationship="Self.FK_Income_IncomeSource" FromRole="Income" ToRole="IncomeSource" />
+        </EntityType>
+        <EntityType Name="IncomeSource">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Income" Relationship="Self.FK_Income_IncomeSource" FromRole="IncomeSource" ToRole="Income" />
+        </EntityType>
+        <EntityType Name="Job" BaseType="organizerModel.Event">
+          <Property Name="Start" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Deadline" Type="DateTime" Nullable="false" Precision="0" />
+        </EntityType>
+        <EntityType Name="Meeting" BaseType="organizerModel.Event">
+          <Property Name="Start" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Ending" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Location" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Reminder" BaseType="organizerModel.Event">
+          <Property Name="AlarmTime" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_Expenditure_ExpenditureName">
+          <End Role="ExpenditureName" Type="Self.ExpenditureName" Multiplicity="1" />
+          <End Role="Expenditure" Type="Self.Expenditure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpenditureName">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expenditure">
+              <PropertyRef Name="NameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expenditure_ExpenditureType">
+          <End Role="ExpenditureType" Type="Self.ExpenditureType" Multiplicity="1" />
+          <End Role="Expenditure" Type="Self.Expenditure" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpenditureType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expenditure">
+              <PropertyRef Name="TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Income_IncomeSource">
+          <End Role="IncomeSource" Type="Self.IncomeSource" Multiplicity="1" />
+          <End Role="Income" Type="Self.Income" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomeSource">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Income">
+              <PropertyRef Name="SourceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="organizerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Article" EntityType="Self.Article" />
+          <EntitySet Name="Event" EntityType="Self.Event" />
+          <EntitySet Name="ExpenditureName" EntityType="Self.ExpenditureName" />
+          <EntitySet Name="ExpenditureType" EntityType="Self.ExpenditureType" />
+          <EntitySet Name="IncomeSource" EntityType="Self.IncomeSource" />
+          <AssociationSet Name="FK_Expenditure_ExpenditureName" Association="Self.FK_Expenditure_ExpenditureName">
+            <End Role="ExpenditureName" EntitySet="ExpenditureName" />
+            <End Role="Expenditure" EntitySet="Article" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expenditure_ExpenditureType" Association="Self.FK_Expenditure_ExpenditureType">
+            <End Role="ExpenditureType" EntitySet="ExpenditureType" />
+            <End Role="Expenditure" EntitySet="Article" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Income_IncomeSource" Association="Self.FK_Income_IncomeSource">
+            <End Role="IncomeSource" EntitySet="IncomeSource" />
+            <End Role="Income" EntitySet="Article" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="organizerModelStoreContainer" CdmEntityContainer="organizerEntities">
+          <EntitySetMapping Name="Article">
+            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Article)">
+              <MappingFragment StoreEntitySet="Article">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Expenditure)">
+              <MappingFragment StoreEntitySet="Expenditure">
+                <ScalarProperty Name="Summ" ColumnName="Summ" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="NameId" ColumnName="NameId" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Income)">
+              <MappingFragment StoreEntitySet="Income">
+                <ScalarProperty Name="Summ" ColumnName="Summ" />
+                <ScalarProperty Name="SourceId" ColumnName="SourceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Event">
+            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Event)">
+              <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Done" ColumnName="Done" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Birthday)">
+              <MappingFragment StoreEntitySet="Birthday">
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Holiday)">
+              <MappingFragment StoreEntitySet="Holiday">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Job)">
+              <MappingFragment StoreEntitySet="Job">
+                <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Meeting)">
+              <MappingFragment StoreEntitySet="Meeting">
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="Ending" ColumnName="Ending" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Reminder)">
+              <MappingFragment StoreEntitySet="Reminder">
+                <ScalarProperty Name="AlarmTime" ColumnName="AlarmTime" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExpenditureName">
+            <EntityTypeMapping TypeName="organizerModel.ExpenditureName">
+              <MappingFragment StoreEntitySet="ExpenditureName">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExpenditureType">
+            <EntityTypeMapping TypeName="organizerModel.ExpenditureType">
+              <MappingFragment StoreEntitySet="ExpenditureType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IncomeSource">
+            <EntityTypeMapping TypeName="organizerModel.IncomeSource">
+              <MappingFragment StoreEntitySet="IncomeSource">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8ce231728a774c8687beddf2c1671539" Name="Diagram1">
+        <EntityTypeShape EntityType="organizerModel.Article" Width="1.5" PointX="5.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="organizerModel.Birthday" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="organizerModel.Event" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="organizerModel.Expenditure" Width="1.5" PointX="8" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="organizerModel.ExpenditureName" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="organizerModel.ExpenditureType" Width="1.5" PointX="5.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="organizerModel.Holiday" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="organizerModel.Income" Width="1.5" PointX="11" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="organizerModel.IncomeSource" Width="1.5" PointX="8.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="organizerModel.Job" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="organizerModel.Meeting" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="organizerModel.Reminder" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <AssociationConnector Association="organizerModel.FK_Expenditure_ExpenditureName" ManuallyRouted="false" />
+        <AssociationConnector Association="organizerModel.FK_Expenditure_ExpenditureType" ManuallyRouted="false" />
+        <AssociationConnector Association="organizerModel.FK_Income_IncomeSource" ManuallyRouted="false" />
+        <InheritanceConnector EntityType="organizerModel.Birthday" />
+        <InheritanceConnector EntityType="organizerModel.Holiday" />
+        <InheritanceConnector EntityType="organizerModel.Job" />
+        <InheritanceConnector EntityType="organizerModel.Meeting" />
+        <InheritanceConnector EntityType="organizerModel.Reminder" />
+        <InheritanceConnector EntityType="organizerModel.Expenditure" />
+        <InheritanceConnector EntityType="organizerModel.Income" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
