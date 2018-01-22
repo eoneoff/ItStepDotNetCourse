@@ -17,5 +17,13 @@ namespace Organizer
         public System.DateTime Start { get; set; }
         public System.DateTime Ending { get; set; }
         public string Location { get; set; }
+
+        public override DateTime TimeStamp
+        {
+            get
+            {
+                return (DateTime.Now < Start) ? Start : Ending;
+            }
+        }
     }
 }

@@ -12,6 +12,8 @@ namespace Organizer
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class organizerEntities : DbContext
     {
@@ -30,5 +32,10 @@ namespace Organizer
         public virtual DbSet<ExpenditureName> ExpenditureName { get; set; }
         public virtual DbSet<ExpenditureType> ExpenditureType { get; set; }
         public virtual DbSet<IncomeSource> IncomeSource { get; set; }
+    
+        public virtual ObjectResult<GetAllEvents_Result> GetAllEvents()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllEvents_Result>("GetAllEvents");
+        }
     }
 }

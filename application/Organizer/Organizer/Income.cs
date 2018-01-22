@@ -16,6 +16,7 @@ namespace Organizer
     {
         public int SourceId { get; set; }
         public decimal Summ { get; set; }
+    
         public virtual IncomeSource IncomeSource { get; set; }
     }
 }

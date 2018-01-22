@@ -15,5 +15,13 @@ namespace Organizer
     public partial class Reminder : Event
     {
         public System.DateTime AlarmTime { get; set; }
+
+        public override DateTime TimeStamp
+        {
+            get
+            {
+                return AlarmTime;
+            }
+        }
     }
 }

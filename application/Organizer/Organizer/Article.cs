@@ -12,7 +12,7 @@ namespace Organizer
     using System;
     using System.Collections.Generic;
     
-    public abstract partial class Article
+    public partial class Article
     {
         public int Id { get; set; }
         public System.DateTime DateTime { get; set; }

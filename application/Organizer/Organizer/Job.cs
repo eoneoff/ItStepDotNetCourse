@@ -16,5 +16,13 @@ namespace Organizer
     {
         public System.DateTime Start { get; set; }
         public System.DateTime Deadline { get; set; }
+
+        public override DateTime TimeStamp
+        {
+            get
+            {
+                return (DateTime.Now < Start) ? Start : Deadline;
+            }
+        }
     }
 }

@@ -4,12 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Organizer"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="dotNetOrganizer" Height="350" Width="700">
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
@@ -23,14 +24,26 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Content="События:" FontWeight="Bold"/>
-                <ListBox Grid.Row="1" BorderThickness="0">
+                <ListBox Grid.Row="1" BorderThickness="0" Name="Top5Events">
                     
                 </ListBox>
             </Grid>
         </Grid>
         <TabControl Grid.Column="1">
             <TabItem Header="Календарь">
-                
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <DatePicker Name="CurrentDate" Grid.Column="0" Margin="10,5,5,5" SelectedDate="{x:Static sys:DateTime.Today}"/>
+                    </Grid>
+                </Grid>
             </TabItem>
             <TabItem Header="Расходы">
                 

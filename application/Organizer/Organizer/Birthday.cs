@@ -15,5 +15,18 @@ namespace Organizer
     public partial class Birthday : Event
     {
         public System.DateTime DateOfBirth { get; set; }
+
+        public override DateTime TimeStamp
+        {
+            //Возвращает ближайший день рождения
+            get
+            {
+                DateTime timestamp = new DateTime(DateTime.Now.Year, DateOfBirth.Month, DateOfBirth.Day);
+                if (DateTime.Today > timestamp)
+                    timestamp = timestamp.AddYears(1);
+
+                return timestamp;
+            }
+        }
     }
 }

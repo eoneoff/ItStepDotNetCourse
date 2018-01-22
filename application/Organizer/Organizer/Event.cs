@@ -19,5 +19,7 @@ namespace Organizer
         public int Priority { get; set; }
         public string Note { get; set; }
         public bool Done { get; set; }
+
+        public abstract DateTime TimeStamp { get; }
     }
 }
