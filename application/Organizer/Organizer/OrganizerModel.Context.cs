@@ -12,8 +12,6 @@ namespace Organizer
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Data.Entity.Core.Objects;
-    using System.Linq;
     
     public partial class organizerEntities : DbContext
     {
@@ -27,15 +25,14 @@ namespace Organizer
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Alarm> Alarm { get; set; }
         public virtual DbSet<Article> Article { get; set; }
         public virtual DbSet<Event> Event { get; set; }
+        public virtual DbSet<Expenditure> Expenditure { get; set; }
         public virtual DbSet<ExpenditureName> ExpenditureName { get; set; }
         public virtual DbSet<ExpenditureType> ExpenditureType { get; set; }
+        public virtual DbSet<Income> Income { get; set; }
         public virtual DbSet<IncomeSource> IncomeSource { get; set; }
-    
-        public virtual ObjectResult<GetAllEvents_Result> GetAllEvents()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAllEvents_Result>("GetAllEvents");
-        }
+        public virtual DbSet<Schedule> Schedule { get; set; }
     }
 }

@@ -14,15 +14,10 @@ namespace Organizer
     
     public partial class Job : Event
     {
-        public System.DateTime Start { get; set; }
-        public System.DateTime Deadline { get; set; }
-
-        public override DateTime TimeStamp
-        {
-            get
-            {
-                return (DateTime.Now < Start) ? Start : Deadline;
-            }
-        }
+        public int JobStartId { get; set; }
+        public int JobDeadlineId { get; set; }
+    
+        public virtual Schedule Deadline { get; set; }
+        public virtual Schedule Start { get; set; }
     }
 }

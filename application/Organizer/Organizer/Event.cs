@@ -12,14 +12,24 @@ namespace Organizer
     using System;
     using System.Collections.Generic;
     
-    public abstract partial class Event
+    public partial class Event
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Event()
+        {
+            this.Schedule = new HashSet<Schedule>();
+            this.Alarm = new HashSet<Alarm>();
+        }
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public int Priority { get; set; }
         public string Note { get; set; }
         public bool Done { get; set; }
-
-        public abstract DateTime TimeStamp { get; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Schedule> Schedule { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Alarm> Alarm { get; set; }
     }
 }

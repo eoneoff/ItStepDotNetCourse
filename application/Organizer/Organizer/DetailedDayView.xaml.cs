@@ -10,27 +10,25 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Organizer
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for DetailedDayView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class DetailedDayView : Window
     {
-        public MainWindow()
+        public DetailedDayView()
         {
             InitializeComponent();
         }
 
-        private void Calendar_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void Create_Click(object sender, RoutedEventArgs e)
         {
-            DetailedDayView day = new DetailedDayView();
-            day.Title = ((DateTime)PreviewCalendar.SelectedDate).Date.ToString("dd MMMM yyyy");
-            day.CurrentDate.SelectedDate = PreviewCalendar.SelectedDate;
-            day.Show();
+            CreateNewEvent create = new CreateNewEvent();
+            create.Date.SelectedDate = CurrentDate.SelectedDate;
+            create.Show();
         }
     }
 }

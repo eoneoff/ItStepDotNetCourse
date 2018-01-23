@@ -16,5 +16,8 @@ namespace Organizer
     {
         public int Id { get; set; }
         public System.DateTime DateTime { get; set; }
+    
+        public virtual Expenditure Expenditure { get; set; }
+        public virtual Income Income { get; set; }
     }
 }

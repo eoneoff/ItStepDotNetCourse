@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Organizer"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="dotNetOrganizer" Height="350" Width="700">
+        Title="dotNetOrganizer" ResizeMode="CanMinimize" Height="350" Width="700">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -17,7 +17,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Calendar Grid.Row="0" BorderThickness="0"/>
+            <Calendar Grid.Row="0" Name="PreviewCalendar" BorderThickness="0" SelectedDate="{x:Static sys:DateTime.Today}" MouseDoubleClick="Calendar_MouseDoubleClick"/>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -41,7 +41,7 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <DatePicker Name="CurrentDate" Grid.Column="0" Margin="10,5,5,5" SelectedDate="{x:Static sys:DateTime.Today}"/>
+                        <DatePicker Name="CurrentDate" Grid.Column="0" Margin="10,5,5,5" SelectedDate="{Binding Path=SelectedDate, ElementName=PreviewCalendar, Mode=TwoWay}"/>
                     </Grid>
                 </Grid>
             </TabItem>

@@ -16,21 +16,13 @@ using System.Windows.Shapes;
 namespace Organizer
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for EventEditControl.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class EventEditControl : UserControl
     {
-        public MainWindow()
+        public EventEditControl()
         {
             InitializeComponent();
-        }
-
-        private void Calendar_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            DetailedDayView day = new DetailedDayView();
-            day.Title = ((DateTime)PreviewCalendar.SelectedDate).Date.ToString("dd MMMM yyyy");
-            day.CurrentDate.SelectedDate = PreviewCalendar.SelectedDate;
-            day.Show();
         }
     }
 }

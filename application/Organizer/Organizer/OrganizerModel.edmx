@@ -4,7 +4,22 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="organizerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="organizerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Alarm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="AlarmTriggerTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Alarm_Event">
+          <Key>
+            <PropertyRef Name="EventId" />
+            <PropertyRef Name="AlarmId" />
+          </Key>
+          <Property Name="EventId" Type="int" Nullable="false" />
+          <Property Name="AlarmId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Article">
           <Key>
             <PropertyRef Name="Id" />
@@ -17,7 +32,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="DateOfBirth" Type="date" Nullable="false" />
+          <Property Name="DateOfBirthId" Type="int" Nullable="false" />
+          <Property Name="Relation" Type="nvarchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -59,7 +75,8 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="HolidayDateId" Type="int" Nullable="false" />
+          <Property Name="Bank" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Income">
           <Key>
@@ -81,16 +98,16 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Start" Type="date" Nullable="false" />
-          <Property Name="Deadline" Type="date" Nullable="false" />
+          <Property Name="JobStartId" Type="int" Nullable="false" />
+          <Property Name="JobDeadlineId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Meeting">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Start" Type="datetime" Nullable="false" />
-          <Property Name="Ending" Type="datetime" Nullable="false" />
+          <Property Name="MeetingStartId" Type="int" Nullable="false" />
+          <Property Name="MeetingEndId" Type="int" Nullable="false" />
           <Property Name="Location" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="Reminder">
@@ -98,8 +115,41 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="AlarmTime" Type="datetime" Nullable="false" />
+          <Property Name="AlarmTimeId" Type="int" Nullable="false" />
+          <Property Name="Memo" Type="nvarchar" MaxLength="200" />
         </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventId" Type="int" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Alarm_Event_Alarm">
+          <End Role="Alarm" Type="Self.Alarm" Multiplicity="1" />
+          <End Role="Alarm_Event" Type="Self.Alarm_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alarm">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Alarm_Event">
+              <PropertyRef Name="AlarmId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Alarm_Event_Event">
+          <End Role="Event" Type="Self.Event" Multiplicity="1" />
+          <End Role="Alarm_Event" Type="Self.Alarm_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Alarm_Event">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Birthday_Event">
           <End Role="Event" Type="Self.Event" Multiplicity="1" />
           <End Role="Birthday" Type="Self.Birthday" Multiplicity="0..1" />
@@ -109,6 +159,18 @@
             </Principal>
             <Dependent Role="Birthday">
               <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Birthday_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="Birthday" Type="Self.Birthday" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Birthday">
+              <PropertyRef Name="DateOfBirthId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -160,6 +222,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Holiday_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="Holiday" Type="Self.Holiday" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Holiday">
+              <PropertyRef Name="HolidayDateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Income_Article">
           <End Role="Article" Type="Self.Article" Multiplicity="1" />
           <End Role="Income" Type="Self.Income" Multiplicity="0..1" />
@@ -196,6 +270,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_JobDeadline_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="Job" Type="Self.Job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Job">
+              <PropertyRef Name="JobDeadlineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobStart_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="Job" Type="Self.Job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Job">
+              <PropertyRef Name="JobStartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Meeting_Event">
           <End Role="Event" Type="Self.Event" Multiplicity="1" />
           <End Role="Meeting" Type="Self.Meeting" Multiplicity="0..1" />
@@ -205,6 +303,30 @@
             </Principal>
             <Dependent Role="Meeting">
               <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MeetingEnd_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="Meeting" Type="Self.Meeting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Meeting">
+              <PropertyRef Name="MeetingEndId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MeetingStart_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="Meeting" Type="Self.Meeting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Meeting">
+              <PropertyRef Name="MeetingStartId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -220,8 +342,33 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="GetAllEvents" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Association Name="FK_Reminder_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="Reminder" Type="Self.Reminder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reminder">
+              <PropertyRef Name="AlarmTimeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_Event">
+          <End Role="Event" Type="Self.Event" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="organizerModelStoreContainer">
+          <EntitySet Name="Alarm" EntityType="Self.Alarm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Alarm_Event" EntityType="Self.Alarm_Event" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Article" EntityType="Self.Article" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Birthday" EntityType="Self.Birthday" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
@@ -234,8 +381,21 @@
           <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Meeting" EntityType="Self.Meeting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reminder" EntityType="Self.Reminder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Alarm_Event_Alarm" Association="Self.FK_Alarm_Event_Alarm">
+            <End Role="Alarm" EntitySet="Alarm" />
+            <End Role="Alarm_Event" EntitySet="Alarm_Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Alarm_Event_Event" Association="Self.FK_Alarm_Event_Event">
+            <End Role="Event" EntitySet="Event" />
+            <End Role="Alarm_Event" EntitySet="Alarm_Event" />
+          </AssociationSet>
           <AssociationSet Name="FK_Birthday_Event" Association="Self.FK_Birthday_Event">
             <End Role="Event" EntitySet="Event" />
+            <End Role="Birthday" EntitySet="Birthday" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Birthday_Schedule" Association="Self.FK_Birthday_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
             <End Role="Birthday" EntitySet="Birthday" />
           </AssociationSet>
           <AssociationSet Name="FK_Expenditure_Article" Association="Self.FK_Expenditure_Article">
@@ -254,6 +414,10 @@
             <End Role="Event" EntitySet="Event" />
             <End Role="Holiday" EntitySet="Holiday" />
           </AssociationSet>
+          <AssociationSet Name="FK_Holiday_Schedule" Association="Self.FK_Holiday_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="Holiday" EntitySet="Holiday" />
+          </AssociationSet>
           <AssociationSet Name="FK_Income_Article" Association="Self.FK_Income_Article">
             <End Role="Article" EntitySet="Article" />
             <End Role="Income" EntitySet="Income" />
@@ -266,29 +430,64 @@
             <End Role="Event" EntitySet="Event" />
             <End Role="Job" EntitySet="Job" />
           </AssociationSet>
+          <AssociationSet Name="FK_JobDeadline_Schedule" Association="Self.FK_JobDeadline_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="Job" EntitySet="Job" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobStart_Schedule" Association="Self.FK_JobStart_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="Job" EntitySet="Job" />
+          </AssociationSet>
           <AssociationSet Name="FK_Meeting_Event" Association="Self.FK_Meeting_Event">
             <End Role="Event" EntitySet="Event" />
+            <End Role="Meeting" EntitySet="Meeting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MeetingEnd_Schedule" Association="Self.FK_MeetingEnd_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="Meeting" EntitySet="Meeting" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MeetingStart_Schedule" Association="Self.FK_MeetingStart_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
             <End Role="Meeting" EntitySet="Meeting" />
           </AssociationSet>
           <AssociationSet Name="FK_Reminder_Event" Association="Self.FK_Reminder_Event">
             <End Role="Event" EntitySet="Event" />
             <End Role="Reminder" EntitySet="Reminder" />
           </AssociationSet>
+          <AssociationSet Name="FK_Reminder_Schedule" Association="Self.FK_Reminder_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="Reminder" EntitySet="Reminder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Event" Association="Self.FK_Schedule_Event">
+            <End Role="Event" EntitySet="Event" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="organizerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Alarm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="AlarmTriggerTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Event" Relationship="Self.Alarm_Event" FromRole="Alarm" ToRole="Event" />
+        </EntityType>
         <EntityType Name="Article">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Expenditure" Relationship="Self.FK_Expenditure_Article" FromRole="Article" ToRole="Expenditure" />
+          <NavigationProperty Name="Income" Relationship="Self.FK_Income_Article" FromRole="Article" ToRole="Income" />
         </EntityType>
         <EntityType Name="Birthday" BaseType="organizerModel.Event">
-          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateOfBirthId" Type="Int32" Nullable="false" />
+          <Property Name="Relation" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DateOfBirtn" Relationship="Self.FK_Birthday_Schedule" FromRole="Birthday" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -299,13 +498,20 @@
           <Property Name="Priority" Type="Int32" Nullable="false" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Done" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Schedule" Relationship="Self.FK_Schedule_Event" FromRole="Event" ToRole="Schedule" />
+          <NavigationProperty Name="Alarm" Relationship="Self.Alarm_Event" FromRole="Event" ToRole="Alarm" />
         </EntityType>
-        <EntityType Name="Expenditure" BaseType="organizerModel.Article">
+        <EntityType Name="Expenditure">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="TypeId" Type="Int32" Nullable="false" />
           <Property Name="NameId" Type="Int32" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="Summ" Type="Decimal" Precision="19" Scale="4" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Article" Relationship="Self.FK_Expenditure_Article" FromRole="Expenditure" ToRole="Article" />
           <NavigationProperty Name="ExpenditureName" Relationship="Self.FK_Expenditure_ExpenditureName" FromRole="Expenditure" ToRole="ExpenditureName" />
           <NavigationProperty Name="ExpenditureType" Relationship="Self.FK_Expenditure_ExpenditureType" FromRole="Expenditure" ToRole="ExpenditureType" />
         </EntityType>
@@ -326,11 +532,18 @@
           <NavigationProperty Name="Expenditure" Relationship="Self.FK_Expenditure_ExpenditureType" FromRole="ExpenditureType" ToRole="Expenditure" />
         </EntityType>
         <EntityType Name="Holiday" BaseType="organizerModel.Event">
-          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="HolidayDateId" Type="Int32" Nullable="false" />
+          <Property Name="Bank" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Date" Relationship="Self.FK_Holiday_Schedule" FromRole="Holiday" ToRole="Schedule" />
         </EntityType>
-        <EntityType Name="Income" BaseType="organizerModel.Article">
+        <EntityType Name="Income">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="SourceId" Type="Int32" Nullable="false" />
           <Property Name="Summ" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Article" Relationship="Self.FK_Income_Article" FromRole="Income" ToRole="Article" />
           <NavigationProperty Name="IncomeSource" Relationship="Self.FK_Income_IncomeSource" FromRole="Income" ToRole="IncomeSource" />
         </EntityType>
         <EntityType Name="IncomeSource">
@@ -342,17 +555,87 @@
           <NavigationProperty Name="Income" Relationship="Self.FK_Income_IncomeSource" FromRole="IncomeSource" ToRole="Income" />
         </EntityType>
         <EntityType Name="Job" BaseType="organizerModel.Event">
-          <Property Name="Start" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Deadline" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="JobStartId" Type="Int32" Nullable="false" />
+          <Property Name="JobDeadlineId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Deadline" Relationship="Self.FK_JobDeadline_Schedule" FromRole="Job" ToRole="Schedule" />
+          <NavigationProperty Name="Start" Relationship="Self.FK_JobStart_Schedule" FromRole="Job" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="Meeting" BaseType="organizerModel.Event">
-          <Property Name="Start" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Ending" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="MeetingStartId" Type="Int32" Nullable="false" />
+          <Property Name="MeetingEndId" Type="Int32" Nullable="false" />
           <Property Name="Location" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="End" Relationship="Self.FK_MeetingEnd_Schedule" FromRole="Meeting" ToRole="Schedule" />
+          <NavigationProperty Name="Start" Relationship="Self.FK_MeetingStart_Schedule" FromRole="Meeting" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="Reminder" BaseType="organizerModel.Event">
-          <Property Name="AlarmTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AlarmTimeId" Type="Int32" Nullable="false" />
+          <Property Name="Memo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AlarmTime" Relationship="Self.FK_Reminder_Schedule" FromRole="Reminder" ToRole="Schedule" />
         </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="EventId" Type="Int32" Nullable="false" />
+          <Property Name="TimeStamp" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Birthday" Relationship="Self.FK_Birthday_Schedule" FromRole="Schedule" ToRole="Birthday" />
+          <NavigationProperty Name="Event" Relationship="Self.FK_Schedule_Event" FromRole="Schedule" ToRole="Event" />
+          <NavigationProperty Name="Holiday" Relationship="Self.FK_Holiday_Schedule" FromRole="Schedule" ToRole="Holiday" />
+          <NavigationProperty Name="JobDeadline" Relationship="Self.FK_JobDeadline_Schedule" FromRole="Schedule" ToRole="Job" />
+          <NavigationProperty Name="JobStart" Relationship="Self.FK_JobStart_Schedule" FromRole="Schedule" ToRole="Job" />
+          <NavigationProperty Name="MeetingEnd" Relationship="Self.FK_MeetingEnd_Schedule" FromRole="Schedule" ToRole="Meeting" />
+          <NavigationProperty Name="MeetingStart" Relationship="Self.FK_MeetingStart_Schedule" FromRole="Schedule" ToRole="Meeting" />
+          <NavigationProperty Name="Reminder" Relationship="Self.FK_Reminder_Schedule" FromRole="Schedule" ToRole="Reminder" />
+        </EntityType>
+        <Association Name="FK_Expenditure_Article">
+          <End Role="Article" Type="Self.Article" Multiplicity="1" />
+          <End Role="Expenditure" Type="Self.Expenditure" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expenditure">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Income_Article">
+          <End Role="Article" Type="Self.Article" Multiplicity="1" />
+          <End Role="Income" Type="Self.Income" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Article">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Income">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Birthday_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="Birthday" Type="Self.Birthday" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Birthday">
+              <PropertyRef Name="DateOfBirthId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_Event">
+          <End Role="Event" Type="Self.Event" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Expenditure_ExpenditureName">
           <End Role="ExpenditureName" Type="Self.ExpenditureName" Multiplicity="1" />
           <End Role="Expenditure" Type="Self.Expenditure" Multiplicity="*" />
@@ -377,6 +660,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Holiday_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="Holiday" Type="Self.Holiday" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Holiday">
+              <PropertyRef Name="HolidayDateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Income_IncomeSource">
           <End Role="IncomeSource" Type="Self.IncomeSource" Multiplicity="1" />
           <End Role="Income" Type="Self.Income" Multiplicity="*" />
@@ -389,69 +684,156 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_JobDeadline_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="Job" Type="Self.Job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Job">
+              <PropertyRef Name="JobDeadlineId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobStart_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="Job" Type="Self.Job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Job">
+              <PropertyRef Name="JobStartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MeetingEnd_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="Meeting" Type="Self.Meeting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Meeting">
+              <PropertyRef Name="MeetingEndId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MeetingStart_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="Meeting" Type="Self.Meeting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Meeting">
+              <PropertyRef Name="MeetingStartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reminder_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="Reminder" Type="Self.Reminder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Reminder">
+              <PropertyRef Name="AlarmTimeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Alarm_Event">
+          <End Role="Alarm" Type="Self.Alarm" Multiplicity="*" />
+          <End Role="Event" Type="Self.Event" Multiplicity="*" />
+        </Association>
         <EntityContainer Name="organizerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Alarm" EntityType="Self.Alarm" />
           <EntitySet Name="Article" EntityType="Self.Article" />
           <EntitySet Name="Event" EntityType="Self.Event" />
+          <EntitySet Name="Expenditure" EntityType="Self.Expenditure" />
           <EntitySet Name="ExpenditureName" EntityType="Self.ExpenditureName" />
           <EntitySet Name="ExpenditureType" EntityType="Self.ExpenditureType" />
+          <EntitySet Name="Income" EntityType="Self.Income" />
           <EntitySet Name="IncomeSource" EntityType="Self.IncomeSource" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" />
+          <AssociationSet Name="FK_Expenditure_Article" Association="Self.FK_Expenditure_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="Expenditure" EntitySet="Expenditure" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Income_Article" Association="Self.FK_Income_Article">
+            <End Role="Article" EntitySet="Article" />
+            <End Role="Income" EntitySet="Income" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Birthday_Schedule" Association="Self.FK_Birthday_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="Birthday" EntitySet="Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Event" Association="Self.FK_Schedule_Event">
+            <End Role="Event" EntitySet="Event" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
           <AssociationSet Name="FK_Expenditure_ExpenditureName" Association="Self.FK_Expenditure_ExpenditureName">
             <End Role="ExpenditureName" EntitySet="ExpenditureName" />
-            <End Role="Expenditure" EntitySet="Article" />
+            <End Role="Expenditure" EntitySet="Expenditure" />
           </AssociationSet>
           <AssociationSet Name="FK_Expenditure_ExpenditureType" Association="Self.FK_Expenditure_ExpenditureType">
             <End Role="ExpenditureType" EntitySet="ExpenditureType" />
-            <End Role="Expenditure" EntitySet="Article" />
+            <End Role="Expenditure" EntitySet="Expenditure" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Holiday_Schedule" Association="Self.FK_Holiday_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="Holiday" EntitySet="Event" />
           </AssociationSet>
           <AssociationSet Name="FK_Income_IncomeSource" Association="Self.FK_Income_IncomeSource">
             <End Role="IncomeSource" EntitySet="IncomeSource" />
-            <End Role="Income" EntitySet="Article" />
+            <End Role="Income" EntitySet="Income" />
           </AssociationSet>
-          <FunctionImport Name="GetAllEvents" ReturnType="Collection(organizerModel.GetAllEvents_Result)" />
+          <AssociationSet Name="FK_JobDeadline_Schedule" Association="Self.FK_JobDeadline_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="Job" EntitySet="Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobStart_Schedule" Association="Self.FK_JobStart_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="Job" EntitySet="Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MeetingEnd_Schedule" Association="Self.FK_MeetingEnd_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="Meeting" EntitySet="Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MeetingStart_Schedule" Association="Self.FK_MeetingStart_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="Meeting" EntitySet="Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reminder_Schedule" Association="Self.FK_Reminder_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="Reminder" EntitySet="Event" />
+          </AssociationSet>
+          <AssociationSet Name="Alarm_Event" Association="Self.Alarm_Event">
+            <End Role="Alarm" EntitySet="Alarm" />
+            <End Role="Event" EntitySet="Event" />
+          </AssociationSet>
         </EntityContainer>
-        <ComplexType Name="GetAllEvents_Result">
-          <Property Type="Int32" Name="Id" Nullable="false" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" />
-          <Property Type="Int32" Name="Priority" Nullable="false" />
-          <Property Type="String" Name="Note" Nullable="true" />
-          <Property Type="Boolean" Name="Done" Nullable="false" />
-          <Property Type="DateTime" Name="DateOfBirth" Nullable="true" />
-          <Property Type="DateTime" Name="Date" Nullable="true" />
-          <Property Type="DateTime" Name="Start" Nullable="true" />
-          <Property Type="DateTime" Name="Deadline" Nullable="true" />
-          <Property Type="DateTime" Name="MeetingStart" Nullable="true" Precision="23" />
-          <Property Type="DateTime" Name="Ending" Nullable="true" Precision="23" />
-          <Property Type="String" Name="Location" Nullable="true" MaxLength="300" />
-          <Property Type="DateTime" Name="AlarmTime" Nullable="true" Precision="23" />
-        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="organizerModelStoreContainer" CdmEntityContainer="organizerEntities">
+          <EntitySetMapping Name="Alarm">
+            <EntityTypeMapping TypeName="organizerModel.Alarm">
+              <MappingFragment StoreEntitySet="Alarm">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AlarmTriggerTime" ColumnName="AlarmTriggerTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Article">
-            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Article)">
+            <EntityTypeMapping TypeName="organizerModel.Article">
               <MappingFragment StoreEntitySet="Article">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="DateTime" ColumnName="DateTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Expenditure)">
-              <MappingFragment StoreEntitySet="Expenditure">
-                <ScalarProperty Name="Summ" ColumnName="Summ" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="NameId" ColumnName="NameId" />
-                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Income)">
-              <MappingFragment StoreEntitySet="Income">
-                <ScalarProperty Name="Summ" ColumnName="Summ" />
-                <ScalarProperty Name="SourceId" ColumnName="SourceId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -465,37 +847,52 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
-            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Birthday)">
-              <MappingFragment StoreEntitySet="Birthday">
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Holiday)">
-              <MappingFragment StoreEntitySet="Holiday">
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Job)">
-              <MappingFragment StoreEntitySet="Job">
-                <ScalarProperty Name="Deadline" ColumnName="Deadline" />
-                <ScalarProperty Name="Start" ColumnName="Start" />
+            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Reminder)">
+              <MappingFragment StoreEntitySet="Reminder">
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="AlarmTimeId" ColumnName="AlarmTimeId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
             <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Meeting)">
               <MappingFragment StoreEntitySet="Meeting">
                 <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="Ending" ColumnName="Ending" />
-                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="MeetingEndId" ColumnName="MeetingEndId" />
+                <ScalarProperty Name="MeetingStartId" ColumnName="MeetingStartId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
-            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Reminder)">
-              <MappingFragment StoreEntitySet="Reminder">
-                <ScalarProperty Name="AlarmTime" ColumnName="AlarmTime" />
+            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Birthday)">
+              <MappingFragment StoreEntitySet="Birthday">
+                <ScalarProperty Name="Relation" ColumnName="Relation" />
+                <ScalarProperty Name="DateOfBirthId" ColumnName="DateOfBirthId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Job)">
+              <MappingFragment StoreEntitySet="Job">
+                <ScalarProperty Name="JobDeadlineId" ColumnName="JobDeadlineId" />
+                <ScalarProperty Name="JobStartId" ColumnName="JobStartId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Holiday)">
+              <MappingFragment StoreEntitySet="Holiday">
+                <ScalarProperty Name="Bank" ColumnName="Bank" />
+                <ScalarProperty Name="HolidayDateId" ColumnName="HolidayDateId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Expenditure">
+            <EntityTypeMapping TypeName="organizerModel.Expenditure">
+              <MappingFragment StoreEntitySet="Expenditure">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="NameId" ColumnName="NameId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Summ" ColumnName="Summ" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -515,6 +912,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Income">
+            <EntityTypeMapping TypeName="organizerModel.Income">
+              <MappingFragment StoreEntitySet="Income">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SourceId" ColumnName="SourceId" />
+                <ScalarProperty Name="Summ" ColumnName="Summ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="IncomeSource">
             <EntityTypeMapping TypeName="organizerModel.IncomeSource">
               <MappingFragment StoreEntitySet="IncomeSource">
@@ -523,25 +929,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetAllEvents" FunctionName="organizerModel.Store.GetAllEvents">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="organizerModel.GetAllEvents_Result">
+          <EntitySetMapping Name="Schedule">
+            <EntityTypeMapping TypeName="organizerModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
                 <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Priority" ColumnName="Priority" />
-                <ScalarProperty Name="Note" ColumnName="Note" />
-                <ScalarProperty Name="Done" ColumnName="Done" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Start" ColumnName="Start" />
-                <ScalarProperty Name="Deadline" ColumnName="Deadline" />
-                <ScalarProperty Name="MeetingStart" ColumnName="MeetingStart" />
-                <ScalarProperty Name="Ending" ColumnName="Ending" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="AlarmTime" ColumnName="AlarmTime" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="Alarm_Event" TypeName="organizerModel.Alarm_Event" StoreEntitySet="Alarm_Event">
+            <EndProperty Name="Alarm">
+              <ScalarProperty Name="Id" ColumnName="AlarmId" />
+            </EndProperty>
+            <EndProperty Name="Event">
+              <ScalarProperty Name="Id" ColumnName="EventId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

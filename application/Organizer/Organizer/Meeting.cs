@@ -14,16 +14,11 @@ namespace Organizer
     
     public partial class Meeting : Event
     {
-        public System.DateTime Start { get; set; }
-        public System.DateTime Ending { get; set; }
+        public int MeetingStartId { get; set; }
+        public int MeetingEndId { get; set; }
         public string Location { get; set; }
-
-        public override DateTime TimeStamp
-        {
-            get
-            {
-                return (DateTime.Now < Start) ? Start : Ending;
-            }
-        }
+    
+        public virtual Schedule End { get; set; }
+        public virtual Schedule Start { get; set; }
     }
 }

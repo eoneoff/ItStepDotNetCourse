@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -63,14 +64,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Alarm.cs">
+      <DependentUpon>OrganizerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Article.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Birthday.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BirthdayEditControl.xaml.cs">
+      <DependentUpon>BirthdayEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CreateNewEvent.xaml.cs">
+      <DependentUpon>CreateNewEvent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DetailedDayView.xaml.cs">
+      <DependentUpon>DetailedDayView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Event.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EventEditControl.xaml.cs">
+      <DependentUpon>EventEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Expenditure.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
@@ -104,6 +120,25 @@
     <Compile Include="Reminder.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Schedule.cs">
+      <DependentUpon>OrganizerModel.tt</DependentUpon>
+    </Compile>
+    <Page Include="BirthdayEditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CreateNewEvent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DetailedDayView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EventEditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -111,9 +146,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GetAllEvents_Result.cs">
-      <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

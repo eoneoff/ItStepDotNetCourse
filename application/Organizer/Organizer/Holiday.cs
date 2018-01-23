@@ -14,14 +14,9 @@ namespace Organizer
     
     public partial class Holiday : Event
     {
-        public System.DateTime Date { get; set; }
-
-        public override DateTime TimeStamp
-        {
-            get
-            {
-                return Date;
-            }
-        }
+        public int HolidayDateId { get; set; }
+        public bool Bank { get; set; }
+    
+        public virtual Schedule Date { get; set; }
     }
 }
