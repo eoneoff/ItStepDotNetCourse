@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Organizer"
         mc:Ignorable="d"
-        Title="Создать" ResizeMode="NoResize" Height="110" Width="300">
+        Title="Создать" ResizeMode="NoResize" Height="120" Width="300">
     <Grid Name="Win">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -13,7 +13,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <DatePicker Name="Date" Width="150" Margin="10"/>
-        <ComboBox Grid.Row="1" Name="EventTypeSelector" SelectedIndex="0" SelectionChanged="EventTypeSelector_SelectionChanged">
+        <ComboBox Grid.Row="1" Name="EventTypeSelector" SelectedIndex="0" Margin="5" SelectionChanged="EventTypeSelector_SelectionChanged">
             <TextBlock>Выберите тип события</TextBlock>
             <TextBlock>Напоминание</TextBlock>
             <TextBlock>Встреча</TextBlock>

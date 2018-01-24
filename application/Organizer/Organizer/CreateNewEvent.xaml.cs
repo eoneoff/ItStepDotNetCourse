@@ -31,15 +31,36 @@ namespace Organizer
             if (editor != null)
             {
                 Win.Children.Remove(editor);
-                Height = 110;
+                Height = 120;
                 editor = null;
             }
 
             switch(EventTypeSelector.SelectedIndex)
             {
                 case 1:
+                    Reminder reminder = new Reminder();
+                    reminder.Priority = 1;
+                    ReminderEditControl reminderControl = new ReminderEditControl();
+                    Schedule alarm = new Schedule();
+                    alarm.TimeStamp = (DateTime)Date.SelectedDate;
+                    reminder.AlarmTime = alarm;
+                    reminderControl.DataContext = reminder;
+                    editor = reminderControl;
+                    Height = 440;
                     break;
                 case 2:
+                    Meeting meeting = new Meeting();
+                    meeting.Priority = 1;
+                    Schedule start = new Schedule();
+                    start.TimeStamp = (DateTime)Date.SelectedDate;
+                    Schedule end = new Schedule();
+                    end.TimeStamp = start.TimeStamp + TimeSpan.FromHours(1);
+                    meeting.Start = start;
+                    meeting.End = end;
+                    MeetingEditControl meetingControl = new MeetingEditControl();
+                    meetingControl.DataContext = meeting;
+                    editor = meetingControl;
+                    Height = 585;
                     break;
                 case 3:
                     break;
