@@ -28,7 +28,6 @@ namespace Organizer
         private void Calendar_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             DetailedDayView day = new DetailedDayView();
-            day.Title = ((DateTime)PreviewCalendar.SelectedDate).Date.ToString("dd MMMM yyyy");
             day.CurrentDate.SelectedDate = PreviewCalendar.SelectedDate;
             day.Show();
         }

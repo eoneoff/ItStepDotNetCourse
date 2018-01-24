@@ -34,6 +34,14 @@ namespace Organizer
             }
             else
             {
+                DateTime nextBirthday = new DateTime(DateTime.Today.Year, birthday.DateOfBirth.Month, birthday.DateOfBirth.Day);
+                if (DateTime.Today > nextBirthday)
+                    nextBirthday = nextBirthday.AddYears(1);
+
+                Schedule nextBirthdayTimeStamp = new Schedule{ TimeStamp=nextBirthday};
+                birthday.NextBirthday = nextBirthdayTimeStamp;
+                birthday.Repeat = "Ежегодно";
+
                 using (organizerEntities db = new organizerEntities())
                 {
                     db.Event.Add(birthday);

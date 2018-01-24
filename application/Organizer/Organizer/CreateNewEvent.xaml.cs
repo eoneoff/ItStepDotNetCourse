@@ -45,12 +45,10 @@ namespace Organizer
                     break;
                 case 4:
                     Birthday birthday = new Birthday();
-                    birthday.DateOfBirtn = new Schedule();
-                    birthday.DateOfBirtn.TimeStamp = DateTime.Today;
                     birthday.Priority = 1;
+                    birthday.DateOfBirth = (DateTime) Date.SelectedDate;
                     BirthdayEditControl birthdayControl = new BirthdayEditControl();
                     birthdayControl.DataContext = birthday;
-                    birthdayControl.BirthDate.DataContext = birthday.DateOfBirtn;
                     editor = birthdayControl;
                     Height = 360;
                     break;

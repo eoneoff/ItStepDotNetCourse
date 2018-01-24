@@ -14,9 +14,10 @@ namespace Organizer
     
     public partial class Birthday : Event
     {
-        public int DateOfBirthId { get; set; }
+        public int NextBirthdayId { get; set; }
         public string Relation { get; set; }
+        public System.DateTime DateOfBirth { get; set; }
     
-        public virtual Schedule DateOfBirtn { get; set; }
+        public virtual Schedule NextBirthday { get; set; }
     }
 }

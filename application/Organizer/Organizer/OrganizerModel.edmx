@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="organizerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="organizerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Alarm">
           <Key>
             <PropertyRef Name="Id" />
@@ -32,8 +32,9 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="DateOfBirthId" Type="int" Nullable="false" />
+          <Property Name="NextBirthdayId" Type="int" Nullable="false" />
           <Property Name="Relation" Type="nvarchar" MaxLength="200" />
+          <Property Name="DateOfBirth" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -44,6 +45,7 @@
           <Property Name="Priority" Type="int" Nullable="false" />
           <Property Name="Note" Type="nvarchar(max)" />
           <Property Name="Done" Type="bit" Nullable="false" />
+          <Property Name="Repeat" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Expenditure">
           <Key>
@@ -170,7 +172,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Birthday">
-              <PropertyRef Name="DateOfBirthId" />
+              <PropertyRef Name="NextBirthdayId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -463,7 +465,8 @@
             <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="organizerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -485,9 +488,10 @@
           <NavigationProperty Name="Income" Relationship="Self.FK_Income_Article" FromRole="Article" ToRole="Income" />
         </EntityType>
         <EntityType Name="Birthday" BaseType="organizerModel.Event">
-          <Property Name="DateOfBirthId" Type="Int32" Nullable="false" />
+          <Property Name="NextBirthdayId" Type="Int32" Nullable="false" />
           <Property Name="Relation" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DateOfBirtn" Relationship="Self.FK_Birthday_Schedule" FromRole="Birthday" ToRole="Schedule" />
+          <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="NextBirthday" Relationship="Self.FK_Birthday_Schedule" FromRole="Birthday" ToRole="Schedule" />
         </EntityType>
         <EntityType Name="Event">
           <Key>
@@ -498,6 +502,7 @@
           <Property Name="Priority" Type="Int32" Nullable="false" />
           <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Done" Type="Boolean" Nullable="false" />
+          <Property Name="Repeat" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Schedule" Relationship="Self.FK_Schedule_Event" FromRole="Event" ToRole="Schedule" />
           <NavigationProperty Name="Alarm" Relationship="Self.Alarm_Event" FromRole="Event" ToRole="Alarm" />
         </EntityType>
@@ -576,7 +581,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EventId" Type="Int32" Nullable="false" />
           <Property Name="TimeStamp" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Birthday" Relationship="Self.FK_Birthday_Schedule" FromRole="Schedule" ToRole="Birthday" />
@@ -620,7 +625,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Birthday">
-              <PropertyRef Name="DateOfBirthId" />
+              <PropertyRef Name="NextBirthdayId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -841,6 +846,7 @@
             <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Event)">
               <MappingFragment StoreEntitySet="Event">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Repeat" ColumnName="Repeat" />
                 <ScalarProperty Name="Done" ColumnName="Done" />
                 <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="Priority" ColumnName="Priority" />
@@ -862,10 +868,18 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Holiday)">
+              <MappingFragment StoreEntitySet="Holiday">
+                <ScalarProperty Name="Bank" ColumnName="Bank" />
+                <ScalarProperty Name="HolidayDateId" ColumnName="HolidayDateId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
             <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Birthday)">
               <MappingFragment StoreEntitySet="Birthday">
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
                 <ScalarProperty Name="Relation" ColumnName="Relation" />
-                <ScalarProperty Name="DateOfBirthId" ColumnName="DateOfBirthId" />
+                <ScalarProperty Name="NextBirthdayId" ColumnName="NextBirthdayId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -873,13 +887,6 @@
               <MappingFragment StoreEntitySet="Job">
                 <ScalarProperty Name="JobDeadlineId" ColumnName="JobDeadlineId" />
                 <ScalarProperty Name="JobStartId" ColumnName="JobStartId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Holiday)">
-              <MappingFragment StoreEntitySet="Holiday">
-                <ScalarProperty Name="Bank" ColumnName="Bank" />
-                <ScalarProperty Name="HolidayDateId" ColumnName="HolidayDateId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

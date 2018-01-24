@@ -26,6 +26,7 @@ namespace Organizer
         public int Priority { get; set; }
         public string Note { get; set; }
         public bool Done { get; set; }
+        public string Repeat { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Schedule> Schedule { get; set; }
