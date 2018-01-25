@@ -25,10 +25,10 @@ namespace Organizer
             InitializeComponent();
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private async void Save_Click(object sender, RoutedEventArgs e)
         {
             Birthday birthday = DataContext as Birthday;
-            if(birthday.Name==String.Empty||BirthDate.SelectedDate==null)
+            if(String.IsNullOrEmpty(birthday.Name)|| BirthDate.SelectedDate==null)
             {
                 MessageBox.Show("Введите обязательные параметры (имя и дата рождения)", "Внимание", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
@@ -45,8 +45,8 @@ namespace Organizer
                 using (organizerEntities db = new organizerEntities())
                 {
                     db.Event.Add(birthday);
-                    db.SaveChanges();
                     Window.GetWindow(this).Close();
+                    await db.SaveChangesAsync();
                 }
             }
         }

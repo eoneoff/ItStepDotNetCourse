@@ -25,21 +25,21 @@ namespace Organizer
             InitializeComponent();
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private async void Save_Click(object sender, RoutedEventArgs e)
         {
-            Reminder reminder = (Reminder)DataContext;
-            if (reminder.Name==String.Empty||DateTimePicker.SelectedDateTime==null)
+            Reminder reminder = DataContext as Reminder;
+            if (String.IsNullOrEmpty(reminder.Name) ||DateTimePicker.SelectedDateTime==null)
             {
                 MessageBox.Show("Заполните обязательне поля(название и время)", "Внимание", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
-            else if (DateTime.Now<DateTimePicker.SelectedDateTime||
+            else if (DateTime.Now < DateTimePicker.SelectedDateTime||
                 MessageBox.Show("Вы точно хотите создать напоминание в прошедшем времени?","Вы уверены",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
             {
                 using (organizerEntities db = new organizerEntities())
                 {
                     db.Event.Add(reminder);
-                    db.SaveChanges();
                     Window.GetWindow(this).Close();
+                    await db.SaveChangesAsync();
                 }
             }
         }

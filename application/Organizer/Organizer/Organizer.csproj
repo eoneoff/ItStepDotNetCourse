@@ -41,11 +41,17 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="MoreLinq, Version=2.10.21623.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
+      <HintPath>..\packages\morelinq.2.10.0\lib\net40\MoreLinq.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -103,6 +109,9 @@
     <Compile Include="Holiday.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="HolidayEditControl.xaml.cs">
+      <DependentUpon>HolidayEditControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Income.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
@@ -111,6 +120,9 @@
     </Compile>
     <Compile Include="Job.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="JobEditControl.xaml.cs">
+      <DependentUpon>JobEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Meeting.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
@@ -149,6 +161,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EventEditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HolidayEditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="JobEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

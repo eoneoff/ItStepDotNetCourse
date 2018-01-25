@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MoreLinq;
 
 namespace Organizer
 {
@@ -30,6 +31,23 @@ namespace Organizer
             DetailedDayView day = new DetailedDayView();
             day.CurrentDate.SelectedDate = PreviewCalendar.SelectedDate;
             day.Show();
+        }
+
+        private void Test_Click(object sender, RoutedEventArgs e)
+        {
+            using (organizerEntities db = new organizerEntities())
+            {
+                var top5 = db.Schedule.Include("Event").Where(s => s.TimeStamp > DateTime.Now).OrderBy(s => s.TimeStamp).DistinctBy(s => s.Event).Take(5);
+
+                string output = String.Empty;
+
+                foreach(Schedule s in top5)
+                {
+                    output += s.Event.Name + " " + s.TimeStamp + "\n";
+                }
+
+                MessageBox.Show(output);
+            }
         }
     }
 }

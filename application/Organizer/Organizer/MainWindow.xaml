@@ -42,6 +42,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <DatePicker Name="CurrentDate" Grid.Column="0" Margin="10,5,5,5" SelectedDate="{Binding Path=SelectedDate, ElementName=PreviewCalendar, Mode=TwoWay}"/>
+                        <Button Grid.Column="1" Name="Test" Content="Test" Click="Test_Click"/>
                     </Grid>
                 </Grid>
             </TabItem>

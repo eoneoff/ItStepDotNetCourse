@@ -25,27 +25,25 @@ namespace Organizer
 
         public DateTime? SelectedDateTime
         {
-            get
-            { return (DateTime?)GetValue(SelectedDateTimeProperty); }
-            set
-            { SetValue(SelectedDateTimeProperty, value); }
+            get { return (DateTime?)GetValue(SelectedDateTimeProperty); }
+            set { SetValue(SelectedDateTimeProperty, value); }
         }
 
-        public int? Hours
+        public int Hours
         {
-            get { return ((DateTime)SelectedDateTime).Hour; }
+            get { return (SelectedDateTime == null) ? 0 : ((DateTime)SelectedDateTime).Hour; }
         }
 
-        public int? Minutes
+        public int Minutes
         {
-            get { return ((DateTime)SelectedDateTime).Minute; }
+            get { return (SelectedDateTime == null) ? 0 : ((DateTime)SelectedDateTime).Minute; }
         }
 
         public DateTimePickerControl()
         {
             InitializeComponent();
-            HoursPicker.ItemsSource = Enumerable.Range(0, 25);
-            MinutesPicker.ItemsSource = Enumerable.Range(0, 61);
+            HoursPicker.ItemsSource = Enumerable.Range(0, 25).Select(x=>x.ToString("D2"));
+            MinutesPicker.ItemsSource = Enumerable.Range(0, 61).Select(x => x.ToString("D2"));
         }
 
         private void ChangeDateTime (object sender, SelectionChangedEventArgs e)

@@ -63,6 +63,18 @@ namespace Organizer
                     Height = 585;
                     break;
                 case 3:
+                    Job job = new Job();
+                    job.Priority = 1;
+                    Schedule jobStart = new Schedule();
+                    jobStart.TimeStamp = (DateTime)Date.SelectedDate;
+                    Schedule deadline = new Schedule();
+                    deadline.TimeStamp = jobStart.TimeStamp + TimeSpan.FromHours(1);
+                    job.Start = jobStart;
+                    job.Deadline = deadline;
+                    JobEditControl jobControl = new JobEditControl();
+                    jobControl.DataContext = job;
+                    editor = jobControl;
+                    Height = 530;
                     break;
                 case 4:
                     Birthday birthday = new Birthday();
@@ -74,6 +86,15 @@ namespace Organizer
                     Height = 360;
                     break;
                 case 5:
+                    Holiday holiday = new Holiday();
+                    holiday.Priority = 1;
+                    Schedule date = new Schedule();
+                    date.TimeStamp = (DateTime)Date.SelectedDate;
+                    holiday.Date = date;
+                    HolidayEditControl holidayControl = new HolidayEditControl();
+                    holidayControl.DataContext = holiday;
+                    editor = holidayControl;
+                    Height = 360;
                     break;
                 default:
                     return;
