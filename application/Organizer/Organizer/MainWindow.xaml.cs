@@ -24,6 +24,11 @@ namespace Organizer
         public MainWindow()
         {
             InitializeComponent();
+            using (organizerEntities db = new organizerEntities())
+            {
+                var top5 = db.Schedule.Include("Event").Where(s => s.TimeStamp > DateTime.Now).OrderBy(s => s.TimeStamp).DistinctBy(s => s.Event).Take(5).ToList();
+                Top5Events.ItemsSource = top5;
+            }
         }
 
         private void Calendar_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -38,16 +43,15 @@ namespace Organizer
             using (organizerEntities db = new organizerEntities())
             {
                 var top5 = db.Schedule.Include("Event").Where(s => s.TimeStamp > DateTime.Now).OrderBy(s => s.TimeStamp).DistinctBy(s => s.Event).Take(5);
-
-                string output = String.Empty;
-
-                foreach(Schedule s in top5)
-                {
-                    output += s.Event.Name + " " + s.TimeStamp + "\n";
-                }
-
-                MessageBox.Show(output);
             }
+        }
+
+        private void Top5Events_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Schedule selected = (Schedule)Top5Events.SelectedItem;
+            ShowSingleEvent show = new ShowSingleEvent();
+            show.DataContext = selected.Event;
+            show.Show();
         }
     }
 }

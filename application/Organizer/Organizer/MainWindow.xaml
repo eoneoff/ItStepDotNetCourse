@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Organizer"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="dotNetOrganizer" ResizeMode="CanMinimize" Height="350" Width="700">
+        Title="dotNetOrganizer" ResizeMode="CanMinimize" Height="370" Width="700">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -24,8 +24,15 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Content="События:" FontWeight="Bold"/>
-                <ListBox Grid.Row="1" BorderThickness="0" Name="Top5Events">
-                    
+                <ListBox Grid.Row="1" BorderThickness="0" Name="Top5Events" Height="129" VerticalAlignment="Bottom" MouseDoubleClick="Top5Events_MouseDoubleClick">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel Width="200">
+                                <Label DockPanel.Dock="Left" FontSize="8" Content="{Binding Path=Event.Name}"/>
+                                <Label DockPanel.Dock="Right" FontSize="8" HorizontalContentAlignment="Right" Content="{Binding Path=TimeStamp}" ContentStringFormat="{}{0:dd/MM/yyyy}"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
                 </ListBox>
             </Grid>
         </Grid>
