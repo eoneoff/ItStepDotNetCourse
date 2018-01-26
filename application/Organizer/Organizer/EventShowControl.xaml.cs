@@ -24,5 +24,10 @@ namespace Organizer
         {
             InitializeComponent();
         }
+
+        private void DoneCheckBox_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

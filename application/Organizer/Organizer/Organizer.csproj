@@ -70,6 +70,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Accessories.cs" />
     <Compile Include="Alarm.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
@@ -81,6 +82,9 @@
     </Compile>
     <Compile Include="BirthdayEditControl.xaml.cs">
       <DependentUpon>BirthdayEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BirthdayShowControl.xaml.cs">
+      <DependentUpon>BirthdayShowControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="CreateNewEvent.xaml.cs">
       <DependentUpon>CreateNewEvent.xaml</DependentUpon>
@@ -147,10 +151,11 @@
     <Compile Include="Schedule.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ShowSingleEvent.xaml.cs">
-      <DependentUpon>ShowSingleEvent.xaml</DependentUpon>
-    </Compile>
     <Page Include="BirthdayEditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BirthdayShowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -199,10 +204,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ReminderEditControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ShowSingleEvent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

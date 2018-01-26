@@ -48,10 +48,7 @@ namespace Organizer
 
         private void Top5Events_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Schedule selected = (Schedule)Top5Events.SelectedItem;
-            ShowSingleEvent show = new ShowSingleEvent();
-            show.DataContext = selected.Event;
-            show.Show();
+            
         }
     }
 }

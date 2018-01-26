@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="120"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelStyle}" Content="Имя:"/>
@@ -32,7 +32,7 @@
         <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}" Content="Заметка:"/>
         <Label Grid.Row="2" Grid.Column="1" Margin="5" Content="{Binding Path=Note}"/>
         <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelStyle}" Content="Выполнено:"/>
-        <CheckBox Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="5" IsChecked="{Binding Path=Done}" IsEnabled="False"/>
+        <CheckBox Name="DoneCheckBox" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="5" IsChecked="{Binding Path=Done, Mode=OneWay}" Click="DoneCheckBox_Click"/>
         <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource LabelStyle}" Content="Повторять:"/>
         <Label Grid.Row="4" Grid.Column="1" Margin="5" Content="{Binding Path=Repeate}"/>
     </Grid>

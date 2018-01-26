@@ -15,13 +15,23 @@ using System.Windows.Shapes;
 namespace Organizer
 {
     /// <summary>
-    /// Interaction logic for ShowSingleEvent.xaml
+    /// Interaction logic for BirthdayShowControl.xaml
     /// </summary>
-    public partial class ShowSingleEvent : Window
+    public partial class BirthdayShowControl : Window
     {
-        public ShowSingleEvent()
+        public BirthdayShowControl()
         {
             InitializeComponent();
+        }
+
+        private void OK_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -31,78 +31,40 @@ namespace Organizer
             if (editor != null)
             {
                 Win.Children.Remove(editor);
-                Height = 120;
                 editor = null;
             }
 
-            switch(EventTypeSelector.SelectedIndex)
+            switch (EventTypeSelector.SelectedIndex)
             {
+                case 0:
+                    Height=120;
+                    break;
                 case 1:
-                    Reminder reminder = new Reminder();
-                    reminder.Priority = 1;
-                    ReminderEditControl reminderControl = new ReminderEditControl();
-                    Schedule alarm = new Schedule();
-                    alarm.TimeStamp = (DateTime)Date.SelectedDate;
-                    reminder.AlarmTime = alarm;
-                    reminderControl.DataContext = reminder;
-                    editor = reminderControl;
                     Height = 440;
                     break;
                 case 2:
-                    Meeting meeting = new Meeting();
-                    meeting.Priority = 1;
-                    Schedule start = new Schedule();
-                    start.TimeStamp = (DateTime)Date.SelectedDate;
-                    Schedule end = new Schedule();
-                    end.TimeStamp = start.TimeStamp + TimeSpan.FromHours(1);
-                    meeting.Start = start;
-                    meeting.End = end;
-                    MeetingEditControl meetingControl = new MeetingEditControl();
-                    meetingControl.DataContext = meeting;
-                    editor = meetingControl;
                     Height = 585;
                     break;
                 case 3:
-                    Job job = new Job();
-                    job.Priority = 1;
-                    Schedule jobStart = new Schedule();
-                    jobStart.TimeStamp = (DateTime)Date.SelectedDate;
-                    Schedule deadline = new Schedule();
-                    deadline.TimeStamp = jobStart.TimeStamp + TimeSpan.FromHours(1);
-                    job.Start = jobStart;
-                    job.Deadline = deadline;
-                    JobEditControl jobControl = new JobEditControl();
-                    jobControl.DataContext = job;
-                    editor = jobControl;
                     Height = 530;
                     break;
                 case 4:
-                    Birthday birthday = new Birthday();
-                    birthday.Priority = 1;
-                    birthday.DateOfBirth = (DateTime) Date.SelectedDate;
-                    BirthdayEditControl birthdayControl = new BirthdayEditControl();
-                    birthdayControl.DataContext = birthday;
-                    editor = birthdayControl;
                     Height = 360;
                     break;
                 case 5:
-                    Holiday holiday = new Holiday();
-                    holiday.Priority = 1;
-                    Schedule date = new Schedule();
-                    date.TimeStamp = (DateTime)Date.SelectedDate;
-                    holiday.Date = date;
-                    HolidayEditControl holidayControl = new HolidayEditControl();
-                    holidayControl.DataContext = holiday;
-                    editor = holidayControl;
                     Height = 360;
                     break;
                 default:
                     return;
             }
 
-            Grid.SetRow(editor, 2);
 
-            Win.Children.Add(editor);
+            if (EventTypeSelector.SelectedIndex > 0)
+            {
+                editor = Accessories.EventEditControlFactoryMethod(((TextBlock)EventTypeSelector.SelectedItem).Text, Date.SelectedDate);
+                Grid.SetRow(editor, 2);
+                Win.Children.Add(editor);
+            }
         }
     }
 }
