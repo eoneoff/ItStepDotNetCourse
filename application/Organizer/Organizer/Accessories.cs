@@ -96,6 +96,7 @@ namespace Organizer
             return control;
         }
 
+        //Возвращает форму показа события с контекстом из переданного события
         public static Control EventShowControlFactoryMethod(Event ev)
         {
             Control control = null;
@@ -110,18 +111,8 @@ namespace Organizer
                         break;
                     case "Job":
                         control = new JobShowControl();
-                        //using (organizerEntities db = new organizerEntities())
-                        //{
-                        //    db.Entry(ev).Reference(j => j.Start).Load();
-                        //    db.Entry(ev).Reference(j => j.Deadline).Load();
-                        //}
                         break;
                     case "Meeting":
-                        //using (organizerEntities db = new organizerEntities())
-                        //{
-                        //    db.Entry((Meeting)ev).Reference(m => m.Start).Load();
-                        //    db.Entry((Meeting)ev).Reference(m => m.End).Load();
-                        //}
                         control = new MeetingShowControl();
                         break;
                     case "Reminder":
@@ -130,6 +121,42 @@ namespace Organizer
                 }
 
             return control;
+        }
+
+        public static RecordWindow GetEventShowWindowFactoryMethod(Event ev)
+        {
+            RecordWindow window = new RecordWindow();
+
+            Control showControl = Accessories.EventShowControlFactoryMethod(ev);
+            Grid.SetRow(showControl, 0);
+            window.Win.Children.Add(showControl);
+            window.DataContext = ev;
+
+            switch (Accessories.GetEventType(ev))
+            {
+                case "Birthday":
+                    window.Title = $"День рождения {ev.Name}";
+                    window.Height = 325;
+                    break;
+                case "Holiday":
+                    window.Title = $"Праздник {ev.Name}";
+                    window.Height = 325;
+                    break;
+                case "Job":
+                    window.Title = $"Задание {ev.Name}";
+                    window.Height = 325;
+                    break;
+                case "Meeting":
+                    window.Title = $"Встреча {ev.Name}";
+                    window.Height = 385;
+                    break;
+                case "Reminder":
+                    window.Title = $"Напоминание {ev.Name}";
+                    window.Height = 350;
+                    break;
+            }
+
+            return window;
         }
     }
 }

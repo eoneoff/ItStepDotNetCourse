@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Organizer"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="dotNetOrganizer" ResizeMode="CanMinimize" Height="370" Width="700">
+        Title="dotNetOrganizer" ResizeMode="CanMinimize" Height="370" Width="900">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -48,9 +48,17 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <DatePicker Name="CurrentDate" Grid.Column="0" Margin="10,5,5,5" SelectedDate="{Binding Path=SelectedDate, ElementName=PreviewCalendar, Mode=TwoWay}"/>
-                        <Button Grid.Column="1" Name="Test" Content="Test" Click="Test_Click"/>
+                        <DatePicker Name="CurrentDate"  Grid.Row="0" Grid.Column="0" Margin="10,5,5,5" SelectedDate="{Binding Path=SelectedDate, ElementName=PreviewCalendar, Mode=TwoWay}"/>
                     </Grid>
+                    <DataGrid Grid.Row="1" Name="EventList" EnableColumnVirtualization="True"
+                              AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn x:Name="TypeColumn" Header="Тип" Binding="{Binding Path=Event.EventTypeRus}"/>
+                            <DataGridTextColumn x:Name="NameColumn" Header="Имя" Binding="{Binding Path=Event.Name}"/>
+                            <DataGridTextColumn x:Name="TimeColumn" Header="Дата/Время" Binding="{Binding TimeStamp}"/>
+                            <DataGridCheckBoxColumn x:Name="DoneColumn" Header="Выполнено" Binding="{Binding Path=Event.Done}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
             </TabItem>
             <TabItem Header="Расходы">

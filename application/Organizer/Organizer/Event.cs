@@ -32,5 +32,13 @@ namespace Organizer
         public virtual ICollection<Schedule> Schedule { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Alarm> Alarm { get; set; }
+
+        public string EventTypeRus
+        {
+            get
+            {
+                return Accessories.GetEventType(this, true);
+            }
+        }
     }
 }
