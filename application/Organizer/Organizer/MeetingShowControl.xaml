@@ -27,9 +27,9 @@
         </Grid.ColumnDefinitions>
         <local:EventShowControl Grid.Row="0" Grid.ColumnSpan="2"/>
         <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}" Content="Начало:"/>
-        <Label Grid.Row="1" Grid.Column="1" Margin ="5" Content="{Binding Path=Start.TimeStamp}" ContentStringFormat="{}{0:dd MMMM yyyy}"/>
+        <Label Grid.Row="1" Grid.Column="1" Margin ="5" Content="{Binding Path=Start.TimeStamp}" ContentStringFormat="{}{0:dd MMMM yyyy | HH:mm}" Language="ru-Ru"/>
         <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}" Content="Конец:"/>
-        <Label Grid.Row="2" Grid.Column="1" Margin ="5" Content="{Binding Path=End.TimeStamp}" ContentStringFormat="{}{0:dd MMMM yyyy}"/>
+        <Label Grid.Row="2" Grid.Column="1" Margin ="5" Content="{Binding Path=End.TimeStamp}" ContentStringFormat="{}{0:dd MMMM yyyy | HH:mm}" Language="ru-Ru"/>
         <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelStyle}" Content="Место:"/>
         <Label Grid.Row="3" Grid.Column="1" Margin="5" Content="{Binding Location}"/>
         <Button Grid.Row="4" Grid.Column="0" Name="Edit" Width ="70" HorizontalAlignment="Left" Content="Изменить" Margin="5" Click="Edit_Click"/>

@@ -8,7 +8,7 @@
              d:DesignHeight="290" d:DesignWidth="300">
     <Grid>
         <Grid.Resources>
-            <Style x:Key="{x:Type Label}" TargetType="{x:Type Label}">
+            <Style x:Key="LabelStyle" TargetType="{x:Type Label}">
                 <Setter Property="Margin" Value="5"/>
                 <Setter Property="HorizontalAlignment" Value="Right"/>
                 <Setter Property="FontWeight" Value="ExtraBold"/>
@@ -22,13 +22,13 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="125"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <local:EventShowControl Grid.Row="0" Grid.ColumnSpan="2"/>
-        <Label Grid.Row="1" Grid.Column="0" Content="Дата рождения:"/>
-        <Label Grid.Row="1" Grid.Column="1" Content="{Binding DateOfBirth}" ContentStringFormat="{}{0:dd MMMM yyyy}"/>
-        <Label Grid.Row="2" Grid.Column="0" Content="Кем приходится:"/>
+        <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}" Content="Дата рождения:"/>
+        <Label Grid.Row="1" Grid.Column="1" Margin ="5" Content="{Binding DateOfBirth}" ContentStringFormat="{}{0:dd MMMM yyyy}" Language="ru-Ru"/>
+        <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}" Content="Кем приходится:"/>
         <Label Grid.Row="2" Grid.Column="1" Content="{Binding Relation}"/>
         <Button Grid.Row="3" Grid.Column="0" Name="Edit" Width ="70" HorizontalAlignment="Left" Content="Изменить" Margin="5" Click="Edit_Click"/>
         <Button Grid.Row="3" Grid.Column="1" Name="OK" Content="OK"

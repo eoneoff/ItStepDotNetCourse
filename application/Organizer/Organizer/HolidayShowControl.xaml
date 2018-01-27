@@ -26,7 +26,7 @@
         </Grid.ColumnDefinitions>
         <local:EventShowControl Grid.Row="0" Grid.ColumnSpan="2"/>
         <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}" Content="Дата:"/>
-        <Label Grid.Row="1" Grid.Column="1" Margin="5" Content="{Binding Path=Date.TimeStamp}" ContentStringFormat="{}{0:dd MMMM yyyy}"/>
+        <Label Grid.Row="1" Grid.Column="1" Margin="5" Content="{Binding Path=Date.TimeStamp}" ContentStringFormat="{}{0:dd MMMM yyyy}" Language="ru-Ru"/>
         <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}" Content="Выходной:"/>
         <CheckBox Grid.Row="2" Grid.Column="1" Margin="5" VerticalAlignment="Center" IsEnabled="False" IsChecked="{Binding Bank}"/>
         <Button Grid.Row="3" Grid.Column="0" Name="Edit" Width ="70" HorizontalAlignment="Left" Content="Изменить" Margin="5" Click="Edit_Click"/>

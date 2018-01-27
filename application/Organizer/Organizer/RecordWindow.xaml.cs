@@ -10,29 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Organizer
 {
     /// <summary>
-    /// Interaction logic for ReminderShowControl.xaml
+    /// Interaction logic for RecordWindow.xaml
     /// </summary>
-    public partial class ReminderShowControl : UserControl
+    public partial class RecordWindow : Window
     {
-        public ReminderShowControl()
+        public RecordWindow()
         {
             InitializeComponent();
-        }
-
-        private void OK_Click(object sender, RoutedEventArgs e)
-        {
-            Window.GetWindow(this).Close();
-        }
-
-        private void Edit_Click(object sender, RoutedEventArgs e)
-        {
-            
         }
     }
 }

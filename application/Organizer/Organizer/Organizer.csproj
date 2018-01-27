@@ -143,16 +143,25 @@
     <Compile Include="MeetingEditControl.xaml.cs">
       <DependentUpon>MeetingEditControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MeetingShowControl.xaml.cs">
+      <DependentUpon>MeetingShowControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OrganizerModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>OrganizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RecordWindow.xaml.cs">
+      <DependentUpon>RecordWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Reminder.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ReminderEditControl.xaml.cs">
       <DependentUpon>ReminderEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReminderShowControl.xaml.cs">
+      <DependentUpon>ReminderShowControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Schedule.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
@@ -217,7 +226,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="MeetingShowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RecordWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ReminderEditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReminderShowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

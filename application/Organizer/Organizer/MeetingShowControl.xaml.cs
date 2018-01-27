@@ -27,12 +27,12 @@ namespace Organizer
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            Window.GetWindow(this).Close();
+            
         }
 
         private void OK_Click(object sender, RoutedEventArgs e)
         {
-
+            Window.GetWindow(this).Close();
         }
     }
 }

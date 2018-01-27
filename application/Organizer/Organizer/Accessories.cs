@@ -81,7 +81,8 @@ namespace Organizer
                     control = new MeetingEditControl();
                     control.DataContext = meeting;
                     break;
-                default:
+                case "Reminder":
+                case "Напоминание":
                     Reminder reminder = new Reminder();
                     reminder.Priority = 1;
                     control = new ReminderEditControl();
@@ -91,6 +92,42 @@ namespace Organizer
                     control.DataContext = reminder;
                     break;
             }
+
+            return control;
+        }
+
+        public static Control EventShowControlFactoryMethod(Event ev)
+        {
+            Control control = null;
+
+                switch (GetEventType(ev))
+                {
+                    case "Birthday":
+                        control = new BirthdayShowControl();
+                        break;
+                    case "Holiday":
+                        control = new HolidayShowControl();
+                        break;
+                    case "Job":
+                        control = new JobShowControl();
+                        //using (organizerEntities db = new organizerEntities())
+                        //{
+                        //    db.Entry(ev).Reference(j => j.Start).Load();
+                        //    db.Entry(ev).Reference(j => j.Deadline).Load();
+                        //}
+                        break;
+                    case "Meeting":
+                        //using (organizerEntities db = new organizerEntities())
+                        //{
+                        //    db.Entry((Meeting)ev).Reference(m => m.Start).Load();
+                        //    db.Entry((Meeting)ev).Reference(m => m.End).Load();
+                        //}
+                        control = new MeetingShowControl();
+                        break;
+                    case "Reminder":
+                        control = new ReminderShowControl();
+                        break;
+                }
 
             return control;
         }
