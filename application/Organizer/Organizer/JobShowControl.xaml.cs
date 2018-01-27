@@ -16,23 +16,23 @@ using System.Windows.Shapes;
 namespace Organizer
 {
     /// <summary>
-    /// Interaction logic for BirthdayShowControl.xaml
+    /// Interaction logic for JobShowControl.xaml
     /// </summary>
-    public partial class BirthdayShowControl : UserControl
+    public partial class JobShowControl : UserControl
     {
-        public BirthdayShowControl()
+        public JobShowControl()
         {
             InitializeComponent();
-        }
-
-        private void Edit_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void OK_Click(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).Close();
+        }
+
+        private void Edit_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

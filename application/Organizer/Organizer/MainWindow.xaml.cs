@@ -42,7 +42,7 @@ namespace Organizer
         {
             using (organizerEntities db = new organizerEntities())
             {
-                var top5 = db.Schedule.Include("Event").Where(s => s.TimeStamp > DateTime.Now).OrderBy(s => s.TimeStamp).DistinctBy(s => s.Event).Take(5);
+
             }
         }
 

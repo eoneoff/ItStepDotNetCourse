@@ -16,21 +16,21 @@ using System.Windows.Shapes;
 namespace Organizer
 {
     /// <summary>
-    /// Interaction logic for BirthdayShowControl.xaml
+    /// Interaction logic for ReminderShowControl.xaml
     /// </summary>
-    public partial class BirthdayShowControl : UserControl
+    public partial class ReminderShowControl : UserControl
     {
-        public BirthdayShowControl()
+        public ReminderShowControl()
         {
             InitializeComponent();
         }
 
-        private void Edit_Click(object sender, RoutedEventArgs e)
+        private void OK_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void OK_Click(object sender, RoutedEventArgs e)
+        private void Edit_Click(object sender, RoutedEventArgs e)
         {
             Window.GetWindow(this).Close();
         }

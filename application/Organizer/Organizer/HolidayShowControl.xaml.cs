@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Organizer
 {
     /// <summary>
-    /// Interaction logic for BirthdayShowControl.xaml
+    /// Interaction logic for HolidayShowControl.xaml
     /// </summary>
-    public partial class BirthdayShowControl : UserControl
+    public partial class HolidayShowControl : UserControl
     {
-        public BirthdayShowControl()
+        public HolidayShowControl()
         {
             InitializeComponent();
         }

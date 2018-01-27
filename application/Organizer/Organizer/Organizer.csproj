@@ -119,6 +119,9 @@
     <Compile Include="HolidayEditControl.xaml.cs">
       <DependentUpon>HolidayEditControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HolidayShowControl.xaml.cs">
+      <DependentUpon>HolidayShowControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Income.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
@@ -130,6 +133,9 @@
     </Compile>
     <Compile Include="JobEditControl.xaml.cs">
       <DependentUpon>JobEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="JobShowControl.xaml.cs">
+      <DependentUpon>JobShowControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Meeting.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
@@ -183,7 +189,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="HolidayShowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="JobEditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="JobShowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
