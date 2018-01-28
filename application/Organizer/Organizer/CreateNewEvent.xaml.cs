@@ -34,36 +34,18 @@ namespace Organizer
                 editor = null;
             }
 
-            switch (EventTypeSelector.SelectedIndex)
+            if(EventTypeSelector.SelectedIndex==0)
             {
-                case 0:
-                    Height=120;
-                    break;
-                case 1:
-                    Height = 440;
-                    break;
-                case 2:
-                    Height = 585;
-                    break;
-                case 3:
-                    Height = 530;
-                    break;
-                case 4:
-                    Height = 360;
-                    break;
-                case 5:
-                    Height = 360;
-                    break;
-                default:
-                    return;
+                Height = 120;
             }
-
-
-            if (EventTypeSelector.SelectedIndex > 0)
+            else
             {
-                editor = Accessories.EventEditControlFactoryMethod(((TextBlock)EventTypeSelector.SelectedItem).Text, Date.SelectedDate);
+                Event ev = Event.GetEventOfType(((TextBlock)EventTypeSelector.SelectedItem).Text);
+                ev.Initialize((DateTime)Date.SelectedDate);
+                editor = ev.GetEditControl();
                 Grid.SetRow(editor, 2);
                 Win.Children.Add(editor);
+                Height = 120+ev.EditControlHeight;
             }
         }
     }

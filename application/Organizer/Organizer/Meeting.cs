@@ -11,7 +11,8 @@ namespace Organizer
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Windows.Controls;
+
     public partial class Meeting : Event
     {
         public int MeetingStartId { get; set; }
@@ -20,5 +21,50 @@ namespace Organizer
     
         public virtual Schedule End { get; set; }
         public virtual Schedule Start { get; set; }
+
+        public override string EventTypeRus
+        {
+            get { return "Встреча"; }
+        }
+
+        public override string EventType
+        {
+            get { return "Meeting"; }
+        }
+
+        public override int EditControlHeight
+        {
+            get { return 470; }
+        }
+
+        public override int ShowControlHeight
+        {
+            get { return 350; }
+        }
+
+        public override void Initialize(DateTime date)
+        {
+            Priority = 1;
+            Schedule start = new Schedule();
+            start.TimeStamp = (DateTime)date;
+            Schedule end = new Schedule();
+            end.TimeStamp = start.TimeStamp + TimeSpan.FromHours(1);
+            Start = start;
+            End = end;
+        }
+
+        public override Control GetEditControl()
+        {
+            MeetingEditControl control = new MeetingEditControl();
+            control.DataContext = this;
+            return control;
+        }
+
+        public override Control GetShowControl()
+        {
+            MeetingShowControl control = new MeetingShowControl();
+            control.DataContext = this;
+            return control;
+        }
     }
 }

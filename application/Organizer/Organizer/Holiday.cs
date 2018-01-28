@@ -11,12 +11,55 @@ namespace Organizer
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Windows.Controls;
+
     public partial class Holiday : Event
     {
         public int HolidayDateId { get; set; }
         public bool Bank { get; set; }
     
         public virtual Schedule Date { get; set; }
+
+        public override string EventTypeRus
+        {
+            get { return "Праздник"; }
+        }
+
+        public override string EventType
+        {
+            get { return "Holiday"; }
+        }
+
+        public override int EditControlHeight
+        {
+            get { return 250; }
+        }
+
+        public override int ShowControlHeight
+        {
+            get { return 290; }
+        }
+
+        public override void Initialize(DateTime date)
+        {
+            Priority = 1;
+            Schedule holidayDate = new Schedule();
+            holidayDate.TimeStamp = (DateTime)date;
+            Date = holidayDate;
+        }
+
+        public override Control GetEditControl()
+        {
+            HolidayEditControl control = new HolidayEditControl();
+            control.DataContext = this;
+            return control;
+        }
+
+        public override Control GetShowControl()
+        {
+            HolidayShowControl control = new HolidayShowControl();
+            control.DataContext = this;
+            return control;
+        }
     }
 }

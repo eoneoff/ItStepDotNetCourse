@@ -29,7 +29,7 @@ namespace Organizer
                 var top5 = db.Schedule.Include("Event").Where(s => s.TimeStamp > DateTime.Now).OrderBy(s => s.TimeStamp).DistinctBy(s => s.Event).Take(5).ToList();
                 foreach (var s in top5)
                 {
-                    if (Accessories.GetEventType(s.Event) == "Job")
+                    if (s.Event.EventType == "Job")
                     {
                         if (!db.Entry((Job)s.Event).Reference(j => j.Start).IsLoaded)
                             db.Entry((Job)s.Event).Reference(j => j.Start).Load();
@@ -37,7 +37,7 @@ namespace Organizer
 
                     else
                     {
-                        if (Accessories.GetEventType(s.Event) == "Meeting")
+                        if (s.Event.EventType == "Meeting")
                         {
                             if (!db.Entry((Meeting)s.Event).Reference(m => m.Start).IsLoaded)
                                 db.Entry((Meeting)s.Event).Reference(m => m.Start).Load();
@@ -62,7 +62,7 @@ namespace Organizer
         private void Top5Events_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Event ev = ((Schedule)Top5Events.SelectedItem).Event;
-            RecordWindow window = Accessories.GetEventShowWindowFactoryMethod(ev);      
+            RecordWindow window = ev.GetShowWindow();      
             window.Show();
         }
     }
