@@ -26,17 +26,8 @@ namespace Organizer
         public DateTime? SelectedDateTime
         {
             get { return (DateTime?)GetValue(SelectedDateTimeProperty); }
-            set { SetValue(SelectedDateTimeProperty, value); }
-        }
-
-        public int Hours
-        {
-            get { return (SelectedDateTime == null) ? 0 : ((DateTime)SelectedDateTime).Hour; }
-        }
-
-        public int Minutes
-        {
-            get { return (SelectedDateTime == null) ? 0 : ((DateTime)SelectedDateTime).Minute; }
+            set
+            { SetValue(SelectedDateTimeProperty, value); }
         }
 
         public DateTimePickerControl()
@@ -59,6 +50,12 @@ namespace Organizer
 
             }
 
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            HoursPicker.SelectedIndex = ((DateTime)SelectedDateTime).Hour;
+            MinutesPicker.SelectedIndex = ((DateTime)SelectedDateTime).Minute;
         }
     }
 }

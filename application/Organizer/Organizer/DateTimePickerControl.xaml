@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Organizer"
              mc:Ignorable="d" 
-             d:DesignHeight="80" d:DesignWidth="300">
+             d:DesignHeight="80" d:DesignWidth="300" Loaded="UserControl_Loaded">
     <Grid Margin="5">
         <Grid.Resources>
             <Style x:Key="{x:Type Label}" TargetType="{x:Type Label}">
@@ -27,11 +27,9 @@
         <Label Grid.Row="0" Grid.Column="0" Content="Дата"/>
         <DatePicker Name="DatePicker" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4" Margin="0,5,5,5" SelectedDate="{Binding RelativeSource={RelativeSource AncestorType=local:DateTimePickerControl}, Path=SelectedDateTime, Mode=OneWay}" SelectedDateChanged="ChangeDateTime"/>
         <Label Grid.Row="1" Grid.Column="0" Content="Время"/>
-        <ComboBox Name="HoursPicker" Grid.Row="1" Grid.Column="1" Margin="0,5,5,5"
-                  SelectedIndex="{Binding RelativeSource={RelativeSource AncestorType=local:DateTimePickerControl}, Path=Hours, Mode=OneWay}"
-                  SelectionChanged="ChangeDateTime"/>
+        <ComboBox Name="HoursPicker" Grid.Row="1" Grid.Column="1" Margin="0,5,5,5" SelectionChanged="ChangeDateTime"/>
         <Label Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0" Content="ч"/>
-        <ComboBox Name="MinutesPicker" Grid.Row="1" Grid.Column="3" Margin="5" SelectedIndex="{Binding RelativeSource={RelativeSource AncestorType=local:DateTimePickerControl}, Path=Minutes, Mode=OneWay}" SelectionChanged="ChangeDateTime"/>
+        <ComboBox Name="MinutesPicker" Grid.Row="1" Grid.Column="3" Margin="5" SelectionChanged="ChangeDateTime"/>
         <Label Grid.Row="1" Grid.Column="4" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="мин"/>
     </Grid>
 </UserControl>
