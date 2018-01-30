@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Organizer"
              mc:Ignorable="d" 
-             d:DesignHeight="80" d:DesignWidth="300" Loaded="UserControl_Loaded">
+             d:DesignHeight="80" d:DesignWidth="300">
     <Grid Margin="5">
         <Grid.Resources>
             <Style x:Key="{x:Type Label}" TargetType="{x:Type Label}">
@@ -29,7 +29,7 @@
         <Label Grid.Row="1" Grid.Column="0" Content="Время"/>
         <ComboBox Name="HoursPicker" Grid.Row="1" Grid.Column="1" Margin="0,5,5,5" SelectionChanged="ChangeDateTime"/>
         <Label Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="0" Content="ч"/>
-        <ComboBox Name="MinutesPicker" Grid.Row="1" Grid.Column="3" Margin="5" SelectionChanged="ChangeDateTime"/>
+        <ComboBox Name="MinutesPicker" Grid.Row="1" Grid.Column="3" Margin="5"/>
         <Label Grid.Row="1" Grid.Column="4" Margin="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Content="мин"/>
     </Grid>
 </UserControl>

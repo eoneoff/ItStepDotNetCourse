@@ -33,7 +33,7 @@ namespace Organizer
 
         public override int EditControlHeight
         {
-            get { return 420; }
+            get { return 450; }
         }
 
         public override int ShowControlHeight
