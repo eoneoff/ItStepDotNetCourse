@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Organizer"
              mc:Ignorable="d" 
-             d:DesignHeight="330" d:DesignWidth="300">
+             d:DesignHeight="365" d:DesignWidth="300">
     <Grid>
         <Grid.Resources>
             <Style x:Key="{x:Type Label}" TargetType="{x:Type Label}">
@@ -14,6 +14,7 @@
             </Style>
         </Grid.Resources>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -27,9 +28,8 @@
         <local:DateTimePickerControl x:Name="DateTimePicker" Grid.Row="1" Grid.ColumnSpan="2" SelectedDateTime="{Binding Path=AlarmTime.TimeStamp, Mode=TwoWay}"/>
         <Label Grid.Row="2" Grid.Column="0" Content="Напоминание"/>
         <TextBox Grid.Row="2" Grid.Column="1"  Margin="5" MaxLines ="5" Height="60" Text="{Binding Memo}"/>
-        <Button Grid.Row="3" Grid.Column="0" Name="Save" Width ="70" HorizontalAlignment="Left" Content="Сохранить" Margin="5" Click="Save_Click"/>
-        <Button Grid.Row="3" Grid.Column="1" Name="Cancel" Content="Отмена"
-                Width ="70" HorizontalAlignment="Right" Margin="5"
-                Click="Cancel_Click"/>
+        <local:RepeatControl Grid.Row="3" Grid.ColumnSpan="2"/>
+        <Button Grid.Row="4" Grid.Column="0" Name="Save" Width ="70" HorizontalAlignment="Left" Content="Сохранить" Margin="5" Click="Save_Click"/>
+        <Button Grid.Row="4" Grid.Column="1" Name="Cancel" Content="Отмена" Width ="70" HorizontalAlignment="Right" Margin="5" Click="Cancel_Click"/>
     </Grid>
 </UserControl>

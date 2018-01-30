@@ -45,6 +45,7 @@ namespace Organizer
         {
             Priority = 1;
             DateOfBirth = (DateTime)date;
+            Repeat = "≈жегодно";
         }
 
         public override Control GetEditControl()

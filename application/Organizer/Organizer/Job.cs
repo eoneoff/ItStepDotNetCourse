@@ -44,6 +44,7 @@ namespace Organizer
         public override void Initialize(DateTime date)
         {
             Priority = 1;
+            Repeat = "Нет";
             Schedule jobStart = new Schedule();
             jobStart.TimeStamp = (DateTime)date;
             Schedule deadline = new Schedule();
