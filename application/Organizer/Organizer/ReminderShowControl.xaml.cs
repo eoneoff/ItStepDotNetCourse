@@ -34,5 +34,10 @@ namespace Organizer
         {
             
         }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -32,7 +32,23 @@ namespace Organizer
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
+            RecordWindow edit = ((Job)DataContext).GetEditWindow();
 
+            edit.Show();
+
+            InitializeComponent();
+        }
+
+        private async void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            using (organizerEntities db = new organizerEntities())
+            {
+                Job job = new Job { Id = ((Job)DataContext).Id };
+                db.Event.Attach(job);
+                db.Event.Remove(job);
+                Window.GetWindow(this).Close();
+                await db.SaveChangesAsync();
+            }
         }
     }
 }

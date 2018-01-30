@@ -21,8 +21,12 @@ namespace Organizer
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static MainWindow MainView;
+
         public MainWindow()
         {
+            MainView = this;
+
             InitializeComponent();
             using (organizerEntities db = new organizerEntities())
             {

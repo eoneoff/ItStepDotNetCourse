@@ -95,6 +95,20 @@ namespace Organizer
             window.Win.Children.Add(showControl);
             window.Height = 35 + ShowControlHeight;
             window.Title = Name;
+
+            return window;
+        }
+
+        public RecordWindow GetEditWindow()
+        {
+            RecordWindow window = new RecordWindow();
+
+            Control editControl = GetEditControl();
+            Grid.SetRow(editControl, 0);
+            window.Win.Children.Add(editControl);
+            window.Height = 35 + EditControlHeight;
+            window.Title = Name;
+
             return window;
         }
 

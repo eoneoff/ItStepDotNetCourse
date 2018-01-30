@@ -30,9 +30,10 @@
         <Label Grid.Row="1" Grid.Column="1" Margin ="5" Content="{Binding DateOfBirth}" ContentStringFormat="{}{0:dd MMMM yyyy}" Language="ru-Ru"/>
         <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}" Content="Кем приходится:"/>
         <Label Grid.Row="2" Grid.Column="1" Content="{Binding Relation}"/>
-        <Button Grid.Row="3" Grid.Column="0" Name="Edit" Width ="70" HorizontalAlignment="Left" Content="Изменить" Margin="5" Click="Edit_Click"/>
-        <Button Grid.Row="3" Grid.Column="1" Name="OK" Content="OK"
-                Width ="70" HorizontalAlignment="Right" Margin="5"
-                Click="OK_Click"/>
+        <UniformGrid Grid.Row="3" Grid.ColumnSpan="2" Columns="3">
+            <Button Name="Edit" Width ="70" Content="Изменить" Margin="5" Click="Edit_Click"/>
+            <Button Name="Delete" Width="70" Content="Удалить" Margin="5" Click="Delete_Click"/>
+            <Button Name="OK" Content="OK" Width ="70" Margin="5" Click="OK_Click"/>
+        </UniformGrid>
     </Grid>
 </UserControl>

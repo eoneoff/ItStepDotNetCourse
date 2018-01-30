@@ -162,6 +162,9 @@
     <Compile Include="ReminderShowControl.xaml.cs">
       <DependentUpon>ReminderShowControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RepeatControl.xaml.cs">
+      <DependentUpon>RepeatControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Schedule.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
@@ -238,6 +241,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ReminderShowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RepeatControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -34,5 +34,10 @@ namespace Organizer
         {
             Window.GetWindow(this).Close();
         }
+
+        private void Delete_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

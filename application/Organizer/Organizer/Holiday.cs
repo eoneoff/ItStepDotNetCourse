@@ -32,7 +32,7 @@ namespace Organizer
 
         public override int EditControlHeight
         {
-            get { return 250; }
+            get { return 280; }
         }
 
         public override int ShowControlHeight
@@ -43,6 +43,7 @@ namespace Organizer
         public override void Initialize(DateTime date)
         {
             Priority = 1;
+            Repeat = "Нет";
             Schedule holidayDate = new Schedule();
             holidayDate.TimeStamp = (DateTime)date;
             Date = holidayDate;
