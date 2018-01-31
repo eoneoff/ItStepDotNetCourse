@@ -26,8 +26,7 @@ namespace Organizer
         public DateTime? SelectedDateTime
         {
             get { return (DateTime?)GetValue(SelectedDateTimeProperty); }
-            set
-            { SetValue(SelectedDateTimeProperty, value); }
+            set { SetValue(SelectedDateTimeProperty, value); }
         }
 
         public DateTimePickerControl()

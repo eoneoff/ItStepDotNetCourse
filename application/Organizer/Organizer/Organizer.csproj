@@ -73,6 +73,9 @@
     <Compile Include="Alarm.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="AllEventsView.xaml.cs">
+      <DependentUpon>AllEventsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Article.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
@@ -145,6 +148,12 @@
     <Compile Include="MeetingShowControl.xaml.cs">
       <DependentUpon>MeetingShowControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OneDayViewControl.xaml.cs">
+      <DependentUpon>OneDayViewControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OneWeekViewControl.xaml.cs">
+      <DependentUpon>OneWeekViewControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OrganizerModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -168,6 +177,10 @@
     <Compile Include="Schedule.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
+    <Page Include="AllEventsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="BirthdayEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -229,6 +242,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MeetingShowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OneDayViewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OneWeekViewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

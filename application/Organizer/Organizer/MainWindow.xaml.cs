@@ -23,11 +23,14 @@ namespace Organizer
     {
         public static MainWindow MainView;
 
+        private Control view;
+
         public MainWindow()
         {
             MainView = this;
 
             InitializeComponent();
+            ViewModePicker.SelectedIndex = 0;
             using (organizerEntities db = new organizerEntities())
             {
                 var top5 = db.Schedule.Include("Event").Where(s => s.TimeStamp > DateTime.Now).OrderBy(s => s.TimeStamp).DistinctBy(s => s.Event).Take(5).ToList();
@@ -49,10 +52,6 @@ namespace Organizer
                     }
                 }
                 Top5Events.ItemsSource = top5;
-
-                var allEventsShort = db.Schedule.Include("Event").OrderBy(s => s.TimeStamp).ToList();
-
-                EventList.ItemsSource = allEventsShort;
             }
         }
 
@@ -68,6 +67,32 @@ namespace Organizer
             Event ev = ((Schedule)Top5Events.SelectedItem).Event;
             RecordWindow window = ev.GetShowWindow();      
             window.Show();
+        }
+
+        private void ViewModePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MainPanel.Children.Remove(view);
+
+            switch (ViewModePicker.SelectedIndex)
+            {
+                case 0:
+                    view = new AllEventsView();
+                    break;
+                case 1:
+                    view = new OneDayViewControl();
+                    Binding b = new Binding("SelectedDate");
+                    b.Source = CurrentDate;
+                    b.Mode = BindingMode.TwoWay;
+                    view.SetBinding(OneDayViewControl.CurrentDateProperty, b);
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+            }
+
+            Grid.SetRow(view, 1);
+            MainPanel.Children.Add(view);
         }
     }
 }
