@@ -73,6 +73,10 @@ namespace Organizer
         {
             MainPanel.Children.Remove(view);
 
+            Binding b = new Binding("SelectedDate");
+            b.Source = CurrentDate;
+            b.Mode = BindingMode.TwoWay;
+
             switch (ViewModePicker.SelectedIndex)
             {
                 case 0:
@@ -80,14 +84,15 @@ namespace Organizer
                     break;
                 case 1:
                     view = new OneDayViewControl();
-                    Binding b = new Binding("SelectedDate");
-                    b.Source = CurrentDate;
-                    b.Mode = BindingMode.TwoWay;
                     view.SetBinding(OneDayViewControl.CurrentDateProperty, b);
                     break;
                 case 2:
+                    view = new OneWeekViewControl();
+                    view.SetBinding(OneWeekViewControl.CurrentDateProperty, b);
                     break;
                 case 3:
+                    view = new OneMonthControl();
+                    view.SetBinding(OneMonthControl.CurrentDateProperty, b);
                     break;
             }
 

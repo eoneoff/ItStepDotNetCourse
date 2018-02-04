@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 
 namespace Organizer
 {
@@ -73,6 +72,13 @@ namespace Organizer
         {
             
             ((OneDayViewControl)sender).getEvents();
+        }
+
+        private void EventList_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Event ev = ((Schedule)EventList.SelectedItem).Event;
+            RecordWindow eventView = ev.GetShowWindow();
+            eventView.Show();
         }
     }
 }

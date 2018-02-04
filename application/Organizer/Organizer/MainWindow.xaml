@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Organizer"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="dotNetOrganizer" ResizeMode="CanMinimize" Height="370" Width="900">
+        Title="dotNetOrganizer" ResizeMode="CanMinimize" Height="370" Width="730">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -17,7 +17,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Calendar Grid.Row="0" Name="PreviewCalendar" BorderThickness="0" SelectedDate="{x:Static sys:DateTime.Today}" MouseDoubleClick="Calendar_MouseDoubleClick"/>
+            <Calendar Grid.Row="0" Name="PreviewCalendar" BorderThickness="0" SelectedDate="{x:Static sys:DateTime.Today}" 
+                      DisplayDate="{Binding RelativeSource={RelativeSource Mode=Self}, Path=SelectedDate}" MouseDoubleClick="Calendar_MouseDoubleClick"/>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>

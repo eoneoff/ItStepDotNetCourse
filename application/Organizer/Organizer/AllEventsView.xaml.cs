@@ -39,5 +39,11 @@ namespace Organizer
             }
         }
 
+        private void EventList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Event ev = ((Schedule)EventList.SelectedItem).Event;
+            RecordWindow eventView = ev.GetShowWindow();
+            eventView.Show();
+        }
     }
 }

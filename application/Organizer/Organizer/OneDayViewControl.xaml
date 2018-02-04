@@ -16,7 +16,9 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <DataGrid Grid.Row="0" Grid.ColumnSpan="2" Name="EventList" EnableColumnVirtualization="True"
-                              AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" VerticalAlignment="Top" HorizontalAlignment="Left" Width="485" Height="200" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                              AutoGenerateColumns="False" SelectionMode="Single"
+                  IsReadOnly="True" VerticalAlignment="Top" HorizontalAlignment="Left" Width="485" Height="200"
+                  HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" MouseDoubleClick="EventList_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="EventTypeColumn" Header="Тип" Binding="{Binding Path=Event.EventTypeRus}"/>
                 <DataGridTextColumn x:Name="TimeColumn" Header="Время" Binding="{Binding Path=TimeStamp.TimeOfDay}"/>

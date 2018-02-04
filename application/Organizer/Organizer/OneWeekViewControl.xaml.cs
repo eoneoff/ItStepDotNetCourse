@@ -21,7 +21,7 @@ namespace Organizer
     public partial class OneWeekViewControl : UserControl
     {
         public static readonly DependencyProperty CurrentDateProperty =
-            DependencyProperty.Register("CurrentDate", typeof(DateTime?), typeof(OneDayViewControl),
+            DependencyProperty.Register("CurrentDate", typeof(DateTime?), typeof(OneWeekViewControl),
                 new PropertyMetadata(default(DateTime?), new PropertyChangedCallback(CurrentDateChanged)));
 
         public DateTime? CurrentDate
@@ -88,6 +88,13 @@ namespace Organizer
         {
 
             ((OneWeekViewControl)sender).getEvents();
+        }
+
+        private void EventList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Event ev = ((Schedule)EventList.SelectedItem).Event;
+            RecordWindow eventView = ev.GetShowWindow();
+            eventView.Show();
         }
     }
 }

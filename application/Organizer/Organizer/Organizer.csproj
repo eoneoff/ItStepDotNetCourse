@@ -151,6 +151,9 @@
     <Compile Include="OneDayViewControl.xaml.cs">
       <DependentUpon>OneDayViewControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OneMonthControl.xaml.cs">
+      <DependentUpon>OneMonthControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OneWeekViewControl.xaml.cs">
       <DependentUpon>OneWeekViewControl.xaml</DependentUpon>
     </Compile>
@@ -246,6 +249,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="OneDayViewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OneMonthControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

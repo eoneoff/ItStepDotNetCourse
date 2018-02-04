@@ -7,7 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="485" HorizontalAlignment="Left" VerticalAlignment="Top">
     <DataGrid Name="EventList" EnableColumnVirtualization="True"
-                              AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" VerticalAlignment="Top" HorizontalAlignment="Left" Width="485" Height="200" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                              AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True"
+              VerticalAlignment="Top" HorizontalAlignment="Left" Width="485" Height="200"
+              HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" MouseDoubleClick="EventList_MouseDoubleClick">
         <DataGrid.Columns>
             <DataGridTextColumn x:Name="TypeColumn" Header="Тип" Binding="{Binding Path=Event.EventTypeRus}"/>
             <DataGridTextColumn x:Name="NameColumn" Header="Имя" Binding="{Binding Path=Event.Name}"/>
