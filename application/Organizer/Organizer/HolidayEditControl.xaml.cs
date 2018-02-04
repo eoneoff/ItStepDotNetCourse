@@ -30,7 +30,10 @@ namespace Organizer
             Holiday holiday = DataContext as Holiday;
             using (organizerEntities db = new organizerEntities())
             {
-                db.Event.Add(holiday);
+                db.Entry(holiday).State = holiday.Id == 0 ?
+                        System.Data.Entity.EntityState.Added :
+                        System.Data.Entity.EntityState.Modified;
+
                 Window.GetWindow(this).Close();
                 await db.SaveChangesAsync();
             }

@@ -249,6 +249,7 @@ UpgradeLog*.htm
 #*.mdf
 #*.ldf
 #*.ndf
+base/
 
 # Business Intelligence projects
 *.rdl.data

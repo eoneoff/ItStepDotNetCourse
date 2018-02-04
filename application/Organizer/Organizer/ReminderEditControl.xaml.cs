@@ -37,7 +37,10 @@ namespace Organizer
             {
                 using (organizerEntities db = new organizerEntities())
                 {
-                    db.Event.Add(reminder);
+                    db.Entry(reminder).State = reminder.Id == 0 ?
+                        System.Data.Entity.EntityState.Added :
+                        System.Data.Entity.EntityState.Modified;
+
                     Window.GetWindow(this).Close();
                     await db.SaveChangesAsync();
                 }
