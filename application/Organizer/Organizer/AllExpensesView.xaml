@@ -10,6 +10,6 @@
                               AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True"
               VerticalAlignment="Top" HorizontalAlignment="Left" Width="485" Height="200"
               HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" MouseDoubleClick="ExensesList_MouseDoubleClick">
-        <DataGridTextColumn x:Name="Date"/>
+        <DataGridTextColumn x:Name="DateColumn" Header="Дата" Binding="{Binding DateTime}"/>
     </DataGrid>
 </UserControl>

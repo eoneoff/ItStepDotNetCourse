@@ -11,12 +11,20 @@ namespace Organizer
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Windows.Controls;
+
     public partial class Income : Article
     {
         public int SourceId { get; set; }
         public decimal Summ { get; set; }
     
         public virtual IncomeSource IncomeSource { get; set; }
+
+        public override Control GetEditControl()
+        {
+            IncomeEditControl control = new IncomeEditControl();
+            control.DataContext = this;
+            return control;
+        }
     }
 }

@@ -103,24 +103,38 @@ namespace Organizer
 
         private void ExpensesViewModePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Binding b = new Binding("SelectedDate");
-            b.Source = CurrentDate;
-            b.Mode = BindingMode.TwoWay;
+            //Binding b = new Binding("SelectedDate");
+            //b.Source = CurrentDate;
+            //b.Mode = BindingMode.TwoWay;
 
-            switch(ExpensesViewModePicker.SelectedIndex)
-            {
-                case 0:
-                    break;
-                case 1:
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-            }
+            //switch(ExpensesViewModePicker.SelectedIndex)
+            //{
+            //    case 0:
+            //        break;
+            //    case 1:
+            //        break;
+            //    case 2:
+            //        break;
+            //    case 3:
+            //        break;
+            //}
 
-            Grid.SetRow(expensesView, 1);
-            MainExpensesPanel.Children.Add(expensesView);
+            //Grid.SetRow(expensesView, 1);
+            //MainExpensesPanel.Children.Add(expensesView);
+        }
+
+        private void NewEvent_Click(object sender, RoutedEventArgs e)
+        {
+            CreateNewEvent create = new CreateNewEvent();
+            create.Date.SelectedDate = CurrentDate.SelectedDate;
+            create.Show();
+        }
+
+        private void NewIncome_Click(object sender, RoutedEventArgs e)
+        {
+            Income income = new Income() { DateTime=(DateTime)CurrentDate.SelectedDate};
+            RecordWindow window = income.GetEditWindow();
+            window.Show();
         }
     }
 }

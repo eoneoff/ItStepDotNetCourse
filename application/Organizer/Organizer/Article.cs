@@ -11,10 +11,25 @@ namespace Organizer
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Windows.Controls;
+
     public partial class Article
     {
         public int Id { get; set; }
         public System.DateTime DateTime { get; set; }
+
+        public virtual RecordWindow GetEditWindow()
+        {
+            RecordWindow window = new RecordWindow();
+            Control control = GetEditControl();
+            Grid.SetRow(control, 0);
+            window.Win.Children.Add(control);
+            return window;
+        }
+
+        public virtual Control GetEditControl()
+        {
+            throw new ArithmeticException();
+        }
     }
 }
