@@ -91,6 +91,9 @@
     <Compile Include="AllEventsView.xaml.cs">
       <DependentUpon>AllEventsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AllExpensesView.xaml.cs">
+      <DependentUpon>AllExpensesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Article.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
@@ -196,6 +199,10 @@
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
     <Page Include="AllEventsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AllExpensesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

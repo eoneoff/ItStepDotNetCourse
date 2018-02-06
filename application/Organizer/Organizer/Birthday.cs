@@ -11,7 +11,6 @@ namespace Organizer
 {
     using System;
     using System.Collections.Generic;
-    using System.Windows.Controls;
     
     public partial class Birthday : Event
     {
@@ -20,46 +19,5 @@ namespace Organizer
         public System.DateTime DateOfBirth { get; set; }
     
         public virtual Schedule NextBirthday { get; set; }
-
-        public override string EventTypeRus
-        {
-            get { return "День рождения"; }
-        }
-
-        public override string EventType
-        {
-            get { return "Birthday"; }
-        }
-
-        public override int EditControlHeight
-        {
-            get { return 250; }
-        }
-
-        public override int ShowControlHeight
-        {
-            get { return 290; }
-        }
-
-        public override void Initialize(DateTime date)
-        {
-            Priority = 1;
-            DateOfBirth = (DateTime)date;
-            Repeat = "Ежегодно";
-        }
-
-        public override Control GetEditControl()
-        {
-            BirthdayEditControl control = new BirthdayEditControl();
-            control.DataContext = this;
-            return control;
-        }
-
-        public override Control GetShowControl()
-        {
-            BirthdayShowControl control = new BirthdayShowControl();
-            control.DataContext = this;
-            return control;
-        }
     }
 }

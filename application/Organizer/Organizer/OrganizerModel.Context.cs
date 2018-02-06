@@ -28,10 +28,8 @@ namespace Organizer
         public virtual DbSet<Alarm> Alarm { get; set; }
         public virtual DbSet<Article> Article { get; set; }
         public virtual DbSet<Event> Event { get; set; }
-        public virtual DbSet<Expenditure> Expenditure { get; set; }
         public virtual DbSet<ExpenditureName> ExpenditureName { get; set; }
         public virtual DbSet<ExpenditureType> ExpenditureType { get; set; }
-        public virtual DbSet<Income> Income { get; set; }
         public virtual DbSet<IncomeSource> IncomeSource { get; set; }
         public virtual DbSet<Schedule> Schedule { get; set; }
     }

@@ -25,7 +25,7 @@ namespace Organizer
             InitializeComponent();
             using (organizerEntities db = new organizerEntities())
             {
-                var allEventsShort = db.Schedule.Include("Event").OrderBy(s => s.TimeStamp).ToList();
+                var allEventsShort = db.Schedule.Include("Event").Where(s=>s.TimeStamp>=DateTime.Today).OrderBy(s => s.TimeStamp).ToList();
 
                 EventList.ItemsSource = allEventsShort;
             }

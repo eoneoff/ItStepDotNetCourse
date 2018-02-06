@@ -484,8 +484,6 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Expenditure" Relationship="Self.FK_Expenditure_Article" FromRole="Article" ToRole="Expenditure" />
-          <NavigationProperty Name="Income" Relationship="Self.FK_Income_Article" FromRole="Article" ToRole="Income" />
         </EntityType>
         <EntityType Name="Birthday" BaseType="organizerModel.Event">
           <Property Name="NextBirthdayId" Type="Int32" Nullable="false" />
@@ -506,17 +504,12 @@
           <NavigationProperty Name="Schedule" Relationship="Self.FK_Schedule_Event" FromRole="Event" ToRole="Schedule" />
           <NavigationProperty Name="Alarm" Relationship="Self.Alarm_Event" FromRole="Event" ToRole="Alarm" />
         </EntityType>
-        <EntityType Name="Expenditure">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+        <EntityType Name="Expenditure" BaseType="organizerModel.Article">
           <Property Name="TypeId" Type="Int32" Nullable="false" />
           <Property Name="NameId" Type="Int32" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
           <Property Name="Summ" Type="Decimal" Precision="19" Scale="4" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Article" Relationship="Self.FK_Expenditure_Article" FromRole="Expenditure" ToRole="Article" />
           <NavigationProperty Name="ExpenditureName" Relationship="Self.FK_Expenditure_ExpenditureName" FromRole="Expenditure" ToRole="ExpenditureName" />
           <NavigationProperty Name="ExpenditureType" Relationship="Self.FK_Expenditure_ExpenditureType" FromRole="Expenditure" ToRole="ExpenditureType" />
         </EntityType>
@@ -541,14 +534,9 @@
           <Property Name="Bank" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Date" Relationship="Self.FK_Holiday_Schedule" FromRole="Holiday" ToRole="Schedule" />
         </EntityType>
-        <EntityType Name="Income">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+        <EntityType Name="Income" BaseType="organizerModel.Article">
           <Property Name="SourceId" Type="Int32" Nullable="false" />
           <Property Name="Summ" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <NavigationProperty Name="Article" Relationship="Self.FK_Income_Article" FromRole="Income" ToRole="Article" />
           <NavigationProperty Name="IncomeSource" Relationship="Self.FK_Income_IncomeSource" FromRole="Income" ToRole="IncomeSource" />
         </EntityType>
         <EntityType Name="IncomeSource">
@@ -593,30 +581,6 @@
           <NavigationProperty Name="MeetingStart" Relationship="Self.FK_MeetingStart_Schedule" FromRole="Schedule" ToRole="Meeting" />
           <NavigationProperty Name="Reminder" Relationship="Self.FK_Reminder_Schedule" FromRole="Schedule" ToRole="Reminder" />
         </EntityType>
-        <Association Name="FK_Expenditure_Article">
-          <End Role="Article" Type="Self.Article" Multiplicity="1" />
-          <End Role="Expenditure" Type="Self.Expenditure" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Article">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Expenditure">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Income_Article">
-          <End Role="Article" Type="Self.Article" Multiplicity="1" />
-          <End Role="Income" Type="Self.Income" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Article">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Income">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Birthday_Schedule">
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
           <End Role="Birthday" Type="Self.Birthday" Multiplicity="*" />
@@ -757,20 +721,10 @@
           <EntitySet Name="Alarm" EntityType="Self.Alarm" />
           <EntitySet Name="Article" EntityType="Self.Article" />
           <EntitySet Name="Event" EntityType="Self.Event" />
-          <EntitySet Name="Expenditure" EntityType="Self.Expenditure" />
           <EntitySet Name="ExpenditureName" EntityType="Self.ExpenditureName" />
           <EntitySet Name="ExpenditureType" EntityType="Self.ExpenditureType" />
-          <EntitySet Name="Income" EntityType="Self.Income" />
           <EntitySet Name="IncomeSource" EntityType="Self.IncomeSource" />
           <EntitySet Name="Schedule" EntityType="Self.Schedule" />
-          <AssociationSet Name="FK_Expenditure_Article" Association="Self.FK_Expenditure_Article">
-            <End Role="Article" EntitySet="Article" />
-            <End Role="Expenditure" EntitySet="Expenditure" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Income_Article" Association="Self.FK_Income_Article">
-            <End Role="Article" EntitySet="Article" />
-            <End Role="Income" EntitySet="Income" />
-          </AssociationSet>
           <AssociationSet Name="FK_Birthday_Schedule" Association="Self.FK_Birthday_Schedule">
             <End Role="Schedule" EntitySet="Schedule" />
             <End Role="Birthday" EntitySet="Event" />
@@ -781,11 +735,11 @@
           </AssociationSet>
           <AssociationSet Name="FK_Expenditure_ExpenditureName" Association="Self.FK_Expenditure_ExpenditureName">
             <End Role="ExpenditureName" EntitySet="ExpenditureName" />
-            <End Role="Expenditure" EntitySet="Expenditure" />
+            <End Role="Expenditure" EntitySet="Article" />
           </AssociationSet>
           <AssociationSet Name="FK_Expenditure_ExpenditureType" Association="Self.FK_Expenditure_ExpenditureType">
             <End Role="ExpenditureType" EntitySet="ExpenditureType" />
-            <End Role="Expenditure" EntitySet="Expenditure" />
+            <End Role="Expenditure" EntitySet="Article" />
           </AssociationSet>
           <AssociationSet Name="FK_Holiday_Schedule" Association="Self.FK_Holiday_Schedule">
             <End Role="Schedule" EntitySet="Schedule" />
@@ -793,7 +747,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_Income_IncomeSource" Association="Self.FK_Income_IncomeSource">
             <End Role="IncomeSource" EntitySet="IncomeSource" />
-            <End Role="Income" EntitySet="Income" />
+            <End Role="Income" EntitySet="Article" />
           </AssociationSet>
           <AssociationSet Name="FK_JobDeadline_Schedule" Association="Self.FK_JobDeadline_Schedule">
             <End Role="Schedule" EntitySet="Schedule" />
@@ -835,10 +789,27 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Article">
-            <EntityTypeMapping TypeName="organizerModel.Article">
+            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Article)">
               <MappingFragment StoreEntitySet="Article">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Expenditure)">
+              <MappingFragment StoreEntitySet="Expenditure">
+                <ScalarProperty Name="Summ" ColumnName="Summ" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="NameId" ColumnName="NameId" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.Income)">
+              <MappingFragment StoreEntitySet="Income">
+                <ScalarProperty Name="Summ" ColumnName="Summ" />
+                <ScalarProperty Name="SourceId" ColumnName="SourceId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -891,18 +862,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Expenditure">
-            <EntityTypeMapping TypeName="organizerModel.Expenditure">
-              <MappingFragment StoreEntitySet="Expenditure">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
-                <ScalarProperty Name="NameId" ColumnName="NameId" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Summ" ColumnName="Summ" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="ExpenditureName">
             <EntityTypeMapping TypeName="organizerModel.ExpenditureName">
               <MappingFragment StoreEntitySet="ExpenditureName">
@@ -916,15 +875,6 @@
               <MappingFragment StoreEntitySet="ExpenditureType">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Income">
-            <EntityTypeMapping TypeName="organizerModel.Income">
-              <MappingFragment StoreEntitySet="Income">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="SourceId" ColumnName="SourceId" />
-                <ScalarProperty Name="Summ" ColumnName="Summ" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

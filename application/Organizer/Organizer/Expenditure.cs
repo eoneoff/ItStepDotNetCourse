@@ -12,16 +12,14 @@ namespace Organizer
     using System;
     using System.Collections.Generic;
     
-    public partial class Expenditure
+    public partial class Expenditure : Article
     {
-        public int Id { get; set; }
         public int TypeId { get; set; }
         public int NameId { get; set; }
         public decimal Price { get; set; }
         public int Quantity { get; set; }
         public Nullable<decimal> Summ { get; set; }
     
-        public virtual Article Article { get; set; }
         public virtual ExpenditureName ExpenditureName { get; set; }
         public virtual ExpenditureType ExpenditureType { get; set; }
     }

@@ -24,6 +24,7 @@ namespace Organizer
         public static MainWindow MainView;
 
         private Control view;
+        private Control expensesView;
 
         public MainWindow()
         {
@@ -98,6 +99,28 @@ namespace Organizer
 
             Grid.SetRow(view, 1);
             MainPanel.Children.Add(view);
+        }
+
+        private void ExpensesViewModePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Binding b = new Binding("SelectedDate");
+            b.Source = CurrentDate;
+            b.Mode = BindingMode.TwoWay;
+
+            switch(ExpensesViewModePicker.SelectedIndex)
+            {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+            }
+
+            Grid.SetRow(expensesView, 1);
+            MainExpensesPanel.Children.Add(expensesView);
         }
     }
 }

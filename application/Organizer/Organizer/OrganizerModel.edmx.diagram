@@ -19,8 +19,6 @@
         <EntityTypeShape EntityType="organizerModel.Meeting" Width="1.5" PointX="10.5" PointY="17.25" IsExpanded="true" />
         <EntityTypeShape EntityType="organizerModel.Reminder" Width="1.5" PointX="10.5" PointY="20.5" IsExpanded="true" />
         <EntityTypeShape EntityType="organizerModel.Schedule" Width="1.5" PointX="5.25" PointY="24.25" IsExpanded="true" />
-        <AssociationConnector Association="organizerModel.FK_Expenditure_Article" ManuallyRouted="false" />
-        <AssociationConnector Association="organizerModel.FK_Income_Article" ManuallyRouted="false" />
         <AssociationConnector Association="organizerModel.FK_Birthday_Schedule" ManuallyRouted="false" />
         <AssociationConnector Association="organizerModel.FK_Schedule_Event" ManuallyRouted="false" />
         <AssociationConnector Association="organizerModel.FK_Expenditure_ExpenditureName" ManuallyRouted="false" />
@@ -38,6 +36,8 @@
         <InheritanceConnector EntityType="organizerModel.Holiday" />
         <InheritanceConnector EntityType="organizerModel.Birthday" />
         <InheritanceConnector EntityType="organizerModel.Job" />
+        <InheritanceConnector EntityType="organizerModel.Expenditure" />
+        <InheritanceConnector EntityType="organizerModel.Income" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
