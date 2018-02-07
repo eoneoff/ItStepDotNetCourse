@@ -27,7 +27,7 @@ namespace Organizer
             using (organizerEntities db = new organizerEntities())
             {
                 var incomeSources = db.IncomeSource.ToList();
-                IncomeSourceSelector.DataContext = incomeSources;
+                IncomeSourceSelector.ItemsSource = incomeSources;
             }
         }
 
