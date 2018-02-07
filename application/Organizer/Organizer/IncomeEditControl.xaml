@@ -19,7 +19,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>
@@ -28,8 +27,16 @@
         <Label Grid.Row="0" Grid.ColumnSpan="2" Margin="50,5,5,5" FontWeight="Bold" Content="Дата/Время"/>
         <local:DateTimePickerControl x:Name="DateTimeOfIncome" Grid.Row="1" Grid.ColumnSpan="2" SelectedDateTime="{Binding DateTime}"/>
         <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource ReguralLabel}" Content="Источник"/>
-        <ComboBox Name="IncomeSourceSelector" Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding Path=IncomeSource.Name}" IsEditable="True"/>
-        <Label Grid.Row="3" Grid.Column="0" Content="Сумма"/>
+        <ComboBox Name="IncomeSourceSelector" Grid.Row="2" Grid.Column="1" Margin="5" SelectedItem="{Binding IncomeSource, Mode=OneTime}"  IsEditable="True">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=Name}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>    
+        </ComboBox>
+        <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource ReguralLabel}" Content="Сумма"/>
         <TextBox Name="IncomeSum" Grid.Row="3" Grid.Column="2" Margin="5" Text="{Binding Summ}" PreviewTextInput="IncomeSum_PreviewTextInput"/>
+        <Button Grid.Row="4" Grid.Column="0" Name="Save" Width ="70" HorizontalAlignment="Left" Content="Сохранить" Margin="5" Click="Save_Click"/>
+        <Button Grid.Row="4" Grid.Column="1" Name="Cancel" Content="Отмена" Width ="70" HorizontalAlignment="Right" Margin="5" Click="Cancel_Click"/>
     </Grid>
 </UserControl>
