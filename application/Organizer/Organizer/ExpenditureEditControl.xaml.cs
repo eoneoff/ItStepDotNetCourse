@@ -24,6 +24,13 @@ namespace Organizer
         public ExpenditureEditControl()
         {
             InitializeComponent();
+            using (organizerEntities db = new organizerEntities())
+            {
+                var expenditureTypes = db.ExpenditureType.ToList();
+                var expenditureNames = db.ExpenditureName.ToList();
+                ExpenditureTypeSelector.ItemsSource = expenditureTypes;
+                ExpenditureNameSelector.ItemsSource = expenditureNames;
+            }
         }
 
         private async void Save_Click(object sender, RoutedEventArgs e)
@@ -45,16 +52,16 @@ namespace Organizer
             {
                 if (ExpenditureTypeSelector.SelectedIndex == -1)
                 {
-                    if (MessageBox.Show("", "", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    if (MessageBox.Show($"Вы хотите добавить статью расходов {ExpenditureTypeSelector.Text}?", "Вы уверены?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
-                        ExpenditureType type = new ExpenditureType() { Type=ExpenditureNameSelector.Text};
+                        ExpenditureType type = new ExpenditureType() { Type=ExpenditureTypeSelector.Text};
                         expenditure.ExpenditureType = type;
                     }
                 }
 
                 if (ExpenditureNameSelector.SelectedIndex == -1)
                 {
-                    if (MessageBox.Show("", "", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    if (MessageBox.Show($"Вы ходите добавить название {ExpenditureNameSelector.Text}?", "Вы уверены?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
                         ExpenditureName name = new ExpenditureName() { Name = ExpenditureNameSelector.Text };
                         expenditure.ExpenditureName = name;
@@ -64,6 +71,17 @@ namespace Organizer
                 db.Entry(expenditure).State = expenditure.Id == 0 ?
                     System.Data.Entity.EntityState.Added :
                     System.Data.Entity.EntityState.Modified;
+
+                db.Entry(expenditure.ExpenditureType).State = expenditure.ExpenditureType.Id == 0 ?
+                    System.Data.Entity.EntityState.Added :
+                    System.Data.Entity.EntityState.Unchanged;
+
+                db.Entry(expenditure.ExpenditureName).State = expenditure.ExpenditureName.Id == 0 ?
+                    System.Data.Entity.EntityState.Added :
+                    System.Data.Entity.EntityState.Unchanged;
+
+                Window.GetWindow(this).Close();
+                await db.SaveChangesAsync();
             }
         }
 

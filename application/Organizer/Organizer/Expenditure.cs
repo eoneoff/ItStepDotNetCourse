@@ -11,7 +11,8 @@ namespace Organizer
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Windows.Controls;
+
     public partial class Expenditure : Article
     {
         public int TypeId { get; set; }
@@ -22,5 +23,12 @@ namespace Organizer
     
         public virtual ExpenditureName ExpenditureName { get; set; }
         public virtual ExpenditureType ExpenditureType { get; set; }
+
+        public override Control GetEditControl()
+        {
+            ExpenditureEditControl edit = new ExpenditureEditControl();
+            edit.DataContext = this;
+            return edit;
+        }
     }
 }

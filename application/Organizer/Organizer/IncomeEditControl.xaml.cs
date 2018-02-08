@@ -66,6 +66,10 @@ namespace Organizer
                     System.Data.Entity.EntityState.Added :
                     System.Data.Entity.EntityState.Modified;
 
+                    db.Entry(income.IncomeSource).State = income.IncomeSource.Id == 0 ?
+                        System.Data.Entity.EntityState.Added :
+                        System.Data.Entity.EntityState.Unchanged;
+
                     Window.GetWindow(this).Close();
                     await db.SaveChangesAsync();
                 }

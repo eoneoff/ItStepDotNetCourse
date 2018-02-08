@@ -136,5 +136,12 @@ namespace Organizer
             RecordWindow window = income.GetEditWindow();
             window.Show();
         }
+
+        private void NewExpenditure_Click(object sender, RoutedEventArgs e)
+        {
+            Expenditure exp = new Expenditure() { DateTime = (DateTime)CurrentDate.SelectedDate };
+            RecordWindow window = exp.GetEditWindow();
+            window.Show();
+        }
     }
 }

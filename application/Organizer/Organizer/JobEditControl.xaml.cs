@@ -45,6 +45,14 @@ namespace Organizer
                         System.Data.Entity.EntityState.Added :
                         System.Data.Entity.EntityState.Modified;
 
+                    db.Entry(job.Start).State = job.Start.Id == 0 ?
+                        System.Data.Entity.EntityState.Added :
+                        System.Data.Entity.EntityState.Modified;
+
+                    db.Entry(job.Deadline).State = job.Start.Id == 0 ?
+                        System.Data.Entity.EntityState.Added :
+                        System.Data.Entity.EntityState.Modified;
+
                     Window.GetWindow(this).Close();
                     await db.SaveChangesAsync();
                 }
