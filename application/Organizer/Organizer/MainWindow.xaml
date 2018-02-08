@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Organizer"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="dotNetOrganizer" ResizeMode="CanMinimize" Height="370" Width="730">
+        Title="dotNetOrganizer" ResizeMode="CanMinimize" Height="370" Width="750">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -49,7 +49,6 @@
                             <ColumnDefinition Width="104"/>
                             <ColumnDefinition Width="13"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <DatePicker Name="CurrentDate"  Grid.Row="0" Grid.Column="0" Margin="10,5,5,5" SelectedDate="{Binding Path=SelectedDate, ElementName=PreviewCalendar, Mode=TwoWay}" Grid.ColumnSpan="2"/>
                         <ComboBox Name="ViewModePicker" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" Margin="5,5,0,5" Width="150" SelectionChanged="ViewModePicker_SelectionChanged">
@@ -58,7 +57,7 @@
                             <ComboBoxItem>Неделя</ComboBoxItem>
                             <ComboBoxItem>Месяц</ComboBoxItem>
                         </ComboBox>
-                        <Button Name="NewEvent" Content="Создать" Grid.Row="0" Grid.Column="3" Margin="71,5" Width="70" Click="NewEvent_Click"/>
+                        <Button Name="NewEvent" Content="Создать" Grid.Row="0" Grid.Column="2" Margin="71,5" Width="70" Click="NewEvent_Click"/>
                     </Grid>
                 </Grid>
             </TabItem>
@@ -75,7 +74,7 @@
                     <Grid Grid.Row="0" Grid.ColumnSpan="2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>

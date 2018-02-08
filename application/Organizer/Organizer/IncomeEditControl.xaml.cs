@@ -40,7 +40,6 @@ namespace Organizer
         private async void Save_Click(object sender, RoutedEventArgs e)
         {
             Income income = (Income)DataContext;
-            //income.DateTime = (DateTime)DateTimeOfIncome.SelectedDateTime;
             if(String.IsNullOrEmpty(IncomeSourceSelector.Text))
             {
                 MessageBox.Show("Введите или выберите источник дохода", "Внимание", MessageBoxButton.OK, MessageBoxImage.Exclamation);

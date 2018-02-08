@@ -127,6 +127,9 @@
     <Compile Include="Expenditure.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExpenditureEditControl.xaml.cs">
+      <DependentUpon>ExpenditureEditControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExpenditureName.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
@@ -234,6 +237,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EventShowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExpenditureEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -53,8 +53,8 @@ namespace Organizer
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            HoursPicker.SelectedIndex = ((DateTime)SelectedDateTime).Hour;
-            MinutesPicker.SelectedIndex = ((DateTime)SelectedDateTime).Minute;
+            HoursPicker.SelectedIndex = SelectedDateTime != null ? ((DateTime)SelectedDateTime).Hour : 0;
+            MinutesPicker.SelectedIndex = SelectedDateTime != null ? ((DateTime)SelectedDateTime).Minute : 0; ;
         }
     }
 }
