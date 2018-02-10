@@ -35,7 +35,7 @@
         <UniformGrid Grid.Row="4" Grid.ColumnSpan="2" Columns="3">
             <Button Name="Edit" Width ="70" Content="Изменить" Margin="5" Click="Edit_Click"/>
             <Button Name="Delete" Width="70" Content="Удалить" Margin="5" Click="Delete_Click"/>
-            <Button Name="OK" Content="OK" Width ="70" Margin="5" Click="OK_Click"/>
+            <Button Name="OK" Content="OK" Width ="70" Margin="5" Click="OK_Click" IsCancel="True"/>
         </UniformGrid>
     </Grid>    
 </UserControl>

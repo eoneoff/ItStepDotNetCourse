@@ -18,7 +18,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Calendar Grid.Row="0" Name="PreviewCalendar" BorderThickness="0" SelectedDate="{x:Static sys:DateTime.Today}" 
-                      DisplayDate="{Binding RelativeSource={RelativeSource Mode=Self}, Path=SelectedDate}" MouseDoubleClick="Calendar_MouseDoubleClick"/>
+                      DisplayDate="{Binding RelativeSource={RelativeSource Mode=Self}, Path=SelectedDate}" SelectedDatesChanged="PreviewCalendar_SelectedDatesChanged"/>
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -42,52 +42,45 @@
                 <Grid Name="MainPanel">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="104"/>
-                            <ColumnDefinition Width="13"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <DatePicker Name="CurrentDate"  Grid.Row="0" Grid.Column="0" Margin="10,5,5,5" SelectedDate="{Binding Path=SelectedDate, ElementName=PreviewCalendar, Mode=TwoWay}" Grid.ColumnSpan="2"/>
-                        <ComboBox Name="ViewModePicker" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" Margin="5,5,0,5" Width="150" SelectionChanged="ViewModePicker_SelectionChanged">
-                            <ComboBoxItem>Все</ComboBoxItem>
-                            <ComboBoxItem>День</ComboBoxItem>
-                            <ComboBoxItem>Неделя</ComboBoxItem>
-                            <ComboBoxItem>Месяц</ComboBoxItem>
-                        </ComboBox>
-                        <Button Name="NewEvent" Content="Создать" Grid.Row="0" Grid.Column="2" Margin="71,5" Width="70" Click="NewEvent_Click"/>
-                    </Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <DatePicker Name="CurrentDate"  Grid.Row="0" Grid.Column="0" Margin="10,5,5,5" SelectedDate="{Binding Path=SelectedDate, ElementName=PreviewCalendar, Mode=TwoWay}"/>
+                    <ComboBox Name="ViewModePicker" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="5,5,0,5" Width="150" SelectionChanged="ViewModePicker_SelectionChanged">
+                        <ComboBoxItem>Все</ComboBoxItem>
+                        <ComboBoxItem>День</ComboBoxItem>
+                        <ComboBoxItem>Неделя</ComboBoxItem>
+                        <ComboBoxItem>Месяц</ComboBoxItem>
+                    </ComboBox>
+                    <Button Name="NewEvent" Content="Создать" Grid.Row="0" Grid.Column="2" Margin="71,5,0,5" Click="NewEvent_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Расходы">
                 <Grid Name="MainExpensesPanel">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="17"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <Grid Grid.Row="0" Grid.ColumnSpan="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <DatePicker Name="ExpensesCurrentDate"  Grid.Row="0" Grid.Column="0" Margin="10,5,5,5" SelectedDate="{Binding Path=SelectedDate, ElementName=PreviewCalendar, Mode=TwoWay}"/>
-                        <ComboBox Name="ExpensesViewModePicker" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="5" Width="150" SelectionChanged="ExpensesViewModePicker_SelectionChanged">
-                            <ComboBoxItem>Все</ComboBoxItem>
-                            <ComboBoxItem>День</ComboBoxItem>
-                            <ComboBoxItem>Неделя</ComboBoxItem>
-                            <ComboBoxItem>Месяц</ComboBoxItem>
-                        </ComboBox>
-                        <Button Name="NewIncome" Content="Прибыль" Grid.Row="0" Grid.Column="2" Margin="5" Width="70" Click="NewIncome_Click"/>
-                        <Button Name="NewExpenditure" Content="Расход" Grid.Row="0" Grid.Column="3" Margin="5" Width="70" Click="NewExpenditure_Click"/>
-                    </Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <DatePicker Name="ExpensesCurrentDate"  Grid.Row="0" Grid.Column="0" Margin="10,5,5,5" SelectedDate="{Binding Path=SelectedDate, ElementName=PreviewCalendar, Mode=TwoWay}"/>
+                    <ComboBox Name="ExpensesViewModePicker" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="5" Width="150" SelectionChanged="ExpensesViewModePicker_SelectionChanged">
+                        <ComboBoxItem>Все</ComboBoxItem>
+                        <ComboBoxItem>День</ComboBoxItem>
+                        <ComboBoxItem>Неделя</ComboBoxItem>
+                        <ComboBoxItem>Месяц</ComboBoxItem>
+                    </ComboBox>
+                    <Button Name="NewIncome" Content="Прибыль" Grid.Row="0" Grid.Column="2" Margin="5" Width="70" Click="NewIncome_Click"/>
+                    <Button Name="NewExpenditure" Content="Расход" Grid.Row="0" Grid.Column="3" Margin="5" Width="70" Click="NewExpenditure_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>

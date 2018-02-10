@@ -33,21 +33,26 @@ namespace Organizer
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
             RecordWindow edit = ((Job)DataContext).GetEditWindow();
-
-            edit.Show();
-
-            InitializeComponent();
+            if (edit.ShowDialog() == true)
+            {
+                Window.GetWindow(this).DialogResult = true;
+                InitializeComponent();
+            }
         }
 
         private async void Delete_Click(object sender, RoutedEventArgs e)
         {
-            using (organizerEntities db = new organizerEntities())
+            if (MessageBox.Show("Вы точно хотите удалить запись?","Вы уверены?",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
             {
-                Job job = new Job { Id = ((Job)DataContext).Id };
-                db.Event.Attach(job);
-                db.Event.Remove(job);
-                Window.GetWindow(this).Close();
-                await db.SaveChangesAsync();
+                Window.GetWindow(this).DialogResult = true;
+                using (organizerEntities db = new organizerEntities())
+                {
+                    Job job = new Job { Id = ((Job)DataContext).Id };
+                    db.Event.Attach(job);
+                    db.Event.Remove(job);
+                    Window.GetWindow(this).Close();
+                    await db.SaveChangesAsync();
+                } 
             }
         }
     }

@@ -32,12 +32,28 @@ namespace Organizer
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            
+            RecordWindow edit = ((Reminder)DataContext).GetEditWindow();
+            if (edit.ShowDialog() == true)
+            {
+                Window.GetWindow(this).DialogResult = true;
+                InitializeComponent();
+            }
         }
 
-        private void Delete_Click(object sender, RoutedEventArgs e)
+        private async void Delete_Click(object sender, RoutedEventArgs e)
         {
-
+            if (MessageBox.Show("Вы точно хотите удалить запись?", "Вы уверены?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                Window.GetWindow(this).DialogResult = true;
+                using (organizerEntities db = new organizerEntities())
+                {
+                    Reminder reminder = new Reminder { Id = ((Reminder)DataContext).Id };
+                    db.Event.Attach(reminder);
+                    db.Event.Remove(reminder);
+                    Window.GetWindow(this).Close();
+                    await db.SaveChangesAsync();
+                }
+            }
         }
     }
 }

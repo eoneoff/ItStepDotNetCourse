@@ -39,14 +39,18 @@ namespace Organizer
             else if ((DateTime.Now < EndPicker.SelectedDateTime && DateTime.Now < StartPicker.SelectedDateTime) ||
                 MessageBox.Show("Вы точно хотите создать встречу в прошедшем времени?", "Вы уверены", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                using (organizerEntities db = new organizerEntities())
+                if (MessageBox.Show("Вы точно хотите сохранить запись,","Вы уверены,",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
                 {
-                    db.Entry(meeting).State = meeting.Id == 0 ?
-                        System.Data.Entity.EntityState.Added :
-                        System.Data.Entity.EntityState.Modified;
+                    Window.GetWindow(this).DialogResult = true;
+                    using (organizerEntities db = new organizerEntities())
+                    {
+                        db.Entry(meeting).State = meeting.Id == 0 ?
+                            System.Data.Entity.EntityState.Added :
+                            System.Data.Entity.EntityState.Modified;
 
-                    Window.GetWindow(this).Close();
-                    await db.SaveChangesAsync();
+                        Window.GetWindow(this).Close();
+                        await db.SaveChangesAsync();
+                    } 
                 }
             }
         }

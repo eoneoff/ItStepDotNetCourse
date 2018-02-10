@@ -27,15 +27,19 @@ namespace Organizer
 
         private async void Save_Click(object sender, RoutedEventArgs e)
         {
-            Holiday holiday = DataContext as Holiday;
-            using (organizerEntities db = new organizerEntities())
+            if (MessageBox.Show("Вы точно хотите сохранить запись?","Вы уверены?",MessageBoxButton.YesNo, MessageBoxImage.Question)==MessageBoxResult.Yes)
             {
-                db.Entry(holiday).State = holiday.Id == 0 ?
-                        System.Data.Entity.EntityState.Added :
-                        System.Data.Entity.EntityState.Modified;
+                Window.GetWindow(this).DialogResult = true;
+                Holiday holiday = DataContext as Holiday;
+                using (organizerEntities db = new organizerEntities())
+                {
+                    db.Entry(holiday).State = holiday.Id == 0 ?
+                            System.Data.Entity.EntityState.Added :
+                            System.Data.Entity.EntityState.Modified;
 
-                Window.GetWindow(this).Close();
-                await db.SaveChangesAsync();
+                    Window.GetWindow(this).Close();
+                    await db.SaveChangesAsync();
+                } 
             }
         }
 

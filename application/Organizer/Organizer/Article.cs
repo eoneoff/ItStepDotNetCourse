@@ -18,12 +18,13 @@ namespace Organizer
         public int Id { get; set; }
         public System.DateTime DateTime { get; set; }
 
-        public virtual RecordWindow GetEditWindow()
+        public RecordWindow GetEditWindow()
         {
             RecordWindow window = new RecordWindow();
             Control control = GetEditControl();
             Grid.SetRow(control, 0);
             window.Win.Children.Add(control);
+            window.Title = FullName;
             return window;
         }
 
@@ -31,5 +32,8 @@ namespace Organizer
         {
             throw new ArithmeticException();
         }
+
+        public virtual decimal Money{get;}
+        public virtual string FullName { get; }
     }
 }

@@ -24,7 +24,9 @@ namespace Organizer
         public static MainWindow MainView;
 
         private Control view;
-        private Control expensesView;
+        private AllExpensesView expensesView;
+
+        public event Action CalendarClick;
 
         public MainWindow()
         {
@@ -32,6 +34,7 @@ namespace Organizer
 
             InitializeComponent();
             ViewModePicker.SelectedIndex = 0;
+            ExpensesViewModePicker.SelectedIndex = 0;
             using (organizerEntities db = new organizerEntities())
             {
                 var top5 = db.Schedule.Include("Event").Where(s => s.TimeStamp > DateTime.Now).OrderBy(s => s.TimeStamp).DistinctBy(s => s.Event).Take(5).ToList();
@@ -56,21 +59,20 @@ namespace Organizer
             }
         }
 
-        private void Calendar_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            DetailedDayView day = new DetailedDayView();
-            day.CurrentDate.SelectedDate = PreviewCalendar.SelectedDate;
-            day.Show();
-        }
-
         private void Top5Events_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Event ev = ((Schedule)Top5Events.SelectedItem).Event;
-            RecordWindow window = ev.GetShowWindow();      
-            window.Show();
+            RecordWindow window = ev.GetShowWindow();
+            if (window.ShowDialog() == true)
+                showEvents();
         }
 
         private void ViewModePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            showEvents();
+        }
+
+        private void showEvents()
         {
             MainPanel.Children.Remove(view);
 
@@ -98,50 +100,74 @@ namespace Organizer
             }
 
             Grid.SetRow(view, 1);
+            Grid.SetColumnSpan(view, 3);
             MainPanel.Children.Add(view);
         }
 
         private void ExpensesViewModePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //Binding b = new Binding("SelectedDate");
-            //b.Source = CurrentDate;
-            //b.Mode = BindingMode.TwoWay;
+            showExpenses();
+        }
 
-            //switch(ExpensesViewModePicker.SelectedIndex)
-            //{
-            //    case 0:
-            //        break;
-            //    case 1:
-            //        break;
-            //    case 2:
-            //        break;
-            //    case 3:
-            //        break;
-            //}
+        private void showExpenses()
+        {
+            MainExpensesPanel.Children.Remove(expensesView);
 
-            //Grid.SetRow(expensesView, 1);
-            //MainExpensesPanel.Children.Add(expensesView);
+            Binding b = new Binding("SelectedDate");
+            b.Source = ExpensesCurrentDate;
+            b.Mode = BindingMode.TwoWay;
+
+            expensesView = new AllExpensesView();
+            expensesView.SetBinding(AllExpensesView.CurrentDateProperty, b);
+
+            switch (ExpensesViewModePicker.SelectedIndex)
+            {
+                case 0:
+                    break;
+                case 1:
+                    expensesView.Mode = "day";
+                    break;
+                case 2:
+                    expensesView.Mode = "week";
+                    break;
+                case 3:
+                    expensesView.Mode = "month";
+                    break;
+            }
+
+            Grid.SetRow(expensesView, 1);
+            Grid.SetColumnSpan(expensesView, 4);
+            MainExpensesPanel.Children.Add(expensesView);
         }
 
         private void NewEvent_Click(object sender, RoutedEventArgs e)
         {
             CreateNewEvent create = new CreateNewEvent();
             create.Date.SelectedDate = CurrentDate.SelectedDate;
-            create.Show();
+            if (create.ShowDialog() == true)
+                showEvents();
         }
 
         private void NewIncome_Click(object sender, RoutedEventArgs e)
         {
             Income income = new Income() { DateTime=(DateTime)CurrentDate.SelectedDate};
             RecordWindow window = income.GetEditWindow();
-            window.Show();
+            if (window.ShowDialog() == true)
+                showExpenses();
         }
 
         private void NewExpenditure_Click(object sender, RoutedEventArgs e)
         {
             Expenditure exp = new Expenditure() { DateTime = (DateTime)CurrentDate.SelectedDate };
             RecordWindow window = exp.GetEditWindow();
-            window.Show();
+            window.Height = 400;
+            if (window.ShowDialog() == true)
+                showExpenses();
+        }
+
+        private void PreviewCalendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CalendarClick?.Invoke();
         }
     }
 }

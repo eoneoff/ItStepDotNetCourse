@@ -33,7 +33,7 @@ namespace Organizer
 
         private void IncomeSum_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex number = new Regex(@"^\d*[.,]?\d{0,4}$");
+            Regex number = new Regex(@"^\d*[.]?\d{0,4}$");
             e.Handled = !number.IsMatch(e.Text);
         }
 
@@ -46,32 +46,36 @@ namespace Organizer
             }
             else
             {
-                using (organizerEntities db = new organizerEntities())
+                if (MessageBox.Show("Вы точно хотите сохранить запись?","Вы уверены?",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
                 {
-                    if(!db.IncomeSource.Any(s=>s.Name==IncomeSourceSelector.Text))
+                    Window.GetWindow(this).DialogResult = true;
+                    using (organizerEntities db = new organizerEntities())
                     {
-                        if (MessageBox.Show($"Вы хотите задать новый источник дохода \"{IncomeSourceSelector.Text}\"?", "Вы уверены?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        if (!db.IncomeSource.Any(s => s.Name == IncomeSourceSelector.Text))
                         {
-                            IncomeSource newSource = new IncomeSource() { Name = IncomeSourceSelector.Text };
-                            income.IncomeSource = newSource;
+                            if (MessageBox.Show($"Вы хотите задать новый источник дохода \"{IncomeSourceSelector.Text}\"?", "Вы уверены?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                            {
+                                IncomeSource newSource = new IncomeSource() { Name = IncomeSourceSelector.Text };
+                                income.IncomeSource = newSource;
+                            }
+                            else return;
                         }
-                        else return;
-                    }
-                    else
-                    {
-                        income.IncomeSource = (IncomeSource)IncomeSourceSelector.SelectedItem;
-                    }
+                        else
+                        {
+                            income.IncomeSource = (IncomeSource)IncomeSourceSelector.SelectedItem;
+                        }
 
-                    db.Entry(income).State = income.Id == 0 ?
-                    System.Data.Entity.EntityState.Added :
-                    System.Data.Entity.EntityState.Modified;
-
-                    db.Entry(income.IncomeSource).State = income.IncomeSource.Id == 0 ?
+                        db.Entry(income).State = income.Id == 0 ?
                         System.Data.Entity.EntityState.Added :
-                        System.Data.Entity.EntityState.Unchanged;
+                        System.Data.Entity.EntityState.Modified;
 
-                    Window.GetWindow(this).Close();
-                    await db.SaveChangesAsync();
+                        db.Entry(income.IncomeSource).State = income.IncomeSource.Id == 0 ?
+                            System.Data.Entity.EntityState.Added :
+                            System.Data.Entity.EntityState.Unchanged;
+
+                        db.SaveChanges();
+                        Window.GetWindow(this).Close();
+                    } 
                 }
             }
         }

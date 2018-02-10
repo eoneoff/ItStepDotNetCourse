@@ -112,9 +112,6 @@
     <Compile Include="DateTimePickerControl.xaml.cs">
       <DependentUpon>DateTimePickerControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DetailedDayView.xaml.cs">
-      <DependentUpon>DetailedDayView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Event.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
@@ -225,10 +222,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DateTimePickerControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="DetailedDayView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -362,7 +355,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Organizer.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="OrganizerModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -375,7 +368,7 @@
       <LastGenOutput>OrganizerModel.cs</LastGenOutput>
     </Content>
     <Content Include="Organizer_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>Organizer.mdf</DependentUpon>
     </Content>
   </ItemGroup>

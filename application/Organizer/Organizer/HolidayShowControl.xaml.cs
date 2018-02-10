@@ -27,7 +27,12 @@ namespace Organizer
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-
+            RecordWindow edit = ((Holiday)DataContext).GetEditWindow();
+            if (edit.ShowDialog() == true)
+            {
+                Window.GetWindow(this).DialogResult = true;
+                InitializeComponent();
+            }
         }
 
         private void OK_Click(object sender, RoutedEventArgs e)
@@ -35,9 +40,20 @@ namespace Organizer
             Window.GetWindow(this).Close();
         }
 
-        private void Delete_Click(object sender, RoutedEventArgs e)
+        private async void Delete_Click(object sender, RoutedEventArgs e)
         {
-
+            if (MessageBox.Show("Вы точно хотите удалить запись?", "Вы уверены?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                Window.GetWindow(this).DialogResult = true;
+                using (organizerEntities db = new organizerEntities())
+                {
+                    Holiday holiday = new Holiday { Id = ((Holiday)DataContext).Id };
+                    db.Event.Attach(holiday);
+                    db.Event.Remove(holiday);
+                    Window.GetWindow(this).Close();
+                    await db.SaveChangesAsync();
+                }
+            }
         }
     }
 }

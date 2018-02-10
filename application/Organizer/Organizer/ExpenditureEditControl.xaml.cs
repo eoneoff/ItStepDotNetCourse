@@ -48,40 +48,44 @@ namespace Organizer
                 return;
             }
 
-            using (organizerEntities db = new organizerEntities())
+            if (MessageBox.Show("Вы точно хотите сохранить запись?","Вы уверены?",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
             {
-                if (ExpenditureTypeSelector.SelectedIndex == -1)
+                Window.GetWindow(this).DialogResult = true;
+                using (organizerEntities db = new organizerEntities())
                 {
-                    if (MessageBox.Show($"Вы хотите добавить статью расходов {ExpenditureTypeSelector.Text}?", "Вы уверены?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    if (ExpenditureTypeSelector.SelectedIndex == -1)
                     {
-                        ExpenditureType type = new ExpenditureType() { Type=ExpenditureTypeSelector.Text};
-                        expenditure.ExpenditureType = type;
+                        if (MessageBox.Show($"Вы хотите добавить статью расходов {ExpenditureTypeSelector.Text}?", "Вы уверены?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            ExpenditureType type = new ExpenditureType() { Type = ExpenditureTypeSelector.Text };
+                            expenditure.ExpenditureType = type;
+                        }
                     }
-                }
 
-                if (ExpenditureNameSelector.SelectedIndex == -1)
-                {
-                    if (MessageBox.Show($"Вы ходите добавить название {ExpenditureNameSelector.Text}?", "Вы уверены?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                    if (ExpenditureNameSelector.SelectedIndex == -1)
                     {
-                        ExpenditureName name = new ExpenditureName() { Name = ExpenditureNameSelector.Text };
-                        expenditure.ExpenditureName = name;
+                        if (MessageBox.Show($"Вы ходите добавить название {ExpenditureNameSelector.Text}?", "Вы уверены?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                        {
+                            ExpenditureName name = new ExpenditureName() { Name = ExpenditureNameSelector.Text };
+                            expenditure.ExpenditureName = name;
+                        }
                     }
-                }
 
-                db.Entry(expenditure).State = expenditure.Id == 0 ?
-                    System.Data.Entity.EntityState.Added :
-                    System.Data.Entity.EntityState.Modified;
+                    db.Entry(expenditure).State = expenditure.Id == 0 ?
+                        System.Data.Entity.EntityState.Added :
+                        System.Data.Entity.EntityState.Modified;
 
-                db.Entry(expenditure.ExpenditureType).State = expenditure.ExpenditureType.Id == 0 ?
-                    System.Data.Entity.EntityState.Added :
-                    System.Data.Entity.EntityState.Unchanged;
+                    db.Entry(expenditure.ExpenditureType).State = expenditure.ExpenditureType.Id == 0 ?
+                        System.Data.Entity.EntityState.Added :
+                        System.Data.Entity.EntityState.Unchanged;
 
-                db.Entry(expenditure.ExpenditureName).State = expenditure.ExpenditureName.Id == 0 ?
-                    System.Data.Entity.EntityState.Added :
-                    System.Data.Entity.EntityState.Unchanged;
+                    db.Entry(expenditure.ExpenditureName).State = expenditure.ExpenditureName.Id == 0 ?
+                        System.Data.Entity.EntityState.Added :
+                        System.Data.Entity.EntityState.Unchanged;
 
-                Window.GetWindow(this).Close();
-                await db.SaveChangesAsync();
+                    Window.GetWindow(this).Close();
+                    await db.SaveChangesAsync();
+                } 
             }
         }
 
@@ -92,8 +96,28 @@ namespace Organizer
 
         private void NumberFilter_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex number = new Regex(@"^\d*[.,]?\d{0,4}$");
+            Regex number = new Regex(@"^\d*[.]?\d{0,4}$");
             e.Handled = !number.IsMatch(e.Text);
+        }
+
+        private void IntFilter_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex number = new Regex(@"^\d*$");
+            e.Handled = !number.IsMatch(e.Text);
+        }
+
+        private void SetTotal(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                string price = ExpenditurePrice.Text.Replace('.', ',');
+                decimal total = Convert.ToDecimal(price) * Convert.ToDecimal(ExpenditureQuantity.Text);
+                ExpenditureTotal.Content = String.Format("{0:0.####}", total);
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
     }
 }

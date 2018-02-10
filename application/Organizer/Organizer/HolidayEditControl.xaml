@@ -30,7 +30,7 @@
         <Label Grid.Row="2" Grid.Column="0" Content="Нерабочий"/>
         <CheckBox Grid.Row="2" Grid.Column="1" Name="BankPicker" Margin="5" VerticalAlignment="Center" IsChecked="{Binding Bank}"/>
         <local:RepeatControl Grid.Row="3" Grid.ColumnSpan="2"/>
-        <Button Grid.Row="4" Grid.Column="0" Name="Save" Width ="70" HorizontalAlignment="Left" Content="Сохранить" Margin="5" Click="Save_Click"/>
-        <Button Grid.Row="4" Grid.Column="1" Name="Cancel" Content="Отмена" Width ="70" HorizontalAlignment="Right" Margin="5" Click="Cancel_Click"/>
+        <Button Grid.Row="4" Grid.Column="0" Name="Save" Width ="70" HorizontalAlignment="Left" Content="Сохранить" Margin="5" Click="Save_Click" IsDefault="True"/>
+        <Button Grid.Row="4" Grid.Column="1" Name="Cancel" Content="Отмена" Width ="70" HorizontalAlignment="Right" Margin="5" Click="Cancel_Click" IsCancel="True"/>
     </Grid>
 </UserControl>

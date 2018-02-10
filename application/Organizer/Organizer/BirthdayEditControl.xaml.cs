@@ -34,22 +34,27 @@ namespace Organizer
             }
             else
             {
-                DateTime nextBirthday = new DateTime(DateTime.Today.Year, birthday.DateOfBirth.Month, birthday.DateOfBirth.Day);
-                if (DateTime.Today > nextBirthday)
-                    nextBirthday = nextBirthday.AddYears(1);
-
-                Schedule nextBirthdayTimeStamp = new Schedule{ TimeStamp=nextBirthday};
-                birthday.NextBirthday = nextBirthdayTimeStamp;
-                birthday.Repeat = "Ежегодно";
-
-                using (organizerEntities db = new organizerEntities())
+                if (MessageBox.Show("Вы точно хотите изменить запись?","Вы уверены?",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
                 {
-                    db.Entry(birthday).State = birthday.Id == 0 ?
-                        System.Data.Entity.EntityState.Added :
-                        System.Data.Entity.EntityState.Modified;
-                    Window.GetWindow(this).Close();
+                    Window.GetWindow(this).DialogResult = true;
 
-                    await db.SaveChangesAsync();
+                    DateTime nextBirthday = new DateTime(DateTime.Today.Year, birthday.DateOfBirth.Month, birthday.DateOfBirth.Day);
+                    if (DateTime.Today > nextBirthday)
+                        nextBirthday = nextBirthday.AddYears(1);
+
+                    Schedule nextBirthdayTimeStamp = new Schedule { TimeStamp = nextBirthday };
+                    birthday.NextBirthday = nextBirthdayTimeStamp;
+                    birthday.Repeat = "Ежегодно";
+
+                    using (organizerEntities db = new organizerEntities())
+                    {
+                        db.Entry(birthday).State = birthday.Id == 0 ?
+                            System.Data.Entity.EntityState.Added :
+                            System.Data.Entity.EntityState.Modified;
+                        Window.GetWindow(this).Close();
+
+                        await db.SaveChangesAsync();
+                    } 
                 }
             }
         }

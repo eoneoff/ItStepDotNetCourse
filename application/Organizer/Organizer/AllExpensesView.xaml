@@ -6,10 +6,33 @@
              xmlns:local="clr-namespace:Organizer"
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="485" HorizontalAlignment="Left" VerticalAlignment="Top">
-    <DataGrid Name="ExensesList" EnableColumnVirtualization="True"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid Grid.Row="0" Grid.ColumnSpan="2" Name="ExpensesList" EnableColumnVirtualization="True"
                               AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True"
-              VerticalAlignment="Top" HorizontalAlignment="Left" Width="485" Height="200"
+              VerticalAlignment="Top" HorizontalAlignment="Left" Width="485" Height="150"
               HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" MouseDoubleClick="ExensesList_MouseDoubleClick">
-        <DataGridTextColumn x:Name="DateColumn" Header="Дата" Binding="{Binding DateTime}"/>
-    </DataGrid>
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="DateColumn" Header="Дата" Binding="{Binding Path=DateTime, StringFormat={}{0:dd MM yyyy}}"/>
+                <DataGridTextColumn x:Name="NameColumn" Header="Название" Binding="{Binding Path=FullName}"/>
+                <DataGridTextColumn x:Name="MoneyColumnn" Header="Сумма" Binding="{Binding Money}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Name="Previous" Grid.Row="1" Grid.Column="0" Content="&lt;&lt;" Margin="5" Width="70" Height="20" HorizontalAlignment="Left" Click="Previous_Click" Visibility="Hidden"/>
+        <Button Name="Next" Grid.Row="1" Grid.Column="1" Margin="5" Width="70" Height="20" Content="&gt;&gt;" HorizontalAlignment="Right" Click="Next_Click" Visibility="Hidden"/>
+        <ComboBox Name="ViewType" Grid.Row="2" Grid.Column="0" Width="150" HorizontalAlignment="Left" Margin="5,0,0,0" SelectionChanged="ViewType_SelectionChanged">
+            <ComboBoxItem>Все</ComboBoxItem>
+            <ComboBoxItem>Расходы</ComboBoxItem>
+            <ComboBoxItem>Доходы</ComboBoxItem>
+        </ComboBox>
+        <Label Name="Total" Grid.Row="2" Grid.Column="1" Margin="0,0,5,0" HorizontalAlignment="Right"/>
+    </Grid>
 </UserControl>

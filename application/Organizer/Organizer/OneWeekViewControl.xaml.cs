@@ -42,6 +42,8 @@ namespace Organizer
         {
             InitializeComponent();
             getEvents();
+            OnCalendarClick();
+            MainWindow.MainView.CalendarClick += OnCalendarClick;
         }
 
         private void Previous_Click(object sender, RoutedEventArgs e)
@@ -94,7 +96,19 @@ namespace Organizer
         {
             Event ev = ((Schedule)EventList.SelectedItem).Event;
             RecordWindow eventView = ev.GetShowWindow();
-            eventView.Show();
+            if (eventView.ShowDialog() == true)
+                getEvents();
+        }
+
+        private void OnCalendarClick()
+        {
+            List<Schedule> events = (List<Schedule>)EventList.ItemsSource;
+            Schedule selected = events.Where(s => s.TimeStamp >= ((DateTime)MainWindow.MainView.CurrentDate.SelectedDate).Date).FirstOrDefault();
+            if (selected != null)
+            {
+                EventList.SelectedItem = selected;
+                EventList.Focus();
+            }
         }
     }
 }

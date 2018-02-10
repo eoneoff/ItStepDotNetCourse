@@ -78,7 +78,8 @@ namespace Organizer
         {
             Event ev = ((Schedule)EventList.SelectedItem).Event;
             RecordWindow eventView = ev.GetShowWindow();
-            eventView.Show();
+            if (eventView.ShowDialog() == true)
+                getEvents();
         }
     }
 }

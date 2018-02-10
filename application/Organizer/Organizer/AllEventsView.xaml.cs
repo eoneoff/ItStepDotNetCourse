@@ -20,15 +20,15 @@ namespace Organizer
     /// </summary>
     public partial class AllEventsView : UserControl
     {
+        public DateTime StartDate { get; set; }
+
+        public DateTime EndDate { get; set; }
+
         public AllEventsView()
         {
             InitializeComponent();
-            using (organizerEntities db = new organizerEntities())
-            {
-                var allEventsShort = db.Schedule.Include("Event").Where(s=>s.TimeStamp>=DateTime.Today).OrderBy(s => s.TimeStamp).ToList();
-
-                EventList.ItemsSource = allEventsShort;
-            }
+            getEvents();
+            MainWindow.MainView.CalendarClick += OnCalendarClick;
         }
 
         public Event SelectedEvent
@@ -43,7 +43,29 @@ namespace Organizer
         {
             Event ev = ((Schedule)EventList.SelectedItem).Event;
             RecordWindow eventView = ev.GetShowWindow();
-            eventView.Show();
+            if (eventView.ShowDialog() == true)
+                getEvents();
+        }
+
+        private void OnCalendarClick()
+        {
+            List<Schedule> events = (List<Schedule>)EventList.ItemsSource;
+            Schedule selected = events.Where(s => s.TimeStamp >= ((DateTime)MainWindow.MainView.CurrentDate.SelectedDate).Date).FirstOrDefault();
+            if (selected != null)
+            {
+                EventList.SelectedItem = selected;
+            }
+        }
+
+        private void getEvents()
+        {
+            using (organizerEntities db = new organizerEntities())
+            {
+                var allEventsShort = db.Schedule.Include("Event").Where(s => s.TimeStamp >= DateTime.Today).OrderBy(s => s.TimeStamp).ToList();
+                EventList.ItemsSource = allEventsShort;
+                EventList.Items.Refresh();
+                OnCalendarClick();
+            }
         }
     }
 }
