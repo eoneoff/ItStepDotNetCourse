@@ -169,5 +169,53 @@ namespace Organizer
         {
             CalendarClick?.Invoke();
         }
+
+        private void GraphDates_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                GraphMode.IsEnabled = false;
+
+                GraphMode.ItemsSource = null;
+
+                TimeSpan graphRange = (TimeSpan)(EndDate.SelectedDate - StartDate.SelectedDate);
+
+                if (graphRange < TimeSpan.Zero)
+                {
+                    StartDate.SelectedDate = EndDate.SelectedDate;
+                    return;
+                }
+
+                if (graphRange > TimeSpan.FromDays(2))
+                {
+                    GraphMode.IsEnabled = true;
+                    List<string> modes = new List<string>();
+
+                    modes.Add("По дням");
+
+                    if(graphRange>TimeSpan.FromDays(7))
+                    {
+                        modes.Add("По неделям");
+                    }
+
+                    if (graphRange > TimeSpan.FromDays(62))
+                    {
+                        modes.Add("По месяцам");
+                    }
+
+                    if (graphRange > TimeSpan.FromDays(731))
+                    {
+                        modes.Add("По годам");
+                    }
+
+                    GraphMode.ItemsSource = modes;
+                    GraphMode.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
     }
 }

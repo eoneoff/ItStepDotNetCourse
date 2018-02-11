@@ -47,7 +47,7 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <DatePicker Name="CurrentDate"  Grid.Row="0" Grid.Column="0" Margin="10,5,5,5" SelectedDate="{Binding Path=SelectedDate, ElementName=PreviewCalendar, Mode=TwoWay}"/>
                     <ComboBox Name="ViewModePicker" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="5,5,0,5" Width="150" SelectionChanged="ViewModePicker_SelectionChanged">
@@ -56,7 +56,7 @@
                         <ComboBoxItem>Неделя</ComboBoxItem>
                         <ComboBoxItem>Месяц</ComboBoxItem>
                     </ComboBox>
-                    <Button Name="NewEvent" Content="Создать" Grid.Row="0" Grid.Column="2" Margin="71,5,0,5" Click="NewEvent_Click"/>
+                    <Button Name="NewEvent" Content="Создать" Grid.Row="0" Width="70" HorizontalAlignment="Right" Grid.Column="2" Margin="5" Click="NewEvent_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Расходы">
@@ -65,12 +65,13 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <DatePicker Name="ExpensesCurrentDate"  Grid.Row="0" Grid.Column="0" Margin="10,5,5,5" SelectedDate="{Binding Path=SelectedDate, ElementName=PreviewCalendar, Mode=TwoWay}"/>
                     <ComboBox Name="ExpensesViewModePicker" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="5" Width="150" SelectionChanged="ExpensesViewModePicker_SelectionChanged">
@@ -79,8 +80,18 @@
                         <ComboBoxItem>Неделя</ComboBoxItem>
                         <ComboBoxItem>Месяц</ComboBoxItem>
                     </ComboBox>
-                    <Button Name="NewIncome" Content="Прибыль" Grid.Row="0" Grid.Column="2" Margin="5" Width="70" Click="NewIncome_Click"/>
-                    <Button Name="NewExpenditure" Content="Расход" Grid.Row="0" Grid.Column="3" Margin="5" Width="70" Click="NewExpenditure_Click"/>
+                    <Button Name="NewIncome" Content="Прибыль" Grid.Row="0" Grid.Column="2" Margin="5" Width="70" HorizontalAlignment="Right" Click="NewIncome_Click"/>
+                    <Button Name="NewExpenditure" Content="Расход" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Right" Margin="5" Width="70" Click="NewExpenditure_Click"/>
+                    <DatePicker Name="StartDate" Grid.Row="2" Grid.Column="0" Width="110"  Margin="0,5" SelectedDate="{Binding Path=SelectedDate, ElementName=ExpensesCurrentDate, Mode=OneWay}" SelectedDateChanged="GraphDates_SelectedDateChanged"/>
+                    <DatePicker Name="EndDate" Grid.Row="2" Grid.Column="1" Width="110"  Margin="5" SelectedDate="{Binding Path=SelectedDate, ElementName=ExpensesCurrentDate, Mode=OneWay}" SelectedDateChanged="GraphDates_SelectedDateChanged"/>
+                    <ComboBox Name="GraphMode" Grid.Row="2" Margin="5" Grid.Column="2" IsEnabled="False"/>
+                    <ComboBox Name="GraphType" Grid.Row="2" Margin="5" Grid.Column="3" SelectedIndex="0">
+                        <ComboBoxItem>Все</ComboBoxItem>
+                        <ComboBoxItem>Доходы</ComboBoxItem>
+                        <ComboBoxItem>Расходы</ComboBoxItem>
+                    </ComboBox>
+                    <Button Name="ShowDiagram" Grid.Row="3" Grid.Column="2" Margin="5" Width="70" HorizontalAlignment="Right" Content="Диаграмма"/>
+                    <Button Name="ShowGraph" Grid.Row="3" Grid.Column="3" Margin ="5" Width="70" HorizontalAlignment="Right" Content="График"/>
                 </Grid>
             </TabItem>
         </TabControl>
