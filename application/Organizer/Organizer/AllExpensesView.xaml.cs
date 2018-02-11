@@ -29,10 +29,11 @@ namespace Organizer
                 if (value == "day" || value == "week" || value == "month")
                 {
                     mode = value;
-                    getEvents();
                 }
                 else
                     mode = null;
+
+                getEvents();
             }
         }
 
@@ -57,29 +58,7 @@ namespace Organizer
         private void ExensesList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Article article = (Article)ExpensesList.SelectedItem;
-            RecordWindow edit = null;
-
-                if(article is Income)
-                {
-                    using (organizerEntities db = new organizerEntities())
-                    {
-                        db.Article.Attach(article);
-                        db.Entry((Income)article).Reference(i => i.IncomeSource).Load(); 
-                    }
-                    edit = article.GetEditWindow();
-                }
-                else
-                {
-                    using (organizerEntities db = new organizerEntities())
-                    {
-                        db.Article.Attach(article);
-                        db.Entry((Expenditure)article).Reference(exp => exp.ExpenditureType).Load();
-                        db.Entry((Expenditure)article).Reference(exp => exp.ExpenditureName).Load(); 
-                    }
-                    edit = article.GetEditWindow();
-                    edit.Height = 400;
-                }
-
+            RecordWindow edit = article.GetEditWindow();
             if (edit.ShowDialog() == true)
                 getEvents();
         }
@@ -120,7 +99,7 @@ namespace Organizer
                     break;
             }
 
-
+            decimal total=0;
             switch(ViewType.SelectedIndex)
             {
                 case 0:
@@ -129,8 +108,7 @@ namespace Organizer
                         var articles = db.Article.Where(a => a.DateTime >= start && a.DateTime < end).
                             OrderBy(a => a.DateTime).ToList();
                         ExpensesList.ItemsSource = articles;
-                        Total.Content = "";
-                        Total.Content = (articles.OfType<Income>().Sum(i => i.Summ) - articles.OfType<Expenditure>().Sum(e => e.Summ)).ToString();
+                        total = (articles.OfType<Income>().Sum(i => i.Summ) - articles.OfType<Expenditure>().Sum(e => e.Summ)??0);
                     }
                     break;
                 case 1:
@@ -139,8 +117,7 @@ namespace Organizer
                        var expenses = db.Article.OfType<Expenditure>().Where(a => a.DateTime >= start && a.DateTime < end).
                             OrderBy(a => a.DateTime).ToList();
                         ExpensesList.ItemsSource = expenses;
-                        Total.Content = "";
-                        Total.Content = expenses.Sum(e => e.Summ).ToString();
+                        total = expenses.Sum(e => e.Summ)??0;
                     }
                     break;
                 case 2:
@@ -149,11 +126,12 @@ namespace Organizer
                         var income = db.Article.OfType<Income>().Where(a => a.DateTime >= start && a.DateTime < end).
                             OrderBy(a => a.DateTime).ToList();
                         ExpensesList.ItemsSource = income;
-                        Total.Content = "";
-                        Total.Content = income.Sum(i => i.Summ).ToString();
+                        total = income.Sum(i => i.Summ);
                     }
                     break;
             }
+
+            Total.Content = total.ToString("0.####");
 
             ExpensesList.Items.Refresh();
             OnCalendarClick();

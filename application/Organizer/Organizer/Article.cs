@@ -25,6 +25,7 @@ namespace Organizer
             Grid.SetRow(control, 0);
             window.Win.Children.Add(control);
             window.Title = FullName;
+            window.Height = WindowHeight;
             return window;
         }
 
@@ -35,5 +36,6 @@ namespace Organizer
 
         public virtual decimal Money{get;}
         public virtual string FullName { get; }
+        public virtual int WindowHeight { get; }
     }
 }

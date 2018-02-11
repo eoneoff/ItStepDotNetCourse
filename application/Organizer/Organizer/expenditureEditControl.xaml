@@ -30,11 +30,11 @@
         <Label Grid.Row="0" Grid.ColumnSpan="2" Margin="50,5,5,5" FontWeight="Bold" Content="Дата/Время"/>
         <local:DateTimePickerControl x:Name="DateTimeOfExpenditure" Grid.Row="1" Grid.ColumnSpan="2" SelectedDateTime="{Binding Path=DateTime, Mode=TwoWay}"/>
         <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource ReguralLabel}" Content="Статья"/>
-        <ComboBox Name="ExpenditureTypeSelector" Grid.Row="2" Grid.Column="1" Margin="5" DisplayMemberPath="Type" SelectedItem="{Binding ExpenditureType, Mode=TwoWay}"  IsEditable="True"/>
+        <ComboBox Name="ExpenditureTypeSelector" Grid.Row="2" Grid.Column="1" Margin="5" DisplayMemberPath="Type" SelectedValuePath="Id" SelectedValue="{Binding Path=ExpenditureType.Id}" IsEditable="True"/>
         <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource ReguralLabel}" Content="Название"/>
-        <ComboBox Name="ExpenditureNameSelector" Grid.Row="3" Grid.Column="1" Margin="5" DisplayMemberPath="Name" SelectedItem="{Binding ExpenditureName, Mode=TwoWay}"  IsEditable="True"/>
+        <ComboBox Name="ExpenditureNameSelector" Grid.Row="3" Grid.Column="1" Margin="5" DisplayMemberPath="Name" SelectedValuePath="Id" SelectedValue="{Binding Path=ExpenditureName.Id}" IsEditable="True"/>
         <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource ReguralLabel}" Content="Цена"/>
-        <TextBox Name="ExpenditurePrice" Grid.Row="4" Grid.Column="2" Margin="5" Text="{Binding Price}" PreviewTextInput="NumberFilter_PreviewTextInput" TextChanged="SetTotal"/>
+        <TextBox Name="ExpenditurePrice" Grid.Row="4" Grid.Column="2" Margin="5" Text="{Binding Price, StringFormat={}{0:0.####}}" PreviewTextInput="NumberFilter_PreviewTextInput" TextChanged="SetTotal"/>
         <Label Grid.Row="5" Grid.Column="0" Style="{StaticResource ReguralLabel}" Content="Количество"/>
         <TextBox Name="ExpenditureQuantity" Grid.Row="5" Margin="5" Grid.Column="1" Text="{Binding Quantity}" PreviewTextInput="IntFilter_PreviewTextInput" TextChanged="SetTotal"/>
         <Label Grid.Row="6" Grid.Column="0" Style="{StaticResource ReguralLabel}" Content="Всего"/>

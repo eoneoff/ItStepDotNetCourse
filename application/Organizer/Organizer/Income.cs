@@ -32,6 +32,8 @@ namespace Organizer
             get { return Summ; }
         }
 
+        public override int WindowHeight { get { return 270; } }
+
         public override string FullName
         {
             get
