@@ -242,8 +242,20 @@ namespace Organizer
 
         private void ShowGraph_Click(object sender, RoutedEventArgs e)
         {
-           
-            if(GraphType.Text=="Все"||GraphType.Text=="Расходы")
+            RecordWindow window = new RecordWindow();
+            window.Width = 800;
+            window.Height=400;
+            window.Title = "График";
+            ExpenseChartControl chart = new ExpenseChartControl();
+            Grid.SetRow(chart, 0);
+            window.Win.Children.Add(chart);
+            window.Show();
+            
+        }
+
+        private void ShowDiagram_Click(object sender, RoutedEventArgs e)
+        {
+            if (GraphType.Text == "Все" || GraphType.Text == "Расходы")
             {
                 RecordWindow window = new RecordWindow();
                 window.Width = 600;
@@ -255,7 +267,7 @@ namespace Organizer
                 window.Show();
             }
 
-            if(GraphType.Text=="Все"||GraphType.Text=="Доходы")
+            if (GraphType.Text == "Все" || GraphType.Text == "Доходы")
             {
                 RecordWindow window = new RecordWindow();
                 window.Width = 600;

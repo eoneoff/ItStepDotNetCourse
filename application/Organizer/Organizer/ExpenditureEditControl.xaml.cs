@@ -61,10 +61,6 @@ namespace Organizer
                             expenditure.ExpenditureType = type;
                         }
                     }
-                    //else
-                    //{
-                    //    expenditure.ExpenditureType = (ExpenditureType)ExpenditureTypeSelector.SelectedItem;
-                    //}
 
                     if (ExpenditureNameSelector.SelectedIndex == -1)
                     {

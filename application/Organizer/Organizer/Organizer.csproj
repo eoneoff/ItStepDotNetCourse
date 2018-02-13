@@ -142,6 +142,9 @@
     <Compile Include="ExpenditureType.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExpenseChartControl.xaml.cs">
+      <DependentUpon>ExpenseChartControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ExpensedDiagramControl.xaml.cs">
       <DependentUpon>ExpensedDiagramControl.xaml</DependentUpon>
     </Compile>
@@ -256,6 +259,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ExpenditureEditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExpenseChartControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -402,8 +409,8 @@
       <LastGenOutput>OrganizerModel.cs</LastGenOutput>
     </Content>
     <Content Include="Organizer_log.ldf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>Organizer.mdf</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="trayicon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

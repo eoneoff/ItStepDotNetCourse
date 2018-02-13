@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="Organizer.ExpenseChartControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Organizer"
+             xmlns:DV="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+             xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+             mc:Ignorable="d" 
+             d:DesignHeight="350" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="DateAxisStyle" TargetType="DVC:DateTimeAxisLabel">
+            <Setter Property="DaysIntervalStringFormat" Value="{}{0:dd.MM.yyyy}"/>
+            <Setter Property="WeeksIntervalStringFormat" Value="{}{0:dd.MM.yyyy}"/>
+            <Setter Property="MonthsIntervalStringFormat" Value="{}{0:MMMM yyyy}"/>
+            <Setter Property="YearsIntervalStringFormat" Value="{}{0:yyyy}"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <DVC:Chart Canvas.Top="20" Canvas.Left="10" Name="GraphChart"
+                   Width="750" Height="350" Background="LightBlue" Title="Доходы и расходы"/>
+    </Grid>
+</UserControl>
