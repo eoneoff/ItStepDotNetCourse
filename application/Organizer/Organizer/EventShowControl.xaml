@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Organizer"
              mc:Ignorable="d" 
-             d:DesignHeight="180" d:DesignWidth="300">
+             d:DesignHeight="210" d:DesignWidth="300">
     <Grid>
         <Grid.Resources>
             <Style x:Key="LabelStyle" TargetType="{x:Type Label}">
@@ -15,6 +15,7 @@
             </Style>
         </Grid.Resources>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -35,5 +36,6 @@
         <CheckBox Name="DoneCheckBox" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" Margin="5" IsChecked="{Binding Path=Done, Mode=OneWay}" Click="DoneCheckBox_Click"/>
         <Label Grid.Row="4" Grid.Column="0" Style="{StaticResource LabelStyle}" Content="Повторять:"/>
         <Label Grid.Row="4" Grid.Column="1" Margin="5" Content="{Binding Path=Repeat}"/>
+        <Button Name="Alarms" Grid.Row="5" Grid.Column="1" Width="70" Margin="0,0,5,0" HorizontalAlignment="Right" Content="Будильники" Click="Alarms_Click"/>
     </Grid>
 </UserControl>

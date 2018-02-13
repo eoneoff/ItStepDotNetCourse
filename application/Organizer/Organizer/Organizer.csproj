@@ -62,11 +62,16 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Controls.DataVisualization.Toolkit, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Windows.Controls.DataVisualization.Toolkit.4.0.0.0\lib\net40-Client\System.Windows.Controls.DataVisualization.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -88,6 +93,7 @@
     <Compile Include="Alarm.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="AlarmChecker.cs" />
     <Compile Include="AllEventsView.xaml.cs">
       <DependentUpon>AllEventsView.xaml</DependentUpon>
     </Compile>
@@ -105,6 +111,9 @@
     </Compile>
     <Compile Include="BirthdayShowControl.xaml.cs">
       <DependentUpon>BirthdayShowControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CreateAlarmControl.xaml.cs">
+      <DependentUpon>CreateAlarmControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="CreateNewEvent.xaml.cs">
       <DependentUpon>CreateNewEvent.xaml</DependentUpon>
@@ -133,6 +142,9 @@
     <Compile Include="ExpenditureType.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ExpensedDiagramControl.xaml.cs">
+      <DependentUpon>ExpensedDiagramControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Holiday.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
@@ -144,6 +156,9 @@
     </Compile>
     <Compile Include="Income.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IncomeDiagramControl.xaml.cs">
+      <DependentUpon>IncomeDiagramControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="IncomeSource.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
@@ -201,6 +216,9 @@
     <Compile Include="IncomeEditControl.xaml.cs">
       <DependentUpon>IncomeEditControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ShowAlarmControl.xaml.cs">
+      <DependentUpon>ShowAlarmControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="AllEventsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -214,6 +232,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="BirthdayShowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CreateAlarmControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -237,11 +259,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="ExpensedDiagramControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="HolidayEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="HolidayShowControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="IncomeDiagramControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -302,6 +332,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="IncomeEditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShowAlarmControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -370,6 +404,9 @@
     <Content Include="Organizer_log.ldf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <DependentUpon>Organizer.mdf</DependentUpon>
+    </Content>
+    <Content Include="trayicon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>

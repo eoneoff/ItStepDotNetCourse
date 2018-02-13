@@ -61,6 +61,10 @@ namespace Organizer
                             expenditure.ExpenditureType = type;
                         }
                     }
+                    //else
+                    //{
+                    //    expenditure.ExpenditureType = (ExpenditureType)ExpenditureTypeSelector.SelectedItem;
+                    //}
 
                     if (ExpenditureNameSelector.SelectedIndex == -1)
                     {
@@ -69,6 +73,10 @@ namespace Organizer
                             ExpenditureName name = new ExpenditureName() { Name = ExpenditureNameSelector.Text };
                             expenditure.ExpenditureName = name;
                         }
+                    }
+                    else
+                    {
+                        
                     }
 
                     db.Entry(expenditure).State = expenditure.Id == 0 ?

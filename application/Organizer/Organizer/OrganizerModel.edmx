@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="AlarmTriggerTime" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Alarm_Event">
@@ -474,7 +474,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AlarmTriggerTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Event" Relationship="Self.Alarm_Event" FromRole="Alarm" ToRole="Event" />
         </EntityType>

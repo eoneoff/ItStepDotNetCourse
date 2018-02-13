@@ -24,6 +24,13 @@
                 <DataGridTextColumn x:Name="DateColumn" Header="Дата" Binding="{Binding Path=DateTime, StringFormat={}{0:dd MM yyyy}}"/>
                 <DataGridTextColumn x:Name="NameColumn" Header="Название" Binding="{Binding Path=FullName}"/>
                 <DataGridTextColumn x:Name="MoneyColumnn" Header="Сумма" Binding="{Binding Money}"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Удалить" x:Name="DeleteButton" Margin="2" Command="{Binding IngrediendtDeleteCommand}" Click="DeleteButton_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button Name="Previous" Grid.Row="1" Grid.Column="0" Content="&lt;&lt;" Margin="5" Width="70" Height="20" HorizontalAlignment="Left" Click="Previous_Click" Visibility="Hidden"/>

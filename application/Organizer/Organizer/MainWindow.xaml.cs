@@ -33,6 +33,10 @@ namespace Organizer
             MainView = this;
 
             InitializeComponent();
+
+            AlarmChecker checker = new AlarmChecker();
+            checker.Start();
+
             ViewModePicker.SelectedIndex = 0;
             ExpensesViewModePicker.SelectedIndex = 0;
             using (organizerEntities db = new organizerEntities())
@@ -215,6 +219,52 @@ namespace Organizer
             catch (Exception ex)
             {
 
+            }
+        }
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            if(WindowState == WindowState.Normal)
+            {
+                ShowInTaskbar = true;
+            }
+            else if(WindowState == WindowState.Minimized)
+            {
+                ShowInTaskbar = false;
+            }
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = true;
+            WindowState = WindowState.Minimized;
+        }
+
+        private void ShowGraph_Click(object sender, RoutedEventArgs e)
+        {
+           
+            if(GraphType.Text=="Все"||GraphType.Text=="Расходы")
+            {
+                RecordWindow window = new RecordWindow();
+                window.Width = 600;
+                window.Height = 350;
+                window.Title = "Расходы";
+                ExpensedDiagramControl diag = new ExpensedDiagramControl((DateTime)StartDate.SelectedDate, (DateTime)EndDate.SelectedDate);
+                Grid.SetRow(diag, 0);
+                window.Win.Children.Add(diag);
+                window.Show();
+            }
+
+            if(GraphType.Text=="Все"||GraphType.Text=="Доходы")
+            {
+                RecordWindow window = new RecordWindow();
+                window.Width = 600;
+                window.Height = 350;
+                window.Title = "Доходы";
+                IncomeDiagramControl diag = new IncomeDiagramControl((DateTime)StartDate.SelectedDate, (DateTime)EndDate.SelectedDate);
+                Grid.SetRow(diag, 0);
+                window.Win.Children.Add(diag);
+                window.Show();
             }
         }
     }

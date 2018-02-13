@@ -188,5 +188,22 @@ namespace Organizer
                     ExpensesList.SelectedItem = selected; 
             }
         }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(MessageBox.Show("Вы точно хотите удалить запись?","Вы уверены?",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
+            {
+                Article article = (Article)ExpensesList.SelectedItem;
+                using (organizerEntities db = new organizerEntities())
+                {
+                    db.Article.Attach(article);
+                    db.Article.Remove(article);
+
+                    db.SaveChanges();
+                }
+
+                getEvents();
+            }
+        }
     }
 }
