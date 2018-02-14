@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Organizer
 {
+    ///Редактирование или создание нового расхода
     /// <summary>
     /// Interaction logic for expenditureEditControl.xaml
     /// </summary>
@@ -98,18 +90,21 @@ namespace Organizer
             Window.GetWindow(this).Close();
         }
 
+        //Фильтр для поля суммы
         private void NumberFilter_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             Regex number = new Regex(@"^\d*[.]?\d{0,4}$");
             e.Handled = !number.IsMatch(e.Text);
         }
 
+        //Фильтр для поля количества
         private void IntFilter_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             Regex number = new Regex(@"^\d*$");
             e.Handled = !number.IsMatch(e.Text);
         }
 
+        //Показ общей суммы траты
         private void SetTotal(object sender, TextChangedEventArgs e)
         {
             try

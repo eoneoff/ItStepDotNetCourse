@@ -1,20 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Organizer
 {
+    ///Показ событий одного месяца
     /// <summary>
     /// Interaction logic for OneMonthControl.xaml
     /// </summary>
@@ -77,6 +70,17 @@ namespace Organizer
                     Include("Event").
                     Where(t => t.TimeStamp >= uppepBound && t.TimeStamp < lowerBound).
                     OrderBy(t => t.TimeStamp).ToList();
+
+                switch (MainWindow.MainView.DoneMode.SelectedIndex)
+                {
+                    case 1:
+                        events = events.Where(s => s.Event.Done == false).ToList();
+                        break;
+                    case 2:
+                        events = events.Where(s => s.Event.Done == true).ToList();
+                        break;
+                }
+
                 EventList.ItemsSource = events;
             }
             EventList.Items.Refresh();

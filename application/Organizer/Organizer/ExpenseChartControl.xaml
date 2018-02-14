@@ -9,6 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="350" d:DesignWidth="800">
     <UserControl.Resources>
+        <!--Стиль для оси Х графика-->
         <Style x:Key="DateAxisStyle" TargetType="DVC:DateTimeAxisLabel">
             <Setter Property="DaysIntervalStringFormat" Value="{}{0:dd.MM.yyyy}"/>
             <Setter Property="WeeksIntervalStringFormat" Value="{}{0:dd.MM.yyyy}"/>

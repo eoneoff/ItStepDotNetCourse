@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 
 namespace Organizer
 {
+    ///Форма для создания/редактирования напоминания
     /// <summary>
     /// Interaction logic for ReminderEditControl.xaml
     /// </summary>
@@ -25,7 +26,7 @@ namespace Organizer
             InitializeComponent();
         }
 
-        private async void Save_Click(object sender, RoutedEventArgs e)
+        private void Save_Click(object sender, RoutedEventArgs e)
         {
             Reminder reminder = DataContext as Reminder;
             if (String.IsNullOrEmpty(reminder.Name) ||DateTimePicker.SelectedDateTime==null)
@@ -44,8 +45,8 @@ namespace Organizer
                             System.Data.Entity.EntityState.Added :
                             System.Data.Entity.EntityState.Modified;
 
+                        db.SaveChanges();
                         Window.GetWindow(this).Close();
-                        await db.SaveChangesAsync();
                     } 
                 }
             }

@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 
 namespace Organizer
 {
+    ///Форма для показа будильников определенного события
     /// <summary>
     /// Interaction logic for ShowAlarmControl.xaml
     /// </summary>

@@ -1,20 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Organizer
 {
+    /// Вывод всех событий из календаря
     /// <summary>
     /// Interaction logic for AllEventsView.xaml
     /// </summary>
@@ -47,6 +39,7 @@ namespace Organizer
                 getEvents();
         }
 
+        //Выделение события в зависимости от даты, выделенной на календате в боковой панели
         private void OnCalendarClick()
         {
             List<Schedule> events = (List<Schedule>)EventList.ItemsSource;
@@ -57,11 +50,24 @@ namespace Organizer
             }
         }
 
+        //Получение списка событий в зависимости от выбранных в главном окне пунктов
         private void getEvents()
         {
             using (organizerEntities db = new organizerEntities())
             {
-                var allEventsShort = db.Schedule.Include("Event").Where(s => s.TimeStamp >= DateTime.Today).OrderBy(s => s.TimeStamp).ToList();
+                var allEventsShort = db.Schedule.Include("Event").OrderBy(s => s.TimeStamp).ToList();
+                if (MainWindow.MainView.DoneMode!=null)
+                {
+                    switch (MainWindow.MainView.DoneMode.SelectedIndex)
+                    {
+                        case 1:
+                            allEventsShort = allEventsShort.Where(s => s.Event.Done == false).ToList();
+                            break;
+                        case 2:
+                            allEventsShort = allEventsShort.Where(s => s.Event.Done == true).ToList();
+                            break;
+                    } 
+                }
                 EventList.ItemsSource = allEventsShort;
                 EventList.Items.Refresh();
                 OnCalendarClick();

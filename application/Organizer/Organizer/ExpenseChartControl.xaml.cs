@@ -1,22 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Controls.DataVisualization.Charting;
 using System.Globalization;
 
 namespace Organizer
 {
+    ///График финансов
     /// <summary>
     /// Interaction logic for ExpenseChartControl.xaml
     /// </summary>
@@ -32,7 +24,7 @@ namespace Organizer
             string timeSpan = MainWindow.MainView.GraphMode.Text;
 
 
-            DateTimeAxis dayAxis = new DateTimeAxis
+            DateTimeAxis dayAxis = new DateTimeAxis//ось времени для показа в днях
             {
                 Orientation = AxisOrientation.X,
                 Location = AxisLocation.Bottom,
@@ -43,7 +35,7 @@ namespace Organizer
                 Interval = (endDate - startDate).Days/10+1
             };
 
-            DateTimeAxis weekAxis = new DateTimeAxis
+            DateTimeAxis weekAxis = new DateTimeAxis//ось времени для показа в неделях
             {
                 Orientation = AxisOrientation.X,
                 Location = AxisLocation.Bottom,
@@ -54,7 +46,7 @@ namespace Organizer
                 Interval = (endDate-startDate).Days/70+1
             };
 
-            DateTimeAxis monthAxis = new DateTimeAxis
+            DateTimeAxis monthAxis = new DateTimeAxis//ось времени для показа в месяцах
             {
                 Orientation = AxisOrientation.X,
                 Location = AxisLocation.Bottom,
@@ -65,7 +57,7 @@ namespace Organizer
                 Interval = (endDate-startDate).Days/300+1
             };
 
-            DateTimeAxis yearAxis = new DateTimeAxis
+            DateTimeAxis yearAxis = new DateTimeAxis//ось времени для показа в годах
             {
                 Orientation = AxisOrientation.X,
                 Location = AxisLocation.Bottom,
@@ -78,11 +70,13 @@ namespace Organizer
 
             List<Article> articles = new List<Article>();
 
+            //Получение из базы всех финансовых операций
             using (organizerEntities db = new organizerEntities())
             {
                 articles = db.Article.Where(a => a.DateTime >= startDate && a.DateTime < endDate).ToList();
             }
 
+            //Выбор доходов из всех финансовых операций и группировка по выбранному интервалу
             if (mode == "Доходы" || mode == "Все")
             {
                 LineSeries incomeGraph = new LineSeries();
@@ -149,6 +143,7 @@ namespace Organizer
                 GraphChart.Series.Add(incomeGraph);
             }
 
+            //Выбор расходов из всех финансовых операций и группировка по выбранному интервалу
             if(mode =="Расходы"||mode=="Все")
             {
                 LineSeries expensesGraph = new LineSeries();
@@ -216,6 +211,7 @@ namespace Organizer
                 GraphChart.Series.Add(expensesGraph);
             }
 
+            //Подсчет общего бюджета по выбранному интервалу
             if(mode=="Все")
             {
                 LineSeries budgetGraph = new LineSeries();
@@ -223,6 +219,8 @@ namespace Organizer
                 budgetGraph.DependentValuePath = "Value";
                 budgetGraph.Title = "Бюжет";
 
+
+                //Подсчет бюджета на начало выбранного промежутка времени
                 decimal startBudget = 0;
                 using (organizerEntities db = new organizerEntities())
                 {
@@ -239,6 +237,7 @@ namespace Organizer
 
                 budget.Add(new KeyValuePair<DateTime, decimal>(startDate,startBudget));
 
+                //расчет бюджета по выбранному интервалу
                 switch (timeSpan)
                 {
                     case "По дням":

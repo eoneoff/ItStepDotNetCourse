@@ -1,17 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Organizer
 {
@@ -22,7 +14,7 @@ namespace Organizer
     {
         private string mode;
 
-        public string Mode
+        public string Mode//Промежуток времени для показа
         {
             set
             {
@@ -37,7 +29,7 @@ namespace Organizer
             }
         }
 
-        public static readonly DependencyProperty CurrentDateProperty =
+        public static readonly DependencyProperty CurrentDateProperty = 
             DependencyProperty.Register("CurrentDate", typeof(DateTime?), typeof(AllExpensesView),
                 new PropertyMetadata(default(DateTime?), new PropertyChangedCallback(CurrentDateChanged)));
 
@@ -68,7 +60,7 @@ namespace Organizer
             ((AllExpensesView)sender).getEvents();
         }
 
-        private void getEvents()
+        private void getEvents()//Получение списка финансовых операций в зависимости от пунктов, выбранных в главном окне
         {
             DateTime start = DateTime.MinValue;
             DateTime end = DateTime.MaxValue;
@@ -100,7 +92,7 @@ namespace Organizer
             }
 
             decimal total=0;
-            switch(ViewType.SelectedIndex)
+            switch(ViewType.SelectedIndex)//Показ доходов/расходов/всех операций
             {
                 case 0:
                     using (organizerEntities db = new organizerEntities())
@@ -137,6 +129,8 @@ namespace Organizer
             OnCalendarClick();
         }
 
+
+        //Переход вперед/назад
         private void Previous_Click(object sender, RoutedEventArgs e)
         {
             switch(mode)

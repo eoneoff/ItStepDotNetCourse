@@ -1,20 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Organizer
 {
+    ///Редактирование/создание новой встречи
     /// <summary>
     /// Interaction logic for MeetingEditControl.xaml
     /// </summary>
@@ -25,7 +15,7 @@ namespace Organizer
             InitializeComponent();
         }
 
-        private async void Save_Click(object sender, RoutedEventArgs e)
+        private void Save_Click(object sender, RoutedEventArgs e)
         {
             Meeting meeting = DataContext as Meeting;
             if(String.IsNullOrEmpty(meeting.Name) || StartPicker.SelectedDateTime == null || EndPicker.SelectedDateTime == null)
@@ -48,8 +38,8 @@ namespace Organizer
                             System.Data.Entity.EntityState.Added :
                             System.Data.Entity.EntityState.Modified;
 
+                        db.SaveChanges();
                         Window.GetWindow(this).Close();
-                        await db.SaveChangesAsync();
                     } 
                 }
             }

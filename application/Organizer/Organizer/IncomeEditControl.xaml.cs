@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Organizer
 {
+    ///Форма для создания/редактирования дохода
     /// <summary>
     /// Interaction logic for UserControl1.xaml
     /// </summary>
@@ -31,13 +23,14 @@ namespace Organizer
             }
         }
 
+        //Шаблон для проверки суммы дохода
         private void IncomeSum_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             Regex number = new Regex(@"^\d*[.]?\d{0,4}$");
             e.Handled = !number.IsMatch(e.Text);
         }
 
-        private async void Save_Click(object sender, RoutedEventArgs e)
+        private void Save_Click(object sender, RoutedEventArgs e)
         {
             Income income = (Income)DataContext;
             if(String.IsNullOrEmpty(IncomeSourceSelector.Text))

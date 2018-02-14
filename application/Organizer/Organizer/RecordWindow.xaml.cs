@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 
 namespace Organizer
 {
+    ///Пустое окно для вывода контролов
     /// <summary>
     /// Interaction logic for RecordWindow.xaml
     /// </summary>

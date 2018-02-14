@@ -48,16 +48,22 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="3*"/>
                     </Grid.ColumnDefinitions>
                     <DatePicker Name="CurrentDate"  Grid.Row="0" Grid.Column="0" Margin="10,5,5,5" SelectedDate="{Binding Path=SelectedDate, ElementName=PreviewCalendar, Mode=TwoWay}"/>
-                    <ComboBox Name="ViewModePicker" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="5,5,0,5" Width="150" SelectionChanged="ViewModePicker_SelectionChanged">
+                    <ComboBox Name="ViewModePicker" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="5,5,0,5" Width="150" SelectionChanged="ViewModePicker_SelectionChanged" SelectedIndex="0">
                         <ComboBoxItem>Все</ComboBoxItem>
                         <ComboBoxItem>День</ComboBoxItem>
                         <ComboBoxItem>Неделя</ComboBoxItem>
                         <ComboBoxItem>Месяц</ComboBoxItem>
                     </ComboBox>
-                    <Button Name="NewEvent" Content="Создать" Grid.Row="0" Width="70" HorizontalAlignment="Right" Grid.Column="2" Margin="5" Click="NewEvent_Click"/>
+                    <ComboBox Name="DoneMode" Grid.Row="0" Grid.Column="2" Margin="5" SelectedIndex="0" SelectionChanged="ViewModePicker_SelectionChanged">
+                        <ComboBoxItem>Все</ComboBoxItem>
+                        <ComboBoxItem>Незавершенные</ComboBoxItem>
+                        <ComboBoxItem>Завершенные</ComboBoxItem>
+                    </ComboBox>
+                    <Button Name="NewEvent" Content="Создать" Grid.Row="0" Width="70" HorizontalAlignment="Right" Grid.Column="23" Margin="5" Click="NewEvent_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Расходы">

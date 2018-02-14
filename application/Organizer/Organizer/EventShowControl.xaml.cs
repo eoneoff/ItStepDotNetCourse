@@ -1,20 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Organizer
 {
+    ///Контрол для показа свойств, общих для всех событий
     /// <summary>
     /// Interaction logic for EventShowControl.xaml
     /// </summary>
@@ -25,6 +15,7 @@ namespace Organizer
             InitializeComponent();
         }
 
+        //Отметка события выполненным/не выполненным с проверкой и сохранением
         private void DoneCheckBox_Click(object sender, RoutedEventArgs e)
         {
             string question = String.Empty;
@@ -37,6 +28,7 @@ namespace Organizer
             {
                 Event ev = (Event) DataContext;
                 ev.Done = !ev.Done;
+                Window.GetWindow(this).DialogResult = true;
                 using (organizerEntities db = new organizerEntities())
                 {
                     db.Event.Attach(ev);

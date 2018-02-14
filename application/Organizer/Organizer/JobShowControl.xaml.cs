@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 
 namespace Organizer
 {
+    ///Форма для подробного показа задания
     /// <summary>
     /// Interaction logic for JobShowControl.xaml
     /// </summary>

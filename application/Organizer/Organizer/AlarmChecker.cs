@@ -1,21 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Threading;
-using System.Diagnostics;
 
 namespace Organizer
 {
+    ///Класс отвечает за фоновую проверку событий и будильников
     class AlarmChecker
     {
         private NotifyIcon TrayIcon;
         private ContextMenuStrip menu;
         private ToolStripMenuItem open;
         private ToolStripMenuItem close;
+        private DateTime lastChecked = DateTime.MinValue;//Время последней проверки событий
 
         private Thread checker;
 
@@ -23,6 +21,7 @@ namespace Organizer
 
         public AlarmChecker()
         {
+            //Создание иконки в трее
             TrayIcon = new NotifyIcon();
             TrayIcon.Icon = new System.Drawing.Icon("trayicon.ico");
             TrayIcon.BalloonTipTitle = "Напоминания";
@@ -52,12 +51,13 @@ namespace Organizer
 
         }
 
+        //Проверка будильников и событий
         private void CheckAlarms()
         {
             string message = String.Empty;
             using (organizerEntities db = new organizerEntities())
             {
-                var alarms = db.Alarm.Include("Event").Where(a => a.AlarmTriggerTime < DateTime.Now).ToList();
+                var alarms = db.Alarm.Include("Event").Where(a => a.AlarmTriggerTime < DateTime.Now).OrderBy(a=>a.AlarmTriggerTime).ToList();
                 foreach(var a in alarms)
                 {
                     message += a.AlarmTriggerTime.ToString("dd MMMM yyyy|HH:mm")+"\n";
@@ -66,10 +66,24 @@ namespace Organizer
                         message += e.Name + "\n\n";
                     }
 
-                    db.Entry(a).State = System.Data.Entity.EntityState.Deleted;
+                    db.Entry(a).State = System.Data.Entity.EntityState.Deleted;//Сработавшие будильники удаляются
 
                     db.SaveChanges();
                 }
+
+                var notDoneEvents = db.Schedule.Include("Event").
+                    Where(s => s.TimeStamp > lastChecked && s.TimeStamp <= DateTime.Now && s.Event.Done == false).
+                    OrderBy(s=>s.TimeStamp).ToList();
+                foreach(var s in notDoneEvents)
+                {
+                    message += s.TimeStamp.ToString("dd MMMM yyyy|HH:mm")+"\n"+
+                        s.Event.Name+"n";
+                }
+
+                //Первая проверка возвращает все невыполненные события до текущего момента
+                //последующие невыполненные события с момента последней проверки
+
+                lastChecked = DateTime.Now;
             }
 
             if (!String.IsNullOrEmpty(message))
@@ -79,6 +93,7 @@ namespace Organizer
             }
         }
 
+        //Процесс, регулярно запускающий проверку событий в отдельном потоке
         private void CheckerServise()
         {
             while (running)
@@ -88,6 +103,7 @@ namespace Organizer
             }
         }
 
+        //Запуск процесса запуска проверки в отдельном потоке
         public void Start()
         {
             TrayIcon.Visible = true;
@@ -95,6 +111,8 @@ namespace Organizer
             checker.Start();
         }
 
+
+        //Отсановка проверки и закрытие приложения
         public void Stop()
         {
             TrayIcon.Visible = false;
@@ -103,6 +121,8 @@ namespace Organizer
                 running = false;
         }
 
+
+        //Пункт меню, открывающий окно приложения
         private void OpenItem_Click(object sender, EventArgs e)
         {
             if (MainWindow.MainView != null && MainWindow.MainView.WindowState == System.Windows.WindowState.Minimized)
@@ -114,6 +134,8 @@ namespace Organizer
             }
         }
 
+
+        //Пункт меню, завершающий работу приложения
         private void CloseItem_Click(object sender, EventArgs e)
         {
             Stop();
@@ -124,6 +146,8 @@ namespace Organizer
             System.Windows.Application.Current.Shutdown();
         }
 
+
+        //Двойно щелчок по иконке в трее показывает или скрывает приложение
         private void TrayIcon_DoubleClick(object sender, EventArgs e)
         {
             if (MainWindow.MainView.WindowState == System.Windows.WindowState.Normal)

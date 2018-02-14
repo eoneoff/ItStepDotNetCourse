@@ -5,6 +5,7 @@ using System.Windows.Controls;
 
 namespace Organizer
 {
+    ///Показ событий одного дня
     /// <summary>
     /// Interaction logic for OneDayViewControl.xaml
     /// </summary>
@@ -63,6 +64,17 @@ namespace Organizer
                     Include("Event").
                     Where(t => t.TimeStamp>=uppepBound && t.TimeStamp<lowerBound).
                     OrderBy(t => t.TimeStamp).ToList();
+
+                switch (MainWindow.MainView.DoneMode.SelectedIndex)
+                {
+                    case 1:
+                        events = events.Where(s => s.Event.Done == false).ToList();
+                        break;
+                    case 2:
+                        events = events.Where(s => s.Event.Done == true).ToList();
+                        break;
+                }
+
                 EventList.ItemsSource = events;
             }
             EventList.Items.Refresh();

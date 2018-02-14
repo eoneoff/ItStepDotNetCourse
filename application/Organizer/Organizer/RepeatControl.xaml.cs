@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 
 namespace Organizer
 {
+    ///Форма для установки повтора события
     /// <summary>
     /// Interaction logic for RepeatControl.xaml
     /// </summary>

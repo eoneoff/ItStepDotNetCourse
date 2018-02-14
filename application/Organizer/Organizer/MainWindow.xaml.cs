@@ -1,27 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MoreLinq;
 
 namespace Organizer
 {
+    ///Главное окно приложения
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static MainWindow MainView;
+        public static MainWindow MainView;//статическая ссылка на главное окно
 
         private Control view;
         private AllExpensesView expensesView;
@@ -39,6 +33,8 @@ namespace Organizer
 
             ViewModePicker.SelectedIndex = 0;
             ExpensesViewModePicker.SelectedIndex = 0;
+
+            //Получение списка пяти ближайших событий
             using (organizerEntities db = new organizerEntities())
             {
                 var top5 = db.Schedule.Include("Event").Where(s => s.TimeStamp > DateTime.Now).OrderBy(s => s.TimeStamp).DistinctBy(s => s.Event).Take(5).ToList();
@@ -76,6 +72,7 @@ namespace Organizer
             showEvents();
         }
 
+        //Вызов формы показа событий в зависимости от выбранного режима
         private void showEvents()
         {
             MainPanel.Children.Remove(view);
@@ -104,7 +101,7 @@ namespace Organizer
             }
 
             Grid.SetRow(view, 1);
-            Grid.SetColumnSpan(view, 3);
+            Grid.SetColumnSpan(view, 4);
             MainPanel.Children.Add(view);
         }
 
@@ -113,6 +110,7 @@ namespace Organizer
             showExpenses();
         }
 
+        //Вызов формы показа расходов/доходов
         private void showExpenses()
         {
             MainExpensesPanel.Children.Remove(expensesView);
@@ -169,11 +167,14 @@ namespace Organizer
                 showExpenses();
         }
 
+        //Выполнение функций, привязанных к смене даты на календаре
         private void PreviewCalendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             CalendarClick?.Invoke();
         }
 
+        //Контроль за валидностью дат выбранных для промежутка для графика
+        //И отображение вариантов показа интервала на графике
         private void GraphDates_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             try

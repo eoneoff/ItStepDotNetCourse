@@ -210,9 +210,7 @@
     <Compile Include="ReminderShowControl.xaml.cs">
       <DependentUpon>ReminderShowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RepeatControl.xaml.cs">
-      <DependentUpon>RepeatControl.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="RepeatControl.xaml.cs" />
     <Compile Include="Schedule.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
@@ -334,13 +332,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RepeatControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="IncomeEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RepeatControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="ShowAlarmControl.xaml">
       <SubType>Designer</SubType>

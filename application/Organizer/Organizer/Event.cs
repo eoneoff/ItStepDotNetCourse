@@ -45,6 +45,8 @@ namespace Organizer
             get { return "Unspecified Event"; }
         }
 
+
+        //Возвращает пустое событие определенного типа
         public static Event GetEventOfType(string eventType)
         {
             Event ev = null;
@@ -76,16 +78,21 @@ namespace Organizer
             return ev;
         }
 
+
+        //Метод для потомков — возвращает форму редактирования/создания
         public virtual Control GetEditControl()
         {
             throw new ArgumentException();
         }
 
+
+        //Метод для потомков — возвращает форму показа подробностей
         public virtual Control GetShowControl()
         {
             throw new ArgumentException();
         }
 
+        //Возвращает окно с формой показа подробностей
         public RecordWindow GetShowWindow()
         {
             RecordWindow window = new RecordWindow();
@@ -99,6 +106,7 @@ namespace Organizer
             return window;
         }
 
+        //Возвращает окно с формой редактирования/создания
         public RecordWindow GetEditWindow()
         {
             RecordWindow window = new RecordWindow();
@@ -112,6 +120,8 @@ namespace Organizer
             return window;
         }
 
+        //Метод для потомков
+        //Инициализирует новое событие
         public virtual void Initialize(DateTime date) { }
 
         public virtual int EditControlHeight { get; }
