@@ -20,6 +20,8 @@ namespace Organizer
         private Control view;
         private AllExpensesView expensesView;
 
+        public List<DateTime> DatesOfEvents = new List<DateTime>();
+
         public event Action CalendarClick;
 
         public MainWindow()
@@ -56,7 +58,11 @@ namespace Organizer
                     }
                 }
                 Top5Events.ItemsSource = top5;
+
+                //Получение списка дней с событиями
+                DatesOfEvents = db.Schedule.DistinctBy(s => s.TimeStamp).Select(s => s.TimeStamp).ToList();
             }
+
         }
 
         private void Top5Events_MouseDoubleClick(object sender, MouseButtonEventArgs e)

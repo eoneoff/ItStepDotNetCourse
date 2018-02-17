@@ -112,6 +112,7 @@
     <Compile Include="BirthdayShowControl.xaml.cs">
       <DependentUpon>BirthdayShowControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CalendarMarkerConverter.cs" />
     <Compile Include="CreateAlarmControl.xaml.cs">
       <DependentUpon>CreateAlarmControl.xaml</DependentUpon>
     </Compile>
@@ -175,6 +176,9 @@
     <Compile Include="JobShowControl.xaml.cs">
       <DependentUpon>JobShowControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="MarkedCalendar.xaml.cs">
+      <DependentUpon>MarkedCalendar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Meeting.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
@@ -210,7 +214,9 @@
     <Compile Include="ReminderShowControl.xaml.cs">
       <DependentUpon>ReminderShowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RepeatControl.xaml.cs" />
+    <Compile Include="RepeatControl.xaml.cs">
+      <DependentUpon>RepeatControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Schedule.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
@@ -300,6 +306,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MarkedCalendar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MeetingEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -337,8 +347,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RepeatControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
     <Page Include="ShowAlarmControl.xaml">
       <SubType>Designer</SubType>

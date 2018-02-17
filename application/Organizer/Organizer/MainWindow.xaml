@@ -10,7 +10,7 @@
         StateChanged="Window_StateChanged" Closing="Window_Closing">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
@@ -18,8 +18,9 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Calendar Grid.Row="0" Name="PreviewCalendar" BorderThickness="0" SelectedDate="{x:Static sys:DateTime.Today}" 
-                      DisplayDate="{Binding RelativeSource={RelativeSource Mode=Self}, Path=SelectedDate}" SelectedDatesChanged="PreviewCalendar_SelectedDatesChanged"/>
+            <local:MarkedCalendar    Grid.Row="0" x:Name="PreviewCalendar" BorderThickness="0" SelectedDate="{x:Static sys:DateTime.Today}" 
+                      DisplayDate="{Binding RelativeSource={RelativeSource Mode=Self}, Path=SelectedDate}"
+                      SelectedDatesChanged="PreviewCalendar_SelectedDatesChanged" />
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
