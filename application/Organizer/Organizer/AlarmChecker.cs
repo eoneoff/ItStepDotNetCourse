@@ -77,7 +77,7 @@ namespace Organizer
                 foreach(var s in notDoneEvents)
                 {
                     message += s.TimeStamp.ToString("dd MMMM yyyy|HH:mm")+"\n"+
-                        s.Event.Name+"n";
+                        s.Event.Name+"\n* * *\n";
                 }
 
                 //Первая проверка возвращает все невыполненные события до текущего момента

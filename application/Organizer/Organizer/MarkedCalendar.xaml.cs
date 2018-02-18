@@ -72,5 +72,10 @@ namespace Organizer
         {
             ((MarkedCalendar)d).InitializeComponent();
         }
+
+        private void Calendar_DisplayDateChanged(object sender, CalendarDateChangedEventArgs e)
+        {
+            Calendar.UpdateLayout();
+        }
     }
 }

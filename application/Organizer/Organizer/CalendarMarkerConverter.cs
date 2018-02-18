@@ -20,7 +20,7 @@ namespace Organizer
             if(value!=null&&MainWindow.MainView!=null)
             {
                 date = (DateTime)value;
-                dates = MainWindow.MainView.DatesOfEvents;
+                dates = MainWindow.MainView.DatesOfEvents.Select(d=>d.Date).ToList();
 
                 if (dates.Contains(date))
                     return "LightGreen";

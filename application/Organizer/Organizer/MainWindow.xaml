@@ -6,11 +6,11 @@
         xmlns:local="clr-namespace:Organizer"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="dotNetOrganizer" ResizeMode="CanMinimize" Height="370" Width="750"
+        Title="dotNetOrganizer" ResizeMode="CanMinimize" Height="380" Width="750"
         StateChanged="Window_StateChanged" Closing="Window_Closing">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="220"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0">
@@ -27,7 +27,8 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Content="События:" FontWeight="Bold"/>
-                <ListBox Grid.Row="1" BorderThickness="0" Name="Top5Events" Height="129" VerticalAlignment="Bottom" MouseDoubleClick="Top5Events_MouseDoubleClick">
+                <ListBox Grid.Row="1" BorderThickness="0" Name="Top5Events" Height="129" VerticalAlignment="Bottom" MouseDoubleClick="Top5Events_MouseDoubleClick"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <DockPanel Width="200">
