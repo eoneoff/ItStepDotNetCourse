@@ -350,6 +350,10 @@
       <SubType>Designer</SubType>
       <Generator>XamlIntelliSenseFileGenerator</Generator>
     </Page>
+    <Page Include="ResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ShowAlarmControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
