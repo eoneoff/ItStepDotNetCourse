@@ -56,5 +56,10 @@ namespace Organizer
                     return "New Income";
             }
         }
+
+        public override string Type
+        {
+            get { return "Income"; }
+        }
     }
 }

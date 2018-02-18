@@ -37,5 +37,6 @@ namespace Organizer
         public virtual decimal Money{get;}
         public virtual string FullName { get; }
         public virtual int WindowHeight { get; }
+        public virtual string Type { get; }
     }
 }

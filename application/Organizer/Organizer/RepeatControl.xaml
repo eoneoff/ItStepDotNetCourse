@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Organizer"
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="300">
-    <Grid>
+    <Grid Style="{StaticResource ColoredGrid}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>
             <ColumnDefinition Width="*"/>

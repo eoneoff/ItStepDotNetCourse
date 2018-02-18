@@ -4,20 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Organizer"
-             mc:Ignorable="d" Name="_this">
+             mc:Ignorable="d" Name="_this" BorderThickness="0" BorderBrush="{StaticResource BackgroundColor}">
     <UserControl.Resources>
-        <local:CalendarMarkerConverter x:Key="Converter"/>
         <Style x:Key="ShowDates" TargetType="CalendarDayButton">
             <Setter Property="Background">
                 <Setter.Value>
-                    <Binding Converter="{StaticResource Converter}"/>
+                    <Binding Converter="{StaticResource CalendarMarkerConverter}"/>
                 </Setter.Value>
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Calendar Name="Calendar" BorderThickness="0"
+    <Grid Style="{StaticResource ColoredGrid}">
+        <Calendar Name="Calendar" BorderThickness="0"
               SelectedDate="{Binding ElementName=_this, Path=SelectedDate}"
               DisplayDate="{Binding ElementName=_this, Path=DisplayDate}"
               SelectedDatesChanged="Calendar_SelectedDatesChanged"
               CalendarDayButtonStyle="{StaticResource ShowDates}"/>
+    </Grid>
 </UserControl>

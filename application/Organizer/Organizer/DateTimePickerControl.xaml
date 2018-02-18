@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Organizer"
              mc:Ignorable="d" 
              d:DesignHeight="80" d:DesignWidth="300" Loaded="UserControl_Loaded">
-    <Grid Margin="5">
+    <Grid Margin="5" Style="{StaticResource ColoredGrid}">
         <Grid.Resources>
             <Style x:Key="{x:Type Label}" TargetType="{x:Type Label}">
                 <Setter Property="Margin" Value="5"/>

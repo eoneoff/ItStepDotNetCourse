@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Organizer"
              mc:Ignorable="d" 
              d:DesignHeight="200" d:DesignWidth="485" HorizontalAlignment="Left" VerticalAlignment="Top">
-    <Grid Width="480">
+    <Grid Width="480" Style="{StaticResource ColoredGrid}">
         <Grid.RowDefinitions>
             <RowDefinition Height="170"/>
             <RowDefinition Height="Auto"/>
@@ -20,13 +20,11 @@
                   IsReadOnly="True" VerticalAlignment="Top" HorizontalAlignment="Left" Width="485" Height="200"
                   HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" MouseDoubleClick="EventList_MouseDoubleClick">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="EventTypeColumn" Header="Тип" Binding="{Binding Path=Event.EventTypeRus}"/>
-                <DataGridTextColumn x:Name="TimeColumn" Header="Время" Binding="{Binding Path=TimeStamp.TimeOfDay}"/>
-                <DataGridTextColumn x:Name="EventNameColumn" Header="Имя" Binding="{Binding Path=Event.Name}"/>
-                <DataGridTextColumn x:Name="EventPriorityColumn" Header="Важность" Binding="{Binding Path=Event.Priority}"/>
-                <DataGridCheckBoxColumn x:Name="DoneColumn" Header="Выполнено" Binding="{Binding Path=Event.Done}"/>
-                <DataGridTextColumn x:Name="RepeatColumn" Header="Повтор" Binding="{Binding Path=Event.Repeat}"/>
-                <DataGridTextColumn x:Name="Note" Header="Заметка" Binding="{Binding Path=Event.Note}"/>
+                <DataGridTextColumn x:Name="EventTypeColumn" Header="Тип" Width ="100" Binding="{Binding Path=Event.EventTypeRus}"/>
+                <DataGridTextColumn x:Name="TimeColumn" Header="Время" Width="50" Binding="{Binding Path=TimeStamp, StringFormat={}{0:HH:mm}}"/>
+                <DataGridTextColumn x:Name="EventNameColumn" Header="Имя" Width="*" Binding="{Binding Path=Event.Name}"/>
+                <DataGridTextColumn x:Name="EventPriorityColumn" Header="Важность" Width="55" Binding="{Binding Path=Event.Priority}"/>
+                <DataGridTextColumn x:Name="DoneColumn" Header="Выполнено" Width="75" Binding="{Binding Path=Event.Done, Converter={StaticResource EventDoneConverter}}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button Name="Previous" Grid.Row="1" Grid.Column="0" Content="&lt;&lt;" Width="70" Height="20" HorizontalAlignment="Center" Margin="10,5,5,5" Click="Previous_Click"/>

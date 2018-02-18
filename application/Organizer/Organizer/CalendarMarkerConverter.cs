@@ -23,7 +23,7 @@ namespace Organizer
                 dates = MainWindow.MainView.DatesOfEvents.Select(d=>d.Date).ToList();
 
                 if (dates.Contains(date))
-                    return "LightGreen";
+                    return "Gold";
             }
 
             return null;

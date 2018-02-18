@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Organizer"
              mc:Ignorable="d" 
-             d:DesignHeight="290" d:DesignWidth="300">
-    <Grid>
+             d:DesignHeight="310" d:DesignWidth="300">
+    <Grid Style="{StaticResource ColoredGrid}">
         <Grid.Resources>
             <Style x:Key="LabelStyle" TargetType="{x:Type Label}">
                 <Setter Property="Margin" Value="5"/>
@@ -32,7 +32,7 @@
         <Label Grid.Row="2" Grid.Column="1" Content="{Binding Relation}"/>
         <UniformGrid Grid.Row="3" Grid.ColumnSpan="2" Columns="3">
             <Button Name="Edit" Width ="70" Content="Изменить" Margin="5" Click="Edit_Click"/>
-            <Button Name="Delete" Width="70" Content="Удалить" Margin="5" Click="Delete_Click"/>
+            <Button Name="Delete" Width="70" Style="{StaticResource DeleteButtonStyle}" Content="Удалить" Margin="5" Click="Delete_Click"/>
             <Button Name="OK" Content="OK" Width ="70" Margin="5" Click="OK_Click" IsCancel="True"/>
         </UniformGrid>
     </Grid>

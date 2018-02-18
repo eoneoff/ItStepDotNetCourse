@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="dotNetOrganizer" ResizeMode="CanMinimize" Height="380" Width="750"
         StateChanged="Window_StateChanged" Closing="Window_Closing">
-    <Grid>
+    <Grid Style="{StaticResource ColoredGrid}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="220"/>
             <ColumnDefinition Width="*"/>
@@ -40,11 +40,11 @@
                 </ListBox>
             </Grid>
         </Grid>
-        <TabControl Grid.Column="1">
-            <TabItem Header="Календарь">
-                <Grid Name="MainPanel">
+        <TabControl Grid.Column="1" BorderThickness="0">
+            <TabItem Header="Календарь" BorderThickness="0">
+                <Grid Name="MainPanel" Style="{StaticResource ColoredGrid}">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="37"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -68,13 +68,13 @@
                     <Button Name="NewEvent" Content="Создать" Grid.Row="0" Width="70" HorizontalAlignment="Right" Grid.Column="23" Margin="5" Click="NewEvent_Click"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Расходы">
-                <Grid Name="MainExpensesPanel">
+            <TabItem Header="Расходы" BorderThickness="0">
+                <Grid Name="MainExpensesPanel" Style="{StaticResource ColoredGrid}">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="37"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="37"/>
+                        <RowDefinition Height="35"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>

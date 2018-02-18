@@ -6,5 +6,5 @@
         xmlns:local="clr-namespace:Organizer"
         mc:Ignorable="d"
         Title="RecordWindow" Height="300" Width="300" ResizeMode="NoResize">
-    <Grid Name="Win"/>
+    <Grid Name="Win" Style="{StaticResource ColoredGrid}"/>
 </Window>

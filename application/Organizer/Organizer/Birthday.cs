@@ -33,12 +33,12 @@ namespace Organizer
 
         public override int EditControlHeight
         {
-            get { return 250; }
+            get { return 260; }
         }
 
         public override int ShowControlHeight
         {
-            get { return 320; }
+            get { return 340; }
         }
 
         public override void Initialize(DateTime date)

@@ -125,6 +125,7 @@
     <Compile Include="Event.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="EventDoneConverter.cs" />
     <Compile Include="EventEditControl.xaml.cs">
       <DependentUpon>EventEditControl.xaml</DependentUpon>
     </Compile>

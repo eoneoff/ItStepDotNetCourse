@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Organizer"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="300">
-    <Grid>
+             d:DesignHeight="260" d:DesignWidth="300">
+    <Grid Style="{StaticResource ColoredGrid}">
         <Grid.Resources>
             <Style x:Key="{x:Type Label}" TargetType="{x:Type Label}">
                 <Setter Property="Margin" Value="5"/>
@@ -29,6 +29,6 @@
         <Label Grid.Row="2" Grid.Column="0" Content="Кем приходится" />
         <TextBox Name="Relation" Grid.Row="2" Grid.Column="1" Margin="5" Height="30" MaxLines="3" Text="{Binding Relation}"/>
         <Button Grid.Row="3" Grid.Column="0" Name="Save" Width ="70" HorizontalAlignment="Left" Content="Сохранить" Margin="5" Click="Save_Click" IsDefault="True"/>
-        <Button Grid.Row="3" Grid.Column="1" Name="Cancel" Content="Отмена" Width ="70" HorizontalAlignment="Right" Margin="5" Click="Cancel_Click"/>
+        <Button Grid.Row="3" Grid.Column="1" Name="Cancel" Content="Отмена" Style ="{StaticResource DeleteButtonStyle}" Width ="70" HorizontalAlignment="Right" Margin="5" Click="Cancel_Click"/>
     </Grid>
 </UserControl>

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Organizer"
              mc:Ignorable="d" 
              d:DesignHeight="210" d:DesignWidth="300">
-    <Grid>
+    <Grid Style="{StaticResource ColoredGrid}">
         <Grid.Resources>
             <Style x:Key="LabelStyle" TargetType="{x:Type Label}">
                 <Setter Property="Margin" Value="5"/>

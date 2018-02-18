@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Organizer"
         mc:Ignorable="d"
         Title="Создать" ResizeMode="NoResize" Height="120" Width="300">
-    <Grid Name="Win">
+    <Grid Name="Win" Style="{StaticResource ColoredGrid}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

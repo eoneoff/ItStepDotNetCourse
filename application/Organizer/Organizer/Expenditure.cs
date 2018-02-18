@@ -63,5 +63,10 @@ namespace Organizer
                     return "New Record";
             }
         }
+
+        public override string Type
+        {
+            get { return "Expenditure"; }
+        }
     }
 }
