@@ -20,8 +20,8 @@
                   VerticalAlignment="Top" HorizontalAlignment="Left" Width="300"
                   HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" ItemsSource="{Binding Alarm}">
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="AlarmDate" Header="Дата" Binding="{Binding  AlarmTriggerTime, StringFormat={}{0:dd MMMM yyyy}, ConverterCulture=ru-Ru}"/>
-                <DataGridTextColumn x:Name="AlarmTime" Header="Время" Binding="{Binding AlarmTriggerTime, StringFormat={}{0:HH:mm}}"/>
+                <DataGridTextColumn x:Name="AlarmDate" Header="Дата" Width ="*" Binding="{Binding  AlarmTriggerTime, StringFormat={}{0:dd MMMM yyyy}, ConverterCulture=ru-Ru}"/>
+                <DataGridTextColumn x:Name="AlarmTime" Header="Время" Width="*" Binding="{Binding AlarmTriggerTime, StringFormat={}{0:HH:mm}}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button Name="NewAlarm" Grid.Row="1" Grid.Column="0" Margin="5" Content="Новый" Click="NewAlarm_Click"/>

@@ -203,6 +203,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="PartialEntity\Article.cs" />
+    <Compile Include="PartialEntity\Birthday.cs" />
+    <Compile Include="PartialEntity\Event.cs" />
+    <Compile Include="PartialEntity\Expenditure.cs" />
+    <Compile Include="PartialEntity\Holiday.cs" />
+    <Compile Include="PartialEntity\Income.cs" />
+    <Compile Include="PartialEntity\Job.cs" />
+    <Compile Include="PartialEntity\Meeting.cs" />
+    <Compile Include="PartialEntity\Reminder.cs" />
     <Compile Include="RecordWindow.xaml.cs">
       <DependentUpon>RecordWindow.xaml</DependentUpon>
     </Compile>
