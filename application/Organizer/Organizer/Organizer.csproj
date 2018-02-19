@@ -93,11 +93,11 @@
     <Compile Include="Alarm.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="AlarmChecker.cs" />
-    <Compile Include="AllEventsView.xaml.cs">
+    <Compile Include="Alarm\AlarmChecker.cs" />
+    <Compile Include="EventGrids\AllEventsView.xaml.cs">
       <DependentUpon>AllEventsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AllExpensesView.xaml.cs">
+    <Compile Include="Charts\AllExpensesView.xaml.cs">
       <DependentUpon>AllExpensesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Article.cs">
@@ -106,14 +106,14 @@
     <Compile Include="Birthday.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="BirthdayEditControl.xaml.cs">
+    <Compile Include="EventEditors\BirthdayEditControl.xaml.cs">
       <DependentUpon>BirthdayEditControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BirthdayShowControl.xaml.cs">
+    <Compile Include="EventViewers\BirthdayShowControl.xaml.cs">
       <DependentUpon>BirthdayShowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CalendarMarkerConverter.cs" />
-    <Compile Include="CreateAlarmControl.xaml.cs">
+    <Compile Include="Converters\CalendarMarkerConverter.cs" />
+    <Compile Include="Alarm\CreateAlarmControl.xaml.cs">
       <DependentUpon>CreateAlarmControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="CreateNewEvent.xaml.cs">
@@ -125,17 +125,17 @@
     <Compile Include="Event.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="EventDoneConverter.cs" />
-    <Compile Include="EventEditControl.xaml.cs">
+    <Compile Include="Converters\EventDoneConverter.cs" />
+    <Compile Include="EventEditors\EventEditControl.xaml.cs">
       <DependentUpon>EventEditControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EventShowControl.xaml.cs">
+    <Compile Include="EventViewers\EventShowControl.xaml.cs">
       <DependentUpon>EventShowControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Expenditure.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ExpenditureEditControl.xaml.cs">
+    <Compile Include="ExpenseEditors\ExpenditureEditControl.xaml.cs">
       <DependentUpon>ExpenditureEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ExpenditureName.cs">
@@ -144,25 +144,25 @@
     <Compile Include="ExpenditureType.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ExpenseChartControl.xaml.cs">
+    <Compile Include="Charts\ExpenseChartControl.xaml.cs">
       <DependentUpon>ExpenseChartControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ExpensedDiagramControl.xaml.cs">
+    <Compile Include="Charts\ExpensedDiagramControl.xaml.cs">
       <DependentUpon>ExpensedDiagramControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Holiday.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="HolidayEditControl.xaml.cs">
+    <Compile Include="EventEditors\HolidayEditControl.xaml.cs">
       <DependentUpon>HolidayEditControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="HolidayShowControl.xaml.cs">
+    <Compile Include="EventViewers\HolidayShowControl.xaml.cs">
       <DependentUpon>HolidayShowControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Income.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="IncomeDiagramControl.xaml.cs">
+    <Compile Include="Charts\IncomeDiagramControl.xaml.cs">
       <DependentUpon>IncomeDiagramControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="IncomeSource.cs">
@@ -171,10 +171,10 @@
     <Compile Include="Job.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="JobEditControl.xaml.cs">
+    <Compile Include="EventEditors\JobEditControl.xaml.cs">
       <DependentUpon>JobEditControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="JobShowControl.xaml.cs">
+    <Compile Include="EventViewers\JobShowControl.xaml.cs">
       <DependentUpon>JobShowControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MarkedCalendar.xaml.cs">
@@ -183,19 +183,19 @@
     <Compile Include="Meeting.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="MeetingEditControl.xaml.cs">
+    <Compile Include="EventEditors\MeetingEditControl.xaml.cs">
       <DependentUpon>MeetingEditControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MeetingShowControl.xaml.cs">
+    <Compile Include="EventEditors\MeetingShowControl.xaml.cs">
       <DependentUpon>MeetingShowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OneDayViewControl.xaml.cs">
+    <Compile Include="EventGrids\OneDayViewControl.xaml.cs">
       <DependentUpon>OneDayViewControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OneMonthControl.xaml.cs">
+    <Compile Include="EventGrids\OneMonthControl.xaml.cs">
       <DependentUpon>OneMonthControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OneWeekViewControl.xaml.cs">
+    <Compile Include="EventGrids\OneWeekViewControl.xaml.cs">
       <DependentUpon>OneWeekViewControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="OrganizerModel.cs">
@@ -209,10 +209,10 @@
     <Compile Include="Reminder.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ReminderEditControl.xaml.cs">
+    <Compile Include="EventEditors\ReminderEditControl.xaml.cs">
       <DependentUpon>ReminderEditControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ReminderShowControl.xaml.cs">
+    <Compile Include="EventViewers\ReminderShowControl.xaml.cs">
       <DependentUpon>ReminderShowControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="RepeatControl.xaml.cs">
@@ -221,29 +221,29 @@
     <Compile Include="Schedule.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="IncomeEditControl.xaml.cs">
+    <Compile Include="ExpenseEditors\IncomeEditControl.xaml.cs">
       <DependentUpon>IncomeEditControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ShowAlarmControl.xaml.cs">
+    <Compile Include="Alarm\ShowAlarmControl.xaml.cs">
       <DependentUpon>ShowAlarmControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="AllEventsView.xaml">
+    <Page Include="EventGrids\AllEventsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AllExpensesView.xaml">
+    <Page Include="Charts\AllExpensesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="BirthdayEditControl.xaml">
+    <Page Include="EventEditors\BirthdayEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="BirthdayShowControl.xaml">
+    <Page Include="EventViewers\BirthdayShowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="CreateAlarmControl.xaml">
+    <Page Include="Alarm\CreateAlarmControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -255,43 +255,43 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EventEditControl.xaml">
+    <Page Include="EventEditors\EventEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EventShowControl.xaml">
+    <Page Include="EventViewers\EventShowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ExpenditureEditControl.xaml">
+    <Page Include="ExpenseEditors\ExpenditureEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ExpenseChartControl.xaml">
+    <Page Include="Charts\ExpenseChartControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ExpensedDiagramControl.xaml">
+    <Page Include="Charts\ExpensedDiagramControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="HolidayEditControl.xaml">
+    <Page Include="EventEditors\HolidayEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="HolidayShowControl.xaml">
+    <Page Include="EventViewers\HolidayShowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="IncomeDiagramControl.xaml">
+    <Page Include="Charts\IncomeDiagramControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="JobEditControl.xaml">
+    <Page Include="EventEditors\JobEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="JobShowControl.xaml">
+    <Page Include="EventViewers\JobShowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -311,23 +311,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MeetingEditControl.xaml">
+    <Page Include="EventEditors\MeetingEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MeetingShowControl.xaml">
+    <Page Include="EventEditors\MeetingShowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="OneDayViewControl.xaml">
+    <Page Include="EventGrids\OneDayViewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="OneMonthControl.xaml">
+    <Page Include="EventGrids\OneMonthControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="OneWeekViewControl.xaml">
+    <Page Include="EventGrids\OneWeekViewControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -335,15 +335,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ReminderEditControl.xaml">
+    <Page Include="EventEditors\ReminderEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ReminderShowControl.xaml">
+    <Page Include="EventViewers\ReminderShowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="IncomeEditControl.xaml">
+    <Page Include="ExpenseEditors\IncomeEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -355,7 +355,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ShowAlarmControl.xaml">
+    <Page Include="Alarm\ShowAlarmControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
