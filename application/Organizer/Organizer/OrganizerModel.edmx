@@ -4,12 +4,12 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="organizerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="organizerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Alarm">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AlarmTriggerTime" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Alarm_Event">
@@ -120,6 +120,14 @@
           <Property Name="AlarmTimeId" Type="int" Nullable="false" />
           <Property Name="Memo" Type="nvarchar" MaxLength="200" />
         </EntityType>
+        <EntityType Name="RepeatedEvent">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="PrimeEventId" Type="int" Nullable="false" />
+          <Property Name="ScheduleId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Schedule">
           <Key>
             <PropertyRef Name="Id" />
@@ -153,7 +161,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Birthday_Event">
-          <End Role="Event" Type="Self.Event" Multiplicity="1" />
+          <End Role="Event" Type="Self.Event" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Birthday" Type="Self.Birthday" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Event">
@@ -213,7 +223,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Holiday_Event">
-          <End Role="Event" Type="Self.Event" Multiplicity="1" />
+          <End Role="Event" Type="Self.Event" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Holiday" Type="Self.Holiday" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Event">
@@ -261,7 +273,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Job_Event">
-          <End Role="Event" Type="Self.Event" Multiplicity="1" />
+          <End Role="Event" Type="Self.Event" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Job" Type="Self.Job" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Event">
@@ -297,7 +311,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Meeting_Event">
-          <End Role="Event" Type="Self.Event" Multiplicity="1" />
+          <End Role="Event" Type="Self.Event" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Meeting" Type="Self.Meeting" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Event">
@@ -333,7 +349,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Reminder_Event">
-          <End Role="Event" Type="Self.Event" Multiplicity="1" />
+          <End Role="Event" Type="Self.Event" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Reminder" Type="Self.Reminder" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Event">
@@ -356,8 +374,46 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Schedule_Event">
+        <Association Name="FK_RepeatedEvent_Event">
           <End Role="Event" Type="Self.Event" Multiplicity="1" />
+          <End Role="RepeatedEvent" Type="Self.RepeatedEvent" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RepeatedEvent">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepeatedEvent_Event_Prime">
+          <End Role="Event" Type="Self.Event" Multiplicity="1" />
+          <End Role="RepeatedEvent" Type="Self.RepeatedEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RepeatedEvent">
+              <PropertyRef Name="PrimeEventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepeatedEvent_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="RepeatedEvent" Type="Self.RepeatedEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RepeatedEvent">
+              <PropertyRef Name="ScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_Event">
+          <End Role="Event" Type="Self.Event" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Event">
@@ -383,6 +439,7 @@
           <EntitySet Name="Job" EntityType="Self.Job" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Meeting" EntityType="Self.Meeting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reminder" EntityType="Self.Reminder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RepeatedEvent" EntityType="Self.RepeatedEvent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Alarm_Event_Alarm" Association="Self.FK_Alarm_Event_Alarm">
             <End Role="Alarm" EntitySet="Alarm" />
@@ -460,13 +517,24 @@
             <End Role="Schedule" EntitySet="Schedule" />
             <End Role="Reminder" EntitySet="Reminder" />
           </AssociationSet>
+          <AssociationSet Name="FK_RepeatedEvent_Event" Association="Self.FK_RepeatedEvent_Event">
+            <End Role="Event" EntitySet="Event" />
+            <End Role="RepeatedEvent" EntitySet="RepeatedEvent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepeatedEvent_Event_Prime" Association="Self.FK_RepeatedEvent_Event_Prime">
+            <End Role="Event" EntitySet="Event" />
+            <End Role="RepeatedEvent" EntitySet="RepeatedEvent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepeatedEvent_Schedule" Association="Self.FK_RepeatedEvent_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="RepeatedEvent" EntitySet="RepeatedEvent" />
+          </AssociationSet>
           <AssociationSet Name="FK_Schedule_Event" Association="Self.FK_Schedule_Event">
             <End Role="Event" EntitySet="Event" />
             <End Role="Schedule" EntitySet="Schedule" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="organizerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -503,6 +571,7 @@
           <Property Name="Repeat" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Schedule" Relationship="Self.FK_Schedule_Event" FromRole="Event" ToRole="Schedule" />
           <NavigationProperty Name="Alarm" Relationship="Self.Alarm_Event" FromRole="Event" ToRole="Alarm" />
+          <NavigationProperty Name="RepeatedEvent1" Relationship="organizerModel.FK_RepeatedEvent_Event_Prime" FromRole="Event" ToRole="RepeatedEvent" />
         </EntityType>
         <EntityType Name="Expenditure" BaseType="organizerModel.Article">
           <Property Name="TypeId" Type="Int32" Nullable="false" />
@@ -580,6 +649,7 @@
           <NavigationProperty Name="MeetingEnd" Relationship="Self.FK_MeetingEnd_Schedule" FromRole="Schedule" ToRole="Meeting" />
           <NavigationProperty Name="MeetingStart" Relationship="Self.FK_MeetingStart_Schedule" FromRole="Schedule" ToRole="Meeting" />
           <NavigationProperty Name="Reminder" Relationship="Self.FK_Reminder_Schedule" FromRole="Schedule" ToRole="Reminder" />
+          <NavigationProperty Name="RepeatedEvent" Relationship="organizerModel.FK_RepeatedEvent_Schedule" FromRole="Schedule" ToRole="RepeatedEvent" />
         </EntityType>
         <Association Name="FK_Birthday_Schedule">
           <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
@@ -773,7 +843,45 @@
             <End Role="Alarm" EntitySet="Alarm" />
             <End Role="Event" EntitySet="Event" />
           </AssociationSet>
+          <AssociationSet Name="FK_RepeatedEvent_Event_Prime" Association="organizerModel.FK_RepeatedEvent_Event_Prime">
+            <End Role="Event" EntitySet="Event" />
+            <End Role="RepeatedEvent" EntitySet="Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RepeatedEvent_Schedule" Association="organizerModel.FK_RepeatedEvent_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="RepeatedEvent" EntitySet="Event" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="RepeatedEvent" BaseType="organizerModel.Event">
+          <Property Name="PrimeEventId" Type="Int32" Nullable="false" />
+          <Property Name="ScheduleId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="MainEvent" Relationship="organizerModel.FK_RepeatedEvent_Event_Prime" FromRole="RepeatedEvent" ToRole="Event" />
+          <NavigationProperty Name="RepeatTime" Relationship="organizerModel.FK_RepeatedEvent_Schedule" FromRole="RepeatedEvent" ToRole="Schedule" />
+        </EntityType>
+        <Association Name="FK_RepeatedEvent_Event_Prime">
+          <End Type="organizerModel.Event" Role="Event" Multiplicity="1" />
+          <End Type="organizerModel.RepeatedEvent" Role="RepeatedEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RepeatedEvent">
+              <PropertyRef Name="PrimeEventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RepeatedEvent_Schedule">
+          <End Type="organizerModel.Schedule" Role="Schedule" Multiplicity="1" />
+          <End Type="organizerModel.RepeatedEvent" Role="RepeatedEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="RepeatedEvent">
+              <PropertyRef Name="ScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -859,6 +967,13 @@
                 <ScalarProperty Name="JobDeadlineId" ColumnName="JobDeadlineId" />
                 <ScalarProperty Name="JobStartId" ColumnName="JobStartId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="IsTypeOf(organizerModel.RepeatedEvent)">
+              <MappingFragment StoreEntitySet="RepeatedEvent">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PrimeEventId" ColumnName="PrimeEventId" />
+                <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

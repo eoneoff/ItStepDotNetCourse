@@ -11,9 +11,7 @@ namespace Organizer
 {
     using System;
     using System.Collections.Generic;
-    using System.Windows.Controls;
-    using System.Windows;
-
+    
     public partial class Event
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,19 +19,21 @@ namespace Organizer
         {
             this.Schedule = new HashSet<Schedule>();
             this.Alarm = new HashSet<Alarm>();
+            this.RepeatedEvent1 = new HashSet<RepeatedEvent>();
         }
-
+    
         public int Id { get; set; }
         public string Name { get; set; }
         public int Priority { get; set; }
         public string Note { get; set; }
         public bool Done { get; set; }
         public string Repeat { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Schedule> Schedule { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Alarm> Alarm { get; set; }
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RepeatedEvent> RepeatedEvent1 { get; set; }
     }
 }

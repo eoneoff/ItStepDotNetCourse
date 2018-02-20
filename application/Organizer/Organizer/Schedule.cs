@@ -24,6 +24,7 @@ namespace Organizer
             this.MeetingEnd = new HashSet<Meeting>();
             this.MeetingStart = new HashSet<Meeting>();
             this.Reminder = new HashSet<Reminder>();
+            this.RepeatedEvent = new HashSet<RepeatedEvent>();
         }
     
         public int Id { get; set; }
@@ -45,5 +46,7 @@ namespace Organizer
         public virtual ICollection<Meeting> MeetingStart { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reminder> Reminder { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RepeatedEvent> RepeatedEvent { get; set; }
     }
 }

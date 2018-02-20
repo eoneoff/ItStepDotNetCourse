@@ -9,6 +9,9 @@
 
 namespace Organizer
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class Birthday : Event
     {
         public int NextBirthdayId { get; set; }
