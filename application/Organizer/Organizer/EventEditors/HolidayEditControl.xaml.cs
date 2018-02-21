@@ -20,15 +20,27 @@ namespace Organizer
             {
                 Window.GetWindow(this).DialogResult = true;
                 Holiday holiday = DataContext as Holiday;
+
+                Window.GetWindow(this).Close();
+
+                await holiday.DeleteRepeat();
+
                 using (organizerEntities db = new organizerEntities())
                 {
                     db.Entry(holiday).State = holiday.Id == 0 ?
                             System.Data.Entity.EntityState.Added :
                             System.Data.Entity.EntityState.Modified;
 
-                    Window.GetWindow(this).Close();
                     await db.SaveChangesAsync();
-                } 
+                }
+
+                if (holiday.Repeat != "Нет")
+                {
+                    Schedule prime = holiday.Date;
+                    await prime.CreateRepeat(holiday);
+                }
+
+                MainWindow.MainView.UpdateView();
             }
         }
 

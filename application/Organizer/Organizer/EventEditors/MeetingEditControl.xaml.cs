@@ -15,7 +15,7 @@ namespace Organizer
             InitializeComponent();
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private async void Save_Click(object sender, RoutedEventArgs e)
         {
             Meeting meeting = DataContext as Meeting;
             if(String.IsNullOrEmpty(meeting.Name) || StartPicker.SelectedDateTime == null || EndPicker.SelectedDateTime == null)
@@ -32,15 +32,29 @@ namespace Organizer
                 if (MessageBox.Show("Вы точно хотите сохранить запись,","Вы уверены,",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
                 {
                     Window.GetWindow(this).DialogResult = true;
+                    Window.GetWindow(this).Close();
+
+
+                    await meeting.DeleteRepeat();
+
                     using (organizerEntities db = new organizerEntities())
                     {
                         db.Entry(meeting).State = meeting.Id == 0 ?
                             System.Data.Entity.EntityState.Added :
                             System.Data.Entity.EntityState.Modified;
 
-                        db.SaveChanges();
-                        Window.GetWindow(this).Close();
-                    } 
+                        await db.SaveChangesAsync();
+                    }
+                    
+                    if(meeting.Repeat != "Нет")
+                    {
+                        Schedule start = meeting.Start;
+                        Schedule end = meeting.End;
+                        await start.CreateRepeat(meeting);
+                        await end.CreateRepeat(meeting);
+                    }
+
+                    MainWindow.MainView.UpdateView();
                 }
             }
         }

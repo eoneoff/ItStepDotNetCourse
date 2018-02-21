@@ -36,6 +36,12 @@ namespace Organizer
             ViewModePicker.SelectedIndex = 0;
             ExpensesViewModePicker.SelectedIndex = 0;
 
+            UpdateView();
+
+        }
+
+        public void UpdateView()
+        {
             //Получение списка пяти ближайших событий
             using (organizerEntities db = new organizerEntities())
             {
@@ -61,8 +67,10 @@ namespace Organizer
 
                 //Получение списка дней с событиями
                 DatesOfEvents = db.Schedule.DistinctBy(s => s.TimeStamp).Select(s => s.TimeStamp).ToList();
+                PreviewCalendar.UpdateCalendar();
+                showEvents();
+                showExpenses();
             }
-
         }
 
         private void Top5Events_MouseDoubleClick(object sender, MouseButtonEventArgs e)

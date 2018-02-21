@@ -41,7 +41,9 @@ namespace Organizer
                     db.Event.Remove(birthday);
                     Window.GetWindow(this).Close();
                     await db.SaveChangesAsync();
-                } 
+                }
+
+                MainWindow.MainView.UpdateView();
             }
         }
     }

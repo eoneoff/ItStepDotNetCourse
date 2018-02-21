@@ -186,7 +186,7 @@
     <Compile Include="EventEditors\MeetingEditControl.xaml.cs">
       <DependentUpon>MeetingEditControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="EventEditors\MeetingShowControl.xaml.cs">
+    <Compile Include="EventViewers\MeetingShowControl.xaml.cs">
       <DependentUpon>MeetingShowControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="EventGrids\OneDayViewControl.xaml.cs">
@@ -212,6 +212,7 @@
     <Compile Include="PartialEntity\Job.cs" />
     <Compile Include="PartialEntity\Meeting.cs" />
     <Compile Include="PartialEntity\Reminder.cs" />
+    <Compile Include="PartialEntity\Schedule.cs" />
     <Compile Include="RecordWindow.xaml.cs">
       <DependentUpon>RecordWindow.xaml</DependentUpon>
     </Compile>
@@ -324,7 +325,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="EventEditors\MeetingShowControl.xaml">
+    <Page Include="EventViewers\MeetingShowControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

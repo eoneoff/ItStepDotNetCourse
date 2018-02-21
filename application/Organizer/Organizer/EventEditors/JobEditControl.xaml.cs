@@ -32,6 +32,10 @@ namespace Organizer
                 if (MessageBox.Show("Вы точно хотите сохранить запись?","Вы уверены?",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
                 {
                     Window.GetWindow(this).DialogResult = true;
+                    Window.GetWindow(this).Close();
+
+                    await job.DeleteRepeat();
+
                     using (organizerEntities db = new organizerEntities())
                     {
                         db.Entry(job).State = job.Id == 0 ?
@@ -46,9 +50,18 @@ namespace Organizer
                             System.Data.Entity.EntityState.Added :
                             System.Data.Entity.EntityState.Modified;
 
-                        Window.GetWindow(this).Close();
                         await db.SaveChangesAsync();
-                    } 
+                    }
+
+                    if(job.Repeat!="Нет")
+                    {
+                        Schedule start = job.Start;
+                        Schedule end = job.Deadline;
+                        await start.CreateRepeat(job);
+                        await end.CreateRepeat(job);
+                    }
+
+                    MainWindow.MainView.UpdateView();
                 }
             }
         }

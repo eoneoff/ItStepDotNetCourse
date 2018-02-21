@@ -53,7 +53,9 @@ namespace Organizer
                     db.Event.Remove(job);
                     Window.GetWindow(this).Close();
                     await db.SaveChangesAsync();
-                } 
+                }
+
+                MainWindow.MainView.UpdateView();
             }
         }
     }

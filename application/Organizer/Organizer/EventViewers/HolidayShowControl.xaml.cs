@@ -29,19 +29,21 @@ namespace Organizer
             Window.GetWindow(this).Close();
         }
 
-        private void Delete_Click(object sender, RoutedEventArgs e)
+        private async void Delete_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Вы точно хотите удалить запись?", "Вы уверены?", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 Window.GetWindow(this).DialogResult = true;
+                Window.GetWindow(this).Close();
                 using (organizerEntities db = new organizerEntities())
                 {
                     Holiday holiday = new Holiday { Id = ((Holiday)DataContext).Id };
                     db.Event.Attach(holiday);
                     db.Event.Remove(holiday);
-                    db.SaveChanges();
-                    Window.GetWindow(this).Close();
+                    await db.SaveChangesAsync();
                 }
+
+                MainWindow.MainView.UpdateView();
             }
         }
     }

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace Organizer
 {
@@ -90,6 +92,15 @@ namespace Organizer
             window.Title = Name;
 
             return window;
+        }
+
+        public async Task DeleteRepeat()
+        {
+            using (organizerEntities db = new organizerEntities())
+            {
+                var schedule = db.Schedule.Where(s => s.EventId == Id).ToList();
+                db.Schedule.RemoveRange(schedule);
+                await db.SaveChangesAsync();            }
         }
 
         //Метод для потомков

@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Linq;
 
 namespace Organizer
 {
@@ -36,12 +37,14 @@ namespace Organizer
                 Window.GetWindow(this).DialogResult = true;
                 using (organizerEntities db = new organizerEntities())
                 {
-                    Reminder reminder = new Reminder { Id = ((Reminder)DataContext).Id };
+                    Reminder reminder = new Reminder { Id= ((Reminder)DataContext).Id};
                     db.Event.Attach(reminder);
                     db.Event.Remove(reminder);
                     Window.GetWindow(this).Close();
                     await db.SaveChangesAsync();
                 }
+
+                MainWindow.MainView.UpdateView();
             }
         }
     }

@@ -26,7 +26,7 @@ namespace Organizer
             InitializeComponent();
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private async void Save_Click(object sender, RoutedEventArgs e)
         {
             Reminder reminder = DataContext as Reminder;
             if (String.IsNullOrEmpty(reminder.Name) ||DateTimePicker.SelectedDateTime==null)
@@ -39,15 +39,26 @@ namespace Organizer
                 if (MessageBox.Show("Вы точно хотите сохранить запись?","Вы уверены?",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
                 {
                     Window.GetWindow(this).DialogResult = true;
+                    Window.GetWindow(this).Close();
+
+                    await reminder.DeleteRepeat();
+
                     using (organizerEntities db = new organizerEntities())
                     {
                         db.Entry(reminder).State = reminder.Id == 0 ?
                             System.Data.Entity.EntityState.Added :
                             System.Data.Entity.EntityState.Modified;
 
-                        db.SaveChanges();
-                        Window.GetWindow(this).Close();
-                    } 
+                        await db.SaveChangesAsync();
+                    }
+
+                    if (reminder.Repeat!="Нет")
+                    {
+                        Schedule prime = reminder.AlarmTime;
+                        await prime.CreateRepeat(reminder); 
+                    }
+
+                    MainWindow.MainView.UpdateView();
                 }
             }
         }

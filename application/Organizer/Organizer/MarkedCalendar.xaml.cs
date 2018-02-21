@@ -77,5 +77,12 @@ namespace Organizer
         {
             Calendar.UpdateLayout();
         }
+
+        public void UpdateCalendar()
+        {
+            Style style = (Style)FindResource("ShowDates");
+            Calendar.CalendarDayButtonStyle = null;
+            Calendar.CalendarDayButtonStyle = style;
+        }
     }
 }

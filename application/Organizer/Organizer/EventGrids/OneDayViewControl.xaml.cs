@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Data.Entity;
 
 namespace Organizer
 {
@@ -35,20 +37,20 @@ namespace Organizer
             getEvents();
         }
 
-        private void Previous_Click(object sender, RoutedEventArgs e)
+        private async void Previous_Click(object sender, RoutedEventArgs e)
         {
             CurrentDate=((DateTime)CurrentDate).AddDays(-1);
-            getEvents();
+            await getEvents();
             
         }
 
-        private void Next_Click(object sender, RoutedEventArgs e)
+        private async void Next_Click(object sender, RoutedEventArgs e)
         {
             CurrentDate = ((DateTime)CurrentDate).AddDays(1);
-            getEvents();
+            await getEvents();
         }
 
-        private void getEvents()
+        private async Task getEvents()
         {
             DateTime date;
             if (CurrentDate == null)
@@ -60,10 +62,10 @@ namespace Organizer
             {
                 DateTime uppepBound = date.Date;
                 DateTime lowerBound = uppepBound.AddDays(1);
-                var events = db.Schedule.
+                var events = await db.Schedule.
                     Include("Event").
                     Where(t => t.TimeStamp>=uppepBound && t.TimeStamp<lowerBound).
-                    OrderBy(t => t.TimeStamp).ToList();
+                    OrderBy(t => t.TimeStamp).ToListAsync();
 
                 switch (MainWindow.MainView.DoneMode.SelectedIndex)
                 {
@@ -80,18 +82,18 @@ namespace Organizer
             EventList.Items.Refresh();
         }
 
-        private static void CurrentDateChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private async static void CurrentDateChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
             
-            ((OneDayViewControl)sender).getEvents();
+           await ((OneDayViewControl)sender).getEvents();
         }
 
-        private void EventList_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private async void EventList_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Event ev = ((Schedule)EventList.SelectedItem).Event;
             RecordWindow eventView = ev.GetShowWindow();
             if (eventView.ShowDialog() == true)
-                getEvents();
+                await getEvents();
         }
     }
 }

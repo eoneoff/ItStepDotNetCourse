@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Data.Entity;
 
 namespace Organizer
 {
@@ -31,12 +33,12 @@ namespace Organizer
             }
         }
 
-        private void EventList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void EventList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Event ev = ((Schedule)EventList.SelectedItem).Event;
             RecordWindow eventView = ev.GetShowWindow();
             if (eventView.ShowDialog() == true)
-                getEvents();
+                await getEvents();
         }
 
         //Выделение события в зависимости от даты, выделенной на календате в боковой панели
@@ -51,11 +53,11 @@ namespace Organizer
         }
 
         //Получение списка событий в зависимости от выбранных в главном окне пунктов
-        private void getEvents()
+        private async Task getEvents()
         {
             using (organizerEntities db = new organizerEntities())
             {
-                var allEventsShort = db.Schedule.Include("Event").OrderBy(s => s.TimeStamp).ToList();
+                var allEventsShort = await db.Schedule.Include("Event").OrderBy(s => s.TimeStamp).ToListAsync();
                 if (MainWindow.MainView.DoneMode!=null)
                 {
                     switch (MainWindow.MainView.DoneMode.SelectedIndex)

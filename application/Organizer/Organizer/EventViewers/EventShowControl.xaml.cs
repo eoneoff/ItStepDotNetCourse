@@ -16,7 +16,7 @@ namespace Organizer
         }
 
         //Отметка события выполненным/не выполненным с проверкой и сохранением
-        private void DoneCheckBox_Click(object sender, RoutedEventArgs e)
+        private async void DoneCheckBox_Click(object sender, RoutedEventArgs e)
         {
             string question = String.Empty;
             if (DoneCheckBox.IsChecked == true)
@@ -33,7 +33,7 @@ namespace Organizer
                 {
                     db.Event.Attach(ev);
                     db.Entry(ev).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
+                    await db.SaveChangesAsync();
                     InitializeComponent();
                 }
             }
@@ -43,14 +43,14 @@ namespace Organizer
             }
         }
 
-        private void Alarms_Click(object sender, RoutedEventArgs e)
+        private async void Alarms_Click(object sender, RoutedEventArgs e)
         {
             Event ev = null;
             using (organizerEntities db = new organizerEntities())
             {
                 ev = (Event)DataContext;
                 db.Event.Attach(ev);
-                db.Entry(ev).Collection("Alarm").Load();
+                await db.Entry(ev).Collection("Alarm").LoadAsync();
             }
 
             ShowAlarmControl showAlarms = new ShowAlarmControl();

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Data.Entity;
 
 namespace Organizer
 {
@@ -39,20 +41,20 @@ namespace Organizer
             MainWindow.MainView.CalendarClick += OnCalendarClick;
         }
 
-        private void Previous_Click(object sender, RoutedEventArgs e)
+        private async void Previous_Click(object sender, RoutedEventArgs e)
         {
             CurrentDate = ((DateTime)CurrentDate).AddMonths(-1);
-            getEvents();
+            await getEvents();
 
         }
 
-        private void Next_Click(object sender, RoutedEventArgs e)
+        private async void Next_Click(object sender, RoutedEventArgs e)
         {
             CurrentDate = ((DateTime)CurrentDate).AddMonths(1);
-            getEvents();
+            await getEvents();
         }
 
-        private void getEvents()
+        private async Task getEvents()
         {
             DateTime date;
             if (CurrentDate == null)
@@ -66,10 +68,10 @@ namespace Organizer
 
             using (organizerEntities db = new organizerEntities())
             {
-                var events = db.Schedule.
+                var events = await db.Schedule.
                     Include("Event").
                     Where(t => t.TimeStamp >= uppepBound && t.TimeStamp < lowerBound).
-                    OrderBy(t => t.TimeStamp).ToList();
+                    OrderBy(t => t.TimeStamp).ToListAsync();
 
                 switch (MainWindow.MainView.DoneMode.SelectedIndex)
                 {
@@ -86,18 +88,18 @@ namespace Organizer
             EventList.Items.Refresh();
         }
 
-        private static void CurrentDateChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private async static void CurrentDateChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
 
-            ((OneMonthControl)sender).getEvents();
+            await ((OneMonthControl)sender).getEvents();
         }
 
-        private void EventList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void EventList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Event ev = ((Schedule)EventList.SelectedItem).Event;
             RecordWindow eventView = ev.GetShowWindow();
             if (eventView.ShowDialog() == true)
-                getEvents();
+                await getEvents();
         }
 
         private void OnCalendarClick()
