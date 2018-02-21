@@ -94,17 +94,20 @@
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Alarm\AlarmChecker.cs" />
-    <Compile Include="EventGrids\AllEventsView.xaml.cs">
-      <DependentUpon>AllEventsView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Charts\AllExpensesView.xaml.cs">
-      <DependentUpon>AllExpensesView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Article.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Birthday.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Event.cs">
+      <DependentUpon>OrganizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EventGrids\AllEventsView.xaml.cs">
+      <DependentUpon>AllEventsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Charts\AllExpensesView.xaml.cs">
+      <DependentUpon>AllExpensesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="EventEditors\BirthdayEditControl.xaml.cs">
       <DependentUpon>BirthdayEditControl.xaml</DependentUpon>
@@ -122,9 +125,6 @@
     <Compile Include="DateTimePickerControl.xaml.cs">
       <DependentUpon>DateTimePickerControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Event.cs">
-      <DependentUpon>OrganizerModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Converters\EventDoneConverter.cs" />
     <Compile Include="EventEditors\EventEditControl.xaml.cs">
       <DependentUpon>EventEditControl.xaml</DependentUpon>
@@ -135,14 +135,14 @@
     <Compile Include="Expenditure.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="ExpenseEditors\ExpenditureEditControl.xaml.cs">
-      <DependentUpon>ExpenditureEditControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ExpenditureName.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ExpenditureType.cs">
       <DependentUpon>OrganizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ExpenseEditors\ExpenditureEditControl.xaml.cs">
+      <DependentUpon>ExpenditureEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Charts\ExpenseChartControl.xaml.cs">
       <DependentUpon>ExpenseChartControl.xaml</DependentUpon>
@@ -150,26 +150,14 @@
     <Compile Include="Charts\ExpensedDiagramControl.xaml.cs">
       <DependentUpon>ExpensedDiagramControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Holiday.cs">
-      <DependentUpon>OrganizerModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="EventEditors\HolidayEditControl.xaml.cs">
       <DependentUpon>HolidayEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="EventViewers\HolidayShowControl.xaml.cs">
       <DependentUpon>HolidayShowControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Income.cs">
-      <DependentUpon>OrganizerModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Charts\IncomeDiagramControl.xaml.cs">
       <DependentUpon>IncomeDiagramControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="IncomeSource.cs">
-      <DependentUpon>OrganizerModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Job.cs">
-      <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EventEditors\JobEditControl.xaml.cs">
       <DependentUpon>JobEditControl.xaml</DependentUpon>
@@ -177,11 +165,20 @@
     <Compile Include="EventViewers\JobShowControl.xaml.cs">
       <DependentUpon>JobShowControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Holiday.cs">
+      <DependentUpon>OrganizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Income.cs">
+      <DependentUpon>OrganizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IncomeSource.cs">
+      <DependentUpon>OrganizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Job.cs">
+      <DependentUpon>OrganizerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="MarkedCalendar.xaml.cs">
       <DependentUpon>MarkedCalendar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Meeting.cs">
-      <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EventEditors\MeetingEditControl.xaml.cs">
       <DependentUpon>MeetingEditControl.xaml</DependentUpon>
@@ -197,6 +194,9 @@
     </Compile>
     <Compile Include="EventGrids\OneWeekViewControl.xaml.cs">
       <DependentUpon>OneWeekViewControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Meeting.cs">
+      <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="OrganizerModel.cs">
       <AutoGen>True</AutoGen>
@@ -216,26 +216,29 @@
     <Compile Include="RecordWindow.xaml.cs">
       <DependentUpon>RecordWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Reminder.cs">
-      <DependentUpon>OrganizerModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="EventEditors\ReminderEditControl.xaml.cs">
       <DependentUpon>ReminderEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="EventViewers\ReminderShowControl.xaml.cs">
       <DependentUpon>ReminderShowControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Reminder.cs">
+      <DependentUpon>OrganizerModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="RepeatControl.xaml.cs">
       <DependentUpon>RepeatControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Schedule.cs">
-      <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ExpenseEditors\IncomeEditControl.xaml.cs">
       <DependentUpon>IncomeEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Alarm\ShowAlarmControl.xaml.cs">
       <DependentUpon>ShowAlarmControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RepeatedEvent.cs">
+      <DependentUpon>OrganizerModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Schedule.cs">
+      <DependentUpon>OrganizerModel.tt</DependentUpon>
     </Compile>
     <Page Include="EventGrids\AllEventsView.xaml">
       <SubType>Designer</SubType>

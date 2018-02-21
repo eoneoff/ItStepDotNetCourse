@@ -9,6 +9,9 @@
 
 namespace Organizer
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class Article
     {
         public int Id { get; set; }

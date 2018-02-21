@@ -38,6 +38,10 @@
         <InheritanceConnector EntityType="organizerModel.Job" />
         <InheritanceConnector EntityType="organizerModel.Expenditure" />
         <InheritanceConnector EntityType="organizerModel.Income" />
+        <EntityTypeShape EntityType="organizerModel.RepeatedEvent" Width="1.5" PointX="10.5" PointY="13.5" />
+        <AssociationConnector Association="organizerModel.FK_RepeatedEvent_Event_Prime" />
+        <AssociationConnector Association="organizerModel.FK_RepeatedEvent_Schedule" />
+        <InheritanceConnector EntityType="organizerModel.RepeatedEvent" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
