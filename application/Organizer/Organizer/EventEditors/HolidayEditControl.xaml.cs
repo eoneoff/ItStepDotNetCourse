@@ -34,7 +34,7 @@ namespace Organizer
                     await db.SaveChangesAsync();
                 }
 
-                if (holiday.Repeat != "Нет")
+                if (!string.IsNullOrEmpty(holiday.Repeat) && holiday.Repeat != "Нет")
                 {
                     Schedule prime = holiday.Date;
                     await prime.CreateRepeat(holiday);

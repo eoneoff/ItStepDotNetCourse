@@ -21,6 +21,13 @@
               VerticalAlignment="Top" HorizontalAlignment="Left" Width="485" Height="150"
               HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" MouseDoubleClick="ExensesList_MouseDoubleClick">
             <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Тип" Width="30">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Path=Type, Converter={StaticResource TypeToImageSourceConverter}}" Height="25" Width="25"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn x:Name="DateColumn" Header="Дата" Width="70" Binding="{Binding Path=DateTime, StringFormat={}{0:dd MM yyyy}}"/>
                 <DataGridTextColumn x:Name="NameColumn" Header="Название" Width="*" Binding="{Binding Path=FullName}"/>
                 <DataGridTextColumn x:Name="MoneyColumnn" Header="Сумма" Width="80" Binding="{Binding Money, StringFormat={}{0:0.####}}" CellStyle="{StaticResource ArticleSumm}"/>

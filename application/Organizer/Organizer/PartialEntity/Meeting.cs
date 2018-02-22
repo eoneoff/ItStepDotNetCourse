@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace Organizer
@@ -50,6 +52,16 @@ namespace Organizer
             MeetingShowControl control = new MeetingShowControl();
             control.DataContext = this;
             return control;
+        }
+
+        public override async Task DeleteRepeat()
+        {
+            using (organizerEntities db = new organizerEntities())
+            {
+                var schedule = db.Schedule.Where(s => s.EventId == Id&&s.Id!=MeetingStartId&&s.Id!=MeetingEndId).ToList();
+                db.Schedule.RemoveRange(schedule);
+                await db.SaveChangesAsync();
+            }
         }
     }
 }

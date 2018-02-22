@@ -46,7 +46,7 @@ namespace Organizer
                         await db.SaveChangesAsync();
                     }
                     
-                    if(meeting.Repeat != "Нет")
+                    if(!String.IsNullOrEmpty(meeting.Repeat) && meeting.Repeat != "Нет")
                     {
                         Schedule start = meeting.Start;
                         Schedule end = meeting.End;

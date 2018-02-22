@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Data.Entity;
+using System.Windows.Media.Imaging;
 
 namespace Organizer
 {

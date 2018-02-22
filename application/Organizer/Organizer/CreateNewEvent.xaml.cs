@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace Organizer
 {
@@ -28,6 +29,7 @@ namespace Organizer
             if(EventTypeSelector.SelectedIndex==0)
             {
                 Height = 120;
+                Icon = BitmapFrame.Create(new Uri("pack://application:,,,/Images/new.ico"));
             }
             else
             {
@@ -36,6 +38,8 @@ namespace Organizer
                 editor = ev.GetEditControl();
                 Grid.SetRow(editor, 2);
                 Win.Children.Add(editor);
+                string pathToImage = @"pack://application:,,,/Images/" + ev.EventType + ".ico";
+                Icon = BitmapFrame.Create(new Uri(pathToImage));
                 Height = 120+ev.EditControlHeight;
             }
         }

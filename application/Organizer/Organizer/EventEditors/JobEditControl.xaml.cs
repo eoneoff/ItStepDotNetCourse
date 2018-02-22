@@ -53,7 +53,7 @@ namespace Organizer
                         await db.SaveChangesAsync();
                     }
 
-                    if(job.Repeat!="Нет")
+                    if(!String.IsNullOrEmpty(job.Repeat) && job.Repeat!="Нет")
                     {
                         Schedule start = job.Start;
                         Schedule end = job.Deadline;

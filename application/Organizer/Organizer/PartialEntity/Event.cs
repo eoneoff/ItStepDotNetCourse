@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Windows.Media.Imaging;
 
 namespace Organizer
 {
@@ -76,6 +77,8 @@ namespace Organizer
             window.Win.Children.Add(showControl);
             window.Height = 35 + ShowControlHeight;
             window.Title = Name;
+            string iconPath = @"pack://application:,,,/Images/" + EventType + ".ico";
+            window.Icon = BitmapFrame.Create(new Uri(iconPath));
 
             return window;
         }
@@ -90,18 +93,13 @@ namespace Organizer
             window.Win.Children.Add(editControl);
             window.Height = 35 + EditControlHeight;
             window.Title = Name;
+            string iconPath = @"pack://application:,,,/Images/" + EventType + ".ico";
+            window.Icon = BitmapFrame.Create(new Uri(iconPath));
 
             return window;
         }
 
-        public async Task DeleteRepeat()
-        {
-            using (organizerEntities db = new organizerEntities())
-            {
-                var schedule = db.Schedule.Where(s => s.EventId == Id).ToList();
-                db.Schedule.RemoveRange(schedule);
-                await db.SaveChangesAsync();            }
-        }
+        public virtual async Task DeleteRepeat() {}
 
         //Метод для потомков
         //Инициализирует новое событие

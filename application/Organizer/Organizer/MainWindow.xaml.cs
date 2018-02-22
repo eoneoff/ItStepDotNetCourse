@@ -41,13 +41,12 @@ namespace Organizer
 
         }
 
-        public async void UpdateView()
+        public void UpdateView()
         {
             //Получение списка пяти ближайших событий
             using (organizerEntities db = new organizerEntities())
             {
-                var top5 = await db.Schedule.Include("Event").Where(s => s.TimeStamp > DateTime.Now).OrderBy(s => s.TimeStamp).Take(5).ToListAsync();
-                top5 = top5.DistinctBy(s => s.Event).ToList();
+                var top5 = db.Schedule.Include("Event").Where(s => s.TimeStamp > DateTime.Now).OrderBy(s => s.TimeStamp).DistinctBy(s=>s.TimeStamp).Take(5).ToList();
                 foreach (var s in top5)
                 {
                     if (s.Event.EventType == "Job")
@@ -68,8 +67,7 @@ namespace Organizer
                 Top5Events.ItemsSource = top5;
 
                 //Получение списка дней с событиями
-                DatesOfEvents = await db.Schedule.Select(s => s.TimeStamp).ToListAsync();
-                DatesOfEvents = DatesOfEvents.Distinct().ToList();
+                DatesOfEvents = db.Schedule.Select(s => s.TimeStamp).Distinct().ToList();
                 PreviewCalendar.UpdateCalendar();
                 showEvents();
                 showExpenses();

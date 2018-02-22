@@ -7,7 +7,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="dotNetOrganizer" ResizeMode="CanMinimize" Height="380" Width="750"
-        StateChanged="Window_StateChanged" Closing="Window_Closing">
+        StateChanged="Window_StateChanged" Closing="Window_Closing" Icon="/Images/mainicon.ico">
     <Grid Style="{StaticResource ColoredGrid}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="220"/>
@@ -18,7 +18,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <local:MarkedCalendar    Grid.Row="0" x:Name="PreviewCalendar" BorderThickness="0" SelectedDate="{x:Static sys:DateTime.Today}" 
+            <local:MarkedCalendar Grid.Row="0" x:Name="PreviewCalendar" BorderThickness="0" SelectedDate="{x:Static sys:DateTime.Today}" 
                       DisplayDate="{Binding RelativeSource={RelativeSource Mode=Self}, Path=SelectedDate}"
                       SelectedDatesChanged="PreviewCalendar_SelectedDatesChanged" />
             <Grid Grid.Row="1">

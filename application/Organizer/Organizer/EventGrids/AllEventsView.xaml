@@ -11,7 +11,13 @@
               VerticalAlignment="Top" HorizontalAlignment="Left" Width="485" Height="200"
               HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" MouseDoubleClick="EventList_MouseDoubleClick">
         <DataGrid.Columns>
-            <DataGridTextColumn Width="100" x:Name="TypeColumn" Header="Тип" Binding="{Binding Path=Event.EventTypeRus}"/>
+            <DataGridTemplateColumn Header="Тип" Width="30">
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Image Source="{Binding Path=Event.EventType, Converter={StaticResource TypeToImageSourceConverter}}" Height="25" Width="25"/>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
             <DataGridTextColumn Width="*" x:Name="NameColumn" Header="Имя" Binding="{Binding Path=Event.Name}"/>
             <DataGridTextColumn Width="120" x:Name="TimeColumn" Header="Дата/Время" Binding="{Binding TimeStamp, StringFormat={}{0:dd.MM.yyyy|HH:mm}}"/>
             <DataGridTextColumn x:Name="DoneColumn" Header="Выполнено" Width="70" Binding="{Binding Path=Event.Done, Converter={StaticResource EventDoneConverter}}"/>

@@ -52,7 +52,7 @@ namespace Organizer
                         await db.SaveChangesAsync();
                     }
 
-                    if (reminder.Repeat!="Нет")
+                    if (!String.IsNullOrEmpty(reminder.Repeat) && reminder.Repeat!="Нет")
                     {
                         Schedule prime = reminder.AlarmTime;
                         await prime.CreateRepeat(reminder); 

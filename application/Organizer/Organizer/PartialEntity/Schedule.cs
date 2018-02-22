@@ -30,6 +30,9 @@ namespace Organizer
                     case "Ежегодно":
                         current = current.AddYears(1);
                         break;
+                    default:
+                        current = DateTime.MaxValue;
+                        break;
                 }
 
                 repeats.Add(new Schedule { TimeStamp = current, Event = ev });

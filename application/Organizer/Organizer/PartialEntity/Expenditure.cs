@@ -41,7 +41,7 @@ namespace Organizer
                     return $"{ExpenditureType.Type}: {ExpenditureName.Name}";
                 }
                 else
-                    return "New Record";
+                    return "New Expenditure";
             }
         }
 

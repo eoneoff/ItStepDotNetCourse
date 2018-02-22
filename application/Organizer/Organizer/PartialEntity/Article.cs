@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace Organizer
 {
@@ -13,7 +14,11 @@ namespace Organizer
             Grid.SetRow(control, 0);
             window.Win.Children.Add(control);
             window.Title = FullName;
+            if (window.Title == "New Income" || window.Title == "New Expenditure")
+                window.Title = "Добавить";
             window.Height = WindowHeight;
+            string iconPath = @"pack://application:,,,/Images/" + Type + ".ico";
+            window.Icon = BitmapFrame.Create(new Uri(iconPath));
             return window;
         }
 

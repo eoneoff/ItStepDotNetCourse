@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace Organizer
 {
@@ -59,6 +60,7 @@ namespace Organizer
             Grid.SetColumnSpan(showAlarms, 3);
             RecordWindow window = new RecordWindow();
             window.Win.Children.Add(showAlarms);
+            window.Icon = BitmapFrame.Create(new Uri("pack://application:,,,/Images/alarmicon.ico"));
             window.ShowDialog();
         }
     }

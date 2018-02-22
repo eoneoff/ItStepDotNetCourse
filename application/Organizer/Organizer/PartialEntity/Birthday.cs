@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace Organizer
@@ -45,6 +47,16 @@ namespace Organizer
             BirthdayShowControl control = new BirthdayShowControl();
             control.DataContext = this;
             return control;
+        }
+
+        public override async Task DeleteRepeat()
+        {
+            using (organizerEntities db = new organizerEntities())
+            {
+                var schedule = db.Schedule.Where(s => s.EventId == Id&&s.Id!=NextBirthdayId).ToList();
+                db.Schedule.RemoveRange(schedule);
+                await db.SaveChangesAsync();
+            }
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Organizer
         {
             //Создание иконки в трее
             TrayIcon = new NotifyIcon();
-            TrayIcon.Icon = new System.Drawing.Icon("trayicon.ico");
+            TrayIcon.Icon = new System.Drawing.Icon("Images/trayicon.ico");
             TrayIcon.BalloonTipTitle = "Напоминания";
 
             menu = new ContextMenuStrip();

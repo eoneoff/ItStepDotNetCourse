@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Organizer"
         mc:Ignorable="d"
-        Title="Создать" ResizeMode="NoResize" Height="120" Width="300">
+        Title="Создать" ResizeMode="NoResize" Height="120" Width="300" Icon="/Images/new.ico">
     <Grid Name="Win" Style="{StaticResource ColoredGrid}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

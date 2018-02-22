@@ -20,6 +20,13 @@
                   VerticalAlignment="Top" HorizontalAlignment="Left" Width="485" Height="200"
                   HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" MouseDoubleClick="EventList_MouseDoubleClick">
             <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Тип" Width="30">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Path=Event.EventType, Converter={StaticResource TypeToImageSourceConverter}}" Height="25" Width="25"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn x:Name="WeekDay" Header="День Недели" Width="80" Binding="{Binding Path=TimeStamp, StringFormat={}{0:dddd}, ConverterCulture='ru-Ru'}"/>
                 <DataGridTextColumn x:Name="EventName" Header="Имя" Width="*" Binding="{Binding Path=Event.Name}"/>
             </DataGrid.Columns>

@@ -1,19 +1,33 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:Organizer"
-                    xmlns:clr="clr-namespace:System;assembly=mscorlib">
+                    xmlns:local="clr-namespace:Organizer">
     <local:EventDoneConverter x:Key="EventDoneConverter"/>
     <local:CalendarMarkerConverter x:Key="CalendarMarkerConverter"/>
+    <local:TypeToImageSourceConverter x:Key="TypeToImageSourceConverter"/>
     <SolidColorBrush x:Key="BackgroundColor" Color="LightBlue"/>
-    <SolidColorBrush x:Key="BorderColor" Color="Navy"/>
-    <SolidColorBrush x:Key="ButtonHoverColor" Color="RoyalBlue"/>
-    <SolidColorBrush x:Key="DeleteButtonColor" Color="Red"/>
-    <SolidColorBrush x:Key="DeleteButtonHoverColor" Color="Tomato"/>
+    <LinearGradientBrush x:Key="ButtonColor" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#4169E1" Offset="0"/>
+        <GradientStop Color="#AAB0C4DE" Offset="1"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="ButtonBorderColor" Color="#5500FFFF"/>
+    <SolidColorBrush x:Key="ButtonHoverColor" Color="CadetBlue"/>
+    <SolidColorBrush x:Key="ButtonHoverBorderColor" Color="RoyalBlue"/>
+    <LinearGradientBrush x:Key="DeleteButtonColor" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Color="Red" Offset="0"/>
+        <GradientStop Color="#AAFFA07A" Offset="1"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="DeleteButtonHoverColor" Color="DarkSalmon"/>
+    <SolidColorBrush x:Key="DeleteButttonHoverBorderColor" Color="Maroon"/>
     <SolidColorBrush x:Key="SelectionColor" Color="Gold"/>
     <SolidColorBrush x:Key="SelectionTextColor" Color="RoyalBlue"/>
+    
 
-     
+
     <Style TargetType="{x:Type Grid}" x:Key="ColoredGrid">
+        <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
+    </Style>
+
+    <Style TargetType="TabControl">
         <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
     </Style>
     
@@ -28,10 +42,16 @@
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="RowHeaderWidth" Value="0"/>
     </Style>
+
+    <Style TargetType="DataGridRow">
+        <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
+    </Style>
     
     <Style TargetType="{x:Type DataGridCell}">
         <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
         <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Background" Value="{StaticResource SelectionColor}"/>
@@ -43,10 +63,14 @@
     <Style TargetType="DataGridColumnHeader">
         <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
     </Style>
-    
+
     <Style TargetType="DataGridCell" x:Key="ArticleSumm">
         <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
         <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="TextBlock.VerticalAlignment" Value="Center"/>
+        <Setter Property="TextBlock.TextAlignment" Value="Right"/>
+        <Setter Property="TextBlock.Margin" Value="0,0,20,0"/>
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="Background" Value="{StaticResource SelectionColor}"/>
@@ -59,49 +83,65 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-    
     <Style TargetType="{x:Type ListBox}">
         <Setter Property="Background" Value="{StaticResource BackgroundColor}"/>
     </Style>
     
     <Style TargetType="{x:Type Button}">
         <Setter Property="Height" Value="25"/>
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Background" Value="{StaticResource BorderColor}"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Background" Value="{StaticResource ButtonColor}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border CornerRadius="10" Background="{TemplateBinding Background}" BorderThickness="1">
+                    <Border x:Name="ButtonBorder" CornerRadius="10" Background="{TemplateBinding Background}" BorderThickness="1"
+                            BorderBrush="{StaticResource ButtonBorderColor}">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource ButtonHoverColor}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource ButtonHoverBorderColor}" TargetName="ButtonBorder"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="RenderTransform" TargetName="ButtonBorder">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.9" ScaleY="0.9" CenterX="35" CenterY="15"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource ButtonHoverColor}"/>
-            </Trigger>
-        </Style.Triggers>
     </Style>
     
     <Style TargetType="{x:Type Button}" x:Key="DeleteButtonStyle">
         <Setter Property="Height" Value="25"/>
-        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Foreground" Value="Black"/>
         <Setter Property="Background" Value="{StaticResource DeleteButtonColor}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border CornerRadius="10" Background="{TemplateBinding Background}" BorderThickness="1">
+                    <Border x:Name="ButtonBorder" CornerRadius="10" Background="{TemplateBinding Background}" BorderThickness="1">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource DeleteButtonHoverColor}"/>
+                            <Setter Property="BorderBrush" Value="{StaticResource DeleteButttonHoverBorderColor}" TargetName="ButtonBorder"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="RenderTransform" TargetName="ButtonBorder">
+                                <Setter.Value>
+                                    <ScaleTransform ScaleX="0.9" ScaleY="0.9" CenterX="15" CenterY="10"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource DeleteButtonHoverColor}"/>
-            </Trigger>
-        </Style.Triggers>
     </Style>
     
     <Style TargetType="{x:Type Calendar}">

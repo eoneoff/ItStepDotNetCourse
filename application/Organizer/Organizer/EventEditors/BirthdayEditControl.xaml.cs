@@ -50,7 +50,7 @@ namespace Organizer
                         await db.SaveChangesAsync();
                     }
 
-                    if (birthday.Repeat != "Нет")
+                    if (!String.IsNullOrEmpty(birthday.Repeat)&&birthday.Repeat != "Нет")
                     {
                         Schedule prime = birthday.NextBirthday;
                         await prime.CreateRepeat(birthday);

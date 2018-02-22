@@ -46,6 +46,7 @@ namespace Organizer
             window.Title = "Новый будильник";
             window.Height = 200;
             window.Win.Children.Add(create);
+            window.Icon = BitmapFrame.Create(new Uri("pack://application:,,,/Images/addalarm.ico"));
 
             if(window.ShowDialog()==true)
             {
