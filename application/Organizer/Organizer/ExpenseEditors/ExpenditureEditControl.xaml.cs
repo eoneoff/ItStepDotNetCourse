@@ -81,7 +81,8 @@ namespace Organizer
 
                     Window.GetWindow(this).Close();
                     await db.SaveChangesAsync();
-                } 
+                }
+                MainWindow.MainView.UpdateView();
             }
         }
 

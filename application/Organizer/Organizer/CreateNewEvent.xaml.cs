@@ -32,7 +32,7 @@ namespace Organizer
             else
             {
                 Event ev = Event.GetEventOfType(((TextBlock)EventTypeSelector.SelectedItem).Text);
-                ev.Initialize((DateTime)Date.SelectedDate);
+                ev.Initialize(DateTime.Now);
                 editor = ev.GetEditControl();
                 Grid.SetRow(editor, 2);
                 Win.Children.Add(editor);

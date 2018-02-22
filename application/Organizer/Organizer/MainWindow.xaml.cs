@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Data.Entity;
 using MoreLinq;
 
 namespace Organizer
@@ -40,12 +41,13 @@ namespace Organizer
 
         }
 
-        public void UpdateView()
+        public async void UpdateView()
         {
             //Получение списка пяти ближайших событий
             using (organizerEntities db = new organizerEntities())
             {
-                var top5 = db.Schedule.Include("Event").Where(s => s.TimeStamp > DateTime.Now).OrderBy(s => s.TimeStamp).DistinctBy(s => s.Event).Take(5).ToList();
+                var top5 = await db.Schedule.Include("Event").Where(s => s.TimeStamp > DateTime.Now).OrderBy(s => s.TimeStamp).Take(5).ToListAsync();
+                top5 = top5.DistinctBy(s => s.Event).ToList();
                 foreach (var s in top5)
                 {
                     if (s.Event.EventType == "Job")
@@ -66,7 +68,8 @@ namespace Organizer
                 Top5Events.ItemsSource = top5;
 
                 //Получение списка дней с событиями
-                DatesOfEvents = db.Schedule.DistinctBy(s => s.TimeStamp).Select(s => s.TimeStamp).ToList();
+                DatesOfEvents = await db.Schedule.Select(s => s.TimeStamp).ToListAsync();
+                DatesOfEvents = DatesOfEvents.Distinct().ToList();
                 PreviewCalendar.UpdateCalendar();
                 showEvents();
                 showExpenses();
@@ -166,7 +169,7 @@ namespace Organizer
 
         private void NewIncome_Click(object sender, RoutedEventArgs e)
         {
-            Income income = new Income() { DateTime=(DateTime)CurrentDate.SelectedDate};
+            Income income = new Income() { DateTime=DateTime.Now};
             RecordWindow window = income.GetEditWindow();
             if (window.ShowDialog() == true)
                 showExpenses();
@@ -174,7 +177,7 @@ namespace Organizer
 
         private void NewExpenditure_Click(object sender, RoutedEventArgs e)
         {
-            Expenditure exp = new Expenditure() { DateTime = (DateTime)CurrentDate.SelectedDate };
+            Expenditure exp = new Expenditure() { DateTime = DateTime.Now };
             RecordWindow window = exp.GetEditWindow();
             window.Height = 400;
             if (window.ShowDialog() == true)

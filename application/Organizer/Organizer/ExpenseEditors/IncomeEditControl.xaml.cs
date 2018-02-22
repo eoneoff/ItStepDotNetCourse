@@ -30,7 +30,7 @@ namespace Organizer
             e.Handled = !number.IsMatch(e.Text);
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
+        private async void Save_Click(object sender, RoutedEventArgs e)
         {
             Income income = (Income)DataContext;
             if(String.IsNullOrEmpty(IncomeSourceSelector.Text))
@@ -42,6 +42,7 @@ namespace Organizer
                 if (MessageBox.Show("Вы точно хотите сохранить запись?","Вы уверены?",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
                 {
                     Window.GetWindow(this).DialogResult = true;
+                    Window.GetWindow(this).Close();
                     using (organizerEntities db = new organizerEntities())
                     {
                         if (!db.IncomeSource.Any(s => s.Name == IncomeSourceSelector.Text))
@@ -66,9 +67,10 @@ namespace Organizer
                             System.Data.Entity.EntityState.Added :
                             System.Data.Entity.EntityState.Unchanged;
 
-                        db.SaveChanges();
-                        Window.GetWindow(this).Close();
-                    } 
+                        await db.SaveChangesAsync();
+                    }
+
+                    MainWindow.MainView.UpdateView();
                 }
             }
         }

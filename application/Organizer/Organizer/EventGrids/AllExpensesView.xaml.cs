@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Data.Entity;
 
 namespace Organizer
 {
@@ -47,20 +49,20 @@ namespace Organizer
             MainWindow.MainView.CalendarClick += OnCalendarClick;
         }
 
-        private void ExensesList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private async void ExensesList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Article article = (Article)ExpensesList.SelectedItem;
             RecordWindow edit = article.GetEditWindow();
             if (edit.ShowDialog() == true)
-                getEvents();
+                await getEvents();
         }
 
-        private static void CurrentDateChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
+        private async static void CurrentDateChanged(DependencyObject sender, DependencyPropertyChangedEventArgs e)
         {
-            ((AllExpensesView)sender).getEvents();
+            await ((AllExpensesView)sender).getEvents();
         }
 
-        private void getEvents()//Получение списка финансовых операций в зависимости от пунктов, выбранных в главном окне
+        private async Task getEvents()//Получение списка финансовых операций в зависимости от пунктов, выбранных в главном окне
         {
             DateTime start = DateTime.MinValue;
             DateTime end = DateTime.MaxValue;
@@ -97,8 +99,8 @@ namespace Organizer
                 case 0:
                     using (organizerEntities db = new organizerEntities())
                     {
-                        var articles = db.Article.Where(a => a.DateTime >= start && a.DateTime < end).
-                            OrderBy(a => a.DateTime).ToList();
+                        var articles = await db.Article.Where(a => a.DateTime >= start && a.DateTime < end).
+                            OrderBy(a => a.DateTime).ToListAsync();
                         ExpensesList.ItemsSource = articles;
                         total = (articles.OfType<Income>().Sum(i => i.Summ) - articles.OfType<Expenditure>().Sum(e => e.Summ)??0);
                     }
@@ -106,8 +108,8 @@ namespace Organizer
                 case 1:
                     using (organizerEntities db = new organizerEntities())
                     {
-                       var expenses = db.Article.OfType<Expenditure>().Where(a => a.DateTime >= start && a.DateTime < end).
-                            OrderBy(a => a.DateTime).ToList();
+                       var expenses = await db.Article.OfType<Expenditure>().Where(a => a.DateTime >= start && a.DateTime < end).
+                            OrderBy(a => a.DateTime).ToListAsync();
                         ExpensesList.ItemsSource = expenses;
                         total = expenses.Sum(e => e.Summ)??0;
                     }
@@ -115,8 +117,8 @@ namespace Organizer
                 case 2:
                     using (organizerEntities db = new organizerEntities())
                     {
-                        var income = db.Article.OfType<Income>().Where(a => a.DateTime >= start && a.DateTime < end).
-                            OrderBy(a => a.DateTime).ToList();
+                        var income = await db.Article.OfType<Income>().Where(a => a.DateTime >= start && a.DateTime < end).
+                            OrderBy(a => a.DateTime).ToListAsync();
                         ExpensesList.ItemsSource = income;
                         total = income.Sum(i => i.Summ);
                     }
@@ -131,7 +133,7 @@ namespace Organizer
 
 
         //Переход вперед/назад
-        private void Previous_Click(object sender, RoutedEventArgs e)
+        private async void Previous_Click(object sender, RoutedEventArgs e)
         {
             switch(mode)
             {
@@ -146,10 +148,10 @@ namespace Organizer
                     break;
             }
 
-            getEvents();
+            await getEvents();
         }
 
-        private void Next_Click(object sender, RoutedEventArgs e)
+        private async void Next_Click(object sender, RoutedEventArgs e)
         {
             switch (mode)
             {
@@ -164,12 +166,12 @@ namespace Organizer
                     break;
             }
 
-            getEvents();
+            await getEvents();
         }
 
-        private void ViewType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private async void ViewType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            getEvents();
+            await getEvents();
         }
 
         private void OnCalendarClick()
@@ -183,7 +185,7 @@ namespace Organizer
             }
         }
 
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             if(MessageBox.Show("Вы точно хотите удалить запись?","Вы уверены?",MessageBoxButton.YesNo,MessageBoxImage.Question)==MessageBoxResult.Yes)
             {
@@ -196,7 +198,7 @@ namespace Organizer
                     db.SaveChanges();
                 }
 
-                getEvents();
+                await getEvents();
             }
         }
     }

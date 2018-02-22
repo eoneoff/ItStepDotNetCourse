@@ -106,7 +106,7 @@
     <Compile Include="EventGrids\AllEventsView.xaml.cs">
       <DependentUpon>AllEventsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Charts\AllExpensesView.xaml.cs">
+    <Compile Include="EventGrids\AllExpensesView.xaml.cs">
       <DependentUpon>AllExpensesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="EventEditors\BirthdayEditControl.xaml.cs">
@@ -244,7 +244,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Charts\AllExpensesView.xaml">
+    <Page Include="EventGrids\AllExpensesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
